@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1.0"
+    android:background="#EEEEEE"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:text="Deselect Missing Fingers"
+        android:textStyle="bold"
+        android:textSize="21sp"/>
+
+
+    <LinearLayout
+        android:id="@+id/radGroup"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@+id/selection_txt"
+        android:layout_gravity="center"
+        android:layout_weight="1.0"
+        android:gravity="left"
+        android:orientation="horizontal"
+        android:weightSum="1.0">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="2dp"
+            android:layout_weight="0.5"
+            android:gravity="left"
+            android:orientation="horizontal"
+            android:weightSum="1.0">
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.0"
+                android:orientation="vertical"
+                android:weightSum="1.0">
+
+                <RelativeLayout
+                    android:id="@+id/left_index_select"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:background="@color/colorPrimaryDark"
+                    android:gravity="left">
+
+                    <ImageView
+                        android:id="@+id/left_index_finger_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/left_top1st_finger"
+                        android:contentDescription="TODO" />
+
+                    <ImageView
+                        android:id="@+id/left_index_finger_img_select"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/left_top1st_finger_select"
+                        android:visibility="gone"
+                        android:contentDescription="TODO" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/left_middle_select"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true">
+
+                    <ImageView
+                        android:id="@+id/left_middle_finger_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+
+                        android:src="@drawable/left_top2nd_finger"
+                        android:contentDescription="TODO" />
+
+                    <ImageView
+                        android:id="@+id/left_middle_finger_img_select"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/left_top2nd_finger_select"
+                        android:visibility="gone"
+                        android:contentDescription="TODO" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/left_ring_select"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true">
+
+                    <ImageView
+                        android:id="@+id/left_ring_finger_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/left_top3rd_finger"
+                        android:contentDescription="TODO" />
+
+                    <ImageView
+                        android:id="@+id/left_ring_finger_img_select"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/left_top3rd_finger_select"
+                        android:visibility="gone"
+                        android:contentDescription="TODO" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/left_little_select"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true">
+
+                    <ImageView
+                        android:id="@+id/left_little_finger_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/left_top4th_finger"
+                        android:contentDescription="TODO" />
+
+                    <ImageView
+                        android:id="@+id/left_little_finger_img_select"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/left_top4th_finger_select"
+                        android:visibility="gone"
+                        android:contentDescription="TODO" />
+                </RelativeLayout>
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:layout_weight="0.5">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.39"
+                android:orientation="vertical"
+                android:weightSum="1.0">
+
+                <RelativeLayout
+                    android:id="@+id/right_index_select"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true">
+
+                    <ImageView
+                        android:id="@+id/right_index_finger_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/right_top1st_finger"
+                        android:contentDescription="TODO" />
+
+                    <ImageView
+                        android:id="@+id/right_index_finger_img_select"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/right_top1st_finger_select"
+                        android:visibility="gone"
+                        android:contentDescription="TODO" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/right_middle_select"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true">
+
+                    <ImageView
+                        android:id="@+id/right_middle_finger_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+
+                        android:src="@drawable/right_top2nd_finger"
+                        android:contentDescription="TODO" />
+
+                    <ImageView
+                        android:id="@+id/right_middle_finger_img_select"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/right_top2nd_finger_select"
+                        android:visibility="gone"
+                        android:contentDescription="TODO" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/right_ring_select"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true">
+
+                    <ImageView
+                        android:id="@+id/right_ring_finger_img"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/right_top3rd_finger"
+                        android:contentDescription="TODO" />
+
+                    <ImageView
+                        android:id="@+id/right_ring_finger_img_select"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/right_top3rd_finger_select"
+                        android:visibility="gone"
+                        android:contentDescription="TODO" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/right_little_select"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true">
+
+                    <ImageView
+                        android:id="@+id/right_little_finger_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/right_top4th_finger"
+                        android:contentDescription="TODO" />
+
+                    <ImageView
+                        android:id="@+id/right_little_finger_img_select"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/right_top4th_finger_select"
+                        android:visibility="gone"
+                        android:contentDescription="TODO" />
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/missingfinger_ok"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:layout_weight="0.5"
+            android:padding="3dp"
+            android:text="OK" />
+
+        <Button
+            android:id="@+id/missingfinger_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:layout_weight="0.5"
+            android:padding="3dp"
+            android:text="CANCEL" />
+    </LinearLayout>
+
+
+</LinearLayout>

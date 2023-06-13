@@ -1,0 +1,80 @@
+package com.react.Biometric;
+
+import android.widget.Toast;
+
+public class Constantes
+{
+    public static final String USER_NAME = "user_name";
+    public static final String USER_PASSWORD = "user_password";
+    public static final String OPTION_MODALIDAD = "modalidad";
+    public static final String FORM_MODALIDAD = "form";
+    public static final String USER_CHECKED = "user_checked";
+    public static final String USER_ID = "user_id";
+    public static final String USER_PNAMES = "user_name";
+    public static final String USER_PLNAMES = "user_lname";
+    public static final String CERRO_SESION = "cerro_sesion";
+
+    public static final String REQUEST_NID = "req_nid";
+    public static final String REQUEST_NAME = "req_name";
+    public static final String REQUEST_LAST_NAME = "req_last_name";
+    public static final String REQUEST_SEX = "req_sex";
+    public static final String REQUEST_COUNTRY = "req_country";
+    public static final String REQUEST_BIRTH = "req_birth";
+
+    public static final String DESDE_PRINCIPAL = "principal";
+    public static final String USER_SOCIAL_ID = "user_social_id";
+    public static final String RESPONSE = "response";
+    public static final String MODALIDAD_RESPUESTA = "modalidad_respuesta";
+    public static final String SUCCESS = "success";
+    public static final String IMEI = "IMEI";
+    public static final String FIRST_OPEN = "FIRST_OPEN";
+    public static final String DEMO = "DEMO";
+    public static final String METHOD_SOURCE = "method_source";
+    public static final String INTENTOS = "INTENTOS";
+    public static final String TXT_EMAIL = "txt_email";
+    public static final String CONSENTIMIENTO = "txt";
+    public static final String PERSONAL_URL = "link";
+    public static final String NOM_COMPLETO = "nom";
+
+    public  static  final String URL_BASE = "onidlogicapp.azurewebsites.net:443";
+    public  static  final String URL_PATH = "/api/onid/triggers/manual/invoke?api-version=2022-05-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=tQQIPr09aECU0YQPeTpMQxIrW4q1slyhtIF_T-oH7jE";
+
+    public static final String DEMO_USER = "REACT001";
+    public static final String PASSWORD_USER = "$tr@!ght1928";
+
+    public static final String CONTRASENNA_CERT = "1Pass1q2w3e4r";
+
+//    public static final int VeriDactilar = 0;
+    public static final int VERIDACTILAR = 0;
+//    public static final int VeriDactilarCompleto = 3;
+    public static final int VERIDACTILARCOMPLETO = 3;
+//    public static final int VeriDactilarDemo = 0;
+    public static final int VERIDACTILARDEMO = 0;
+//    public static final int VeriFacial = 1;
+    public static final int VERIFACIAL = 1;
+//    public static final int VeriFacialCompleto = 4;
+    public static final int VERIFACIALCOMPLETO = 4;
+//    public static final int VeriFacialDemo = 1;
+    public static final int VERIFACIALDEMO = 1;
+//    public static final int VeriConsentimiento = 16;
+    public static final int VERICONSENTIMIENTO = 16;
+
+    public static int ToastDuration = Toast.LENGTH_SHORT;
+    public static final String ModalidadEnrola = "ENROLA";
+    public static final String ModalidadValida = "VALIDA";
+
+    public static final String FormFacial = "ROSTRO";
+    public static final String FormHuella = "HUELLA";
+    public static final String FormDocumento = "DOCUMENRTO";
+
+    public static final String veri_docmentos = "20";
+    public static final String veri_facial = "20";
+    public static final String veri_huella = "20";
+
+    public static final String enroll_docmentos = "30";
+    public static final String enroll_facial = "30";
+    public static final String enroll_huella = "30";
+
+    public static final Boolean EsDesarrollo = false;
+
+}
