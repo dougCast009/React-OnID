@@ -153,7 +153,7 @@ public class MainFacial extends BaseActivity implements CustomCallback
         toolbar = findViewById(R.id.toolbarMain);
         if (userModalidad != null)
         {
-            if (userModalidad.equals(Constantes.ModalidadEnrola))
+            if (userModalidad.equals(Constantes.MODALIDADENROLA))
             {
                 Metodo = Constantes.enroll_facial;
                 toolbar.setTitle(getString(R.string.title_rostro));

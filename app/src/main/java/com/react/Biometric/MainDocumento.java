@@ -102,7 +102,7 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
         Metodo = "99";
         if (NoEsNuloOVacio(userModalidad))
         {
-            if (userModalidad.equals(Constantes.ModalidadEnrola))
+            if (userModalidad.equals(Constantes.MODALIDADENROLA))
             {
                 Metodo = Constantes.enroll_docmentos;
             }
@@ -125,7 +125,7 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
         //CARGAR ELEMENTOS DE LA VISTA
         fragmentContainer = findViewById(R.id.fragmentContainer);
         Toolbar toolbar = fragmentContainer.findViewById(R.id.toolbarMain);
-        if (userModalidad.equals(Constantes.ModalidadEnrola))
+        if (userModalidad.equals(Constantes.MODALIDADENROLA))
         {
             toolbar.setTitle(getString(R.string.title_documentos));
         }
@@ -156,7 +156,7 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
         img_documento_2 = fragmentContainer.findViewById(R.id.img_documento_2);
         btnIniciarProceso = fragmentContainer.findViewById(R.id.btnIniciarProceso);
 
-        if (formModalidad.equals(Constantes.FormFacial))
+        if (formModalidad.equals(Constantes.FORMFACIAL))
         {
             btnIniciarProceso.setText(getString(R.string.face_titulo));
         }
@@ -166,7 +166,7 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
         }
         else if (formModalidad.equals(Constantes.FormDocumento))
         {
-            if (userModalidad.equals(Constantes.ModalidadEnrola))
+            if (userModalidad.equals(Constantes.MODALIDADENROLA))
             {
                 btnIniciarProceso.setText(getString(R.string.enrolar));
             }

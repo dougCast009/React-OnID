@@ -199,7 +199,7 @@ public class MainHuella extends BaseActivity implements CustomCallback
         texto_principal = findViewById(R.id.texto_principal);
         if (userModalidad != null)
         {
-            if (userModalidad.equals(Constantes.ModalidadEnrola))
+            if (userModalidad.equals(Constantes.MODALIDADENROLA))
             {
                 Metodo = Constantes.enroll_huella;
                 toolbar.setTitle(getString(R.string.title_huellas));

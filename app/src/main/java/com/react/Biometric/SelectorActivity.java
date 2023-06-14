@@ -45,11 +45,11 @@ public class SelectorActivity extends AppCompatActivity {
         btnValida = (Button) findViewById(R.id.btnValidacion);
 
         btnEnrola.setOnClickListener(view -> {
-            SeleccionarMetodo(Constantes.ModalidadEnrola);
+            SeleccionarMetodo(Constantes.MODALIDADENROLA);
         });
 
         btnValida.setOnClickListener(view -> {
-            SeleccionarMetodo(Constantes.ModalidadValida);
+            SeleccionarMetodo(Constantes.MODALIDADVALIDA);
         });
     }
 

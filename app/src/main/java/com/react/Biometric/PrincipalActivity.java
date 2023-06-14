@@ -39,7 +39,7 @@ public class PrincipalActivity extends AppCompatActivity {
         btnFinger = (Button) findViewById(R.id.btnHuella);
 
         Toolbar toolbar = findViewById(R.id.toolbarMain);
-        if (userModalidad.equals(Constantes.ModalidadEnrola))
+        if (userModalidad.equals(Constantes.MODALIDADENROLA))
         {
             toolbar.setTitle(getString(R.string.title_principal));
             btnDocument.setText(R.string.principal_btn_enroll_doc);

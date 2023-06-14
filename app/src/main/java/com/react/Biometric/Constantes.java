@@ -60,10 +60,13 @@ public class Constantes
     public static final int VERICONSENTIMIENTO = 16;
 
     public static int ToastDuration = Toast.LENGTH_SHORT;
-    public static final String ModalidadEnrola = "ENROLA";
-    public static final String ModalidadValida = "VALIDA";
+//    public static final String ModalidadEnrola = "ENROLA";
+    public static final String MODALIDADENROLA = "ENROLA";
+//    public static final String ModalidadValida = "VALIDA";
+    public static final String MODALIDADVALIDA = "VALIDA";
 
     public static final String FormFacial = "ROSTRO";
+    public static final String FORMFACIAL = "ROSTRO";
     public static final String FormHuella = "HUELLA";
     public static final String FormDocumento = "DOCUMENRTO";
 

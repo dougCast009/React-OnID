@@ -59,7 +59,7 @@ public class FormularioActivity extends AppCompatActivity {
         }
 
         Toolbar toolbar = findViewById(R.id.toolbarMain);
-        if (!userModalidad.equals(Constantes.ModalidadEnrola))
+        if (!userModalidad.equals(Constantes.MODALIDADENROLA))
         {
             toolbar.setTitle(getString(R.string.title_formulario_val));
             lblNombres.setVisibility(View.GONE);
@@ -89,11 +89,11 @@ public class FormularioActivity extends AppCompatActivity {
 
             if (userNID.replace(" ","").length() > 0)
             {
-                if (userNombres.replace(" ","").length() > 0 || !userModalidad.equals(Constantes.ModalidadEnrola))
+                if (userNombres.replace(" ","").length() > 0 || !userModalidad.equals(Constantes.MODALIDADENROLA))
                 {
-                    if (userApellidos.replace(" ","").length() > 0 || !userModalidad.equals(Constantes.ModalidadEnrola))
+                    if (userApellidos.replace(" ","").length() > 0 || !userModalidad.equals(Constantes.MODALIDADENROLA))
                     {
-                        if (formModalidad.equals(Constantes.FormFacial))
+                        if (formModalidad.equals(Constantes.FORMFACIAL))
                         {
                             Intent intent = new Intent(this, MainFacial.class);
                             intent.putExtra(Constantes.USER_NAME, userName);
