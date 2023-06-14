@@ -77,16 +77,7 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
     private String userModalidad;
     private String Metodo;
     private String formModalidad;
-    private String userNID;
-    private String userNombres;
-    private String userApellidos;
-    private String DocCapturado;
-    private TextView nameTv;
-    private TextView numberTv;
     protected FrameLayout fragmentContainer;
-    private Button btnProcesar;
-    private AlertDialog loadingDialog;
-    private ImageView docImageIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,11 +95,11 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
         {
             if (userModalidad.equals(Constantes.MODALIDADENROLA))
             {
-                Metodo = Constantes.enroll_docmentos;
+                Metodo = Constantes.ENROLL_DOCMENTOS;
             }
             else
             {
-                Metodo = Constantes.veri_docmentos;
+                Metodo = Constantes.VERI_DOCMENTOS;
             }
         }
         else
@@ -160,11 +151,11 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
         {
             btnIniciarProceso.setText(getString(R.string.face_titulo));
         }
-        else if (formModalidad.equals(Constantes.FormHuella))
+        else if (formModalidad.equals(Constantes.FORMHUELLA))
         {
             btnIniciarProceso.setText(getString(R.string.finger_titulo));
         }
-        else if (formModalidad.equals(Constantes.FormDocumento))
+        else if (formModalidad.equals(Constantes.FORMDOCUMENTO))
         {
             if (userModalidad.equals(Constantes.MODALIDADENROLA))
             {
@@ -201,7 +192,7 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
 
                     if (Valido)
                     {
-                        if (formModalidad.equals(Constantes.FormFacial))
+                        if (formModalidad.equals(Constantes.FORMFACIAL))
                         {
                             Intent intent = new Intent(this, MainFacial.class);
                             intent.putExtra(Constantes.USER_NAME, userName);
@@ -215,7 +206,7 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
                             intent.putExtra(Constantes.REQUEST_BIRTH, peticionNacimiento);
                             startActivity(intent);
                         }
-                        else if (formModalidad.equals(Constantes.FormHuella))
+                        else if (formModalidad.equals(Constantes.FORMHUELLA))
                         {
                             Intent intent = new Intent(this, MainHuella.class);
                             intent.putExtra(Constantes.USER_NAME, userName);
@@ -229,7 +220,7 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
                             intent.putExtra(Constantes.REQUEST_BIRTH, peticionNacimiento);
                             startActivity(intent);
                         }
-                        else if (formModalidad.equals(Constantes.FormDocumento))
+                        else if (formModalidad.equals(Constantes.FORMDOCUMENTO))
                         {
                             peticionFoto = getStringImage(img_foto);
                             peticionFirma = getStringImage(img_firma);
@@ -364,7 +355,7 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
             Peticion request = new Peticion();
             request.setMethodAuth(Metodo);
             request.setNID(peticionNID);
-            if (Constantes.EsDesarrollo)
+            if (Constantes.ESDESARROLLO)
             {
                 request.setCUSTOMERID("xpi");
                 request.setPASS("$tr@!ght1928");
@@ -384,7 +375,7 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
                 Biometrics.add(documento);
             }
 
-            if (Metodo == "30")
+            if (Metodo.equals("30"))
             {
                 if (NoEsNuloOVacio(peticionFoto))
                 {

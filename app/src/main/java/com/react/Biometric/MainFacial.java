@@ -155,12 +155,12 @@ public class MainFacial extends BaseActivity implements CustomCallback
         {
             if (userModalidad.equals(Constantes.MODALIDADENROLA))
             {
-                Metodo = Constantes.enroll_facial;
+                Metodo = Constantes.ENROLL_FACIAL;
                 toolbar.setTitle(getString(R.string.title_rostro));
             }
             else
             {
-                Metodo = Constantes.veri_facial;
+                Metodo = Constantes.VERI_FACIAL;
                 toolbar.setTitle(getString(R.string.title_rostro_val));
             }
         }
@@ -353,7 +353,7 @@ public class MainFacial extends BaseActivity implements CustomCallback
             request.setMethodAuth(Metodo);
             request.setNID(peticionNID);
 
-            if (Constantes.EsDesarrollo)
+            if (Constantes.ESDESARROLLO)
             {
                 request.setCUSTOMERID("xpi");
                 request.setPASS("$tr@!ght1928");

@@ -156,7 +156,7 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
 
             Peticion request = new Peticion();
             request.setMethodAuth(Metodo);
-            if (Constantes.EsDesarrollo)
+            if (Constantes.ESDESARROLLO)
             {
                 request.setCUSTOMERID("xpi");
                 request.setPASS("$tr@!ght1928");

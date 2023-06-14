@@ -68,7 +68,7 @@ public class PrincipalActivity extends AppCompatActivity {
             intent.putExtra(USER_NAME, userName);
             intent.putExtra(USER_PASSWORD, userPassword);
             intent.putExtra(OPTION_MODALIDAD, userModalidad);
-            intent.putExtra(FORM_MODALIDAD, Constantes.FormDocumento);
+            intent.putExtra(FORM_MODALIDAD, Constantes.FORMDOCUMENTO);
             startActivity(intent);
         });
 
@@ -77,7 +77,7 @@ public class PrincipalActivity extends AppCompatActivity {
             intent.putExtra(USER_NAME, userName);
             intent.putExtra(USER_PASSWORD, userPassword);
             intent.putExtra(OPTION_MODALIDAD, userModalidad);
-            intent.putExtra(FORM_MODALIDAD, Constantes.FormFacial);
+            intent.putExtra(FORM_MODALIDAD, Constantes.FORMFACIAL);
             startActivity(intent);
         });
 
@@ -86,7 +86,7 @@ public class PrincipalActivity extends AppCompatActivity {
             intent.putExtra(USER_NAME, userName);
             intent.putExtra(USER_PASSWORD, userPassword);
             intent.putExtra(OPTION_MODALIDAD, userModalidad);
-            intent.putExtra(FORM_MODALIDAD, Constantes.FormHuella);
+            intent.putExtra(FORM_MODALIDAD, Constantes.FORMHUELLA);
             startActivity(intent);
         });
     }

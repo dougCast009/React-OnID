@@ -201,12 +201,12 @@ public class MainHuella extends BaseActivity implements CustomCallback
         {
             if (userModalidad.equals(Constantes.MODALIDADENROLA))
             {
-                Metodo = Constantes.enroll_huella;
+                Metodo = Constantes.ENROLL_HUELLA;
                 toolbar.setTitle(getString(R.string.title_huellas));
             }
             else
             {
-                Metodo = Constantes.veri_huella;
+                Metodo = Constantes.VERI_HUELLA;
                 toolbar.setTitle(getString(R.string.title_huellas_val));
             }
         }
@@ -547,7 +547,7 @@ public class MainHuella extends BaseActivity implements CustomCallback
             request.setMethodAuth(Metodo);
             request.setNID(peticionNID);
 
-            if (Constantes.EsDesarrollo)
+            if (Constantes.ESDESARROLLO)
             {
                 request.setCUSTOMERID("xpi");
                 request.setPASS("$tr@!ght1928");

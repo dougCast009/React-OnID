@@ -44,40 +44,30 @@ public class Constantes
 
     public static final String CONTRASENNA_CERT = "1Pass1q2w3e4r";
 
-//    public static final int VeriDactilar = 0;
     public static final int VERIDACTILAR = 0;
-//    public static final int VeriDactilarCompleto = 3;
     public static final int VERIDACTILARCOMPLETO = 3;
-//    public static final int VeriDactilarDemo = 0;
     public static final int VERIDACTILARDEMO = 0;
-//    public static final int VeriFacial = 1;
     public static final int VERIFACIAL = 1;
-//    public static final int VeriFacialCompleto = 4;
     public static final int VERIFACIALCOMPLETO = 4;
-//    public static final int VeriFacialDemo = 1;
     public static final int VERIFACIALDEMO = 1;
-//    public static final int VeriConsentimiento = 16;
     public static final int VERICONSENTIMIENTO = 16;
 
     public static int ToastDuration = Toast.LENGTH_SHORT;
-//    public static final String ModalidadEnrola = "ENROLA";
     public static final String MODALIDADENROLA = "ENROLA";
-//    public static final String ModalidadValida = "VALIDA";
     public static final String MODALIDADVALIDA = "VALIDA";
 
-    public static final String FormFacial = "ROSTRO";
     public static final String FORMFACIAL = "ROSTRO";
-    public static final String FormHuella = "HUELLA";
-    public static final String FormDocumento = "DOCUMENRTO";
+    public static final String FORMHUELLA = "HUELLA";
+    public static final String FORMDOCUMENTO = "DOCUMENRTO";
 
-    public static final String veri_docmentos = "20";
-    public static final String veri_facial = "20";
-    public static final String veri_huella = "20";
+    public static final String VERI_DOCMENTOS = "20";
+    public static final String VERI_FACIAL = "20";
+    public static final String VERI_HUELLA = "20";
 
-    public static final String enroll_docmentos = "30";
-    public static final String enroll_facial = "30";
-    public static final String enroll_huella = "30";
+    public static final String ENROLL_DOCMENTOS = "30";
+    public static final String ENROLL_FACIAL = "30";
+    public static final String ENROLL_HUELLA = "30";
 
-    public static final Boolean EsDesarrollo = false;
+    public static final Boolean ESDESARROLLO = false;
 
 }
