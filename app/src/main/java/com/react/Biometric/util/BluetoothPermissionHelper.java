@@ -9,11 +9,14 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.provider.Settings;
+import android.util.Log;
 
 import com.regula.common.utils.PermissionUtil;
 
 public class BluetoothPermissionHelper {
-
+    private BluetoothPermissionHelper() {
+        throw new IllegalStateException("Utility class");
+    }
     public static final int INTENT_REQUEST_ENABLE_LOCATION = 196;
     public static final int INTENT_REQUEST_ENABLE_BLUETOOTH = 197;
 
@@ -33,22 +36,25 @@ public class BluetoothPermissionHelper {
             return false;
 
         LocationManager locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
-        boolean gps_enabled = false, network_enabled = false;
+        boolean gpsEnabled = false;
+        boolean networkEnabled = false;
 
         if (locationManager == null)
             return true;
 
         try {
-            gps_enabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        } catch (Exception ignored) {
+            gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        } catch (Exception ex) {
+            Log.d("cant_gps_enabled", "Request: " + ex.getMessage());
         }
 
         try {
-            network_enabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-        } catch (Exception ignored) {
+            networkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        } catch (Exception ex) {
+            Log.d("cant_network_enabled", "Request: " + ex.getMessage());
         }
 
-        return gps_enabled || network_enabled;
+        return gpsEnabled || networkEnabled;
 
     }
 

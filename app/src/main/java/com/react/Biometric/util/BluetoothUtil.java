@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.provider.Settings;
 
 public class BluetoothUtil {
-
+    private BluetoothUtil() {
+        throw new IllegalStateException("Utility class");
+    }
     public static final int REQUEST_ENABLE_LOCATION = 196;
     public static final int REQUEST_ENABLE_BT = 197;
     public static final int PERMISSIONS_ACCESS_COARSE_LOCATION = 198;

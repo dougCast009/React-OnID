@@ -13,6 +13,10 @@ import java.io.InputStream;
  */
 
 public class LicenseUtil {
+
+    private LicenseUtil() {
+        throw new IllegalStateException("Utility class");
+    }
     public static byte[] getLicense(Context context) {
         if (context == null)
             return null;

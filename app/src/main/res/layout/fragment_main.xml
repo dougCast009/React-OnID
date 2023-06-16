@@ -143,7 +143,7 @@
                                 android:textSize="16sp" />
 
                             <TextView
-                                android:id="@+id/txt_estado"
+                                android:id="@+id/txtEstado"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -167,7 +167,7 @@
                                 android:textSize="16sp" />
 
                             <TextView
-                                android:id="@+id/txt_cod_pais"
+                                android:id="@+id/txtCodPais"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -191,7 +191,7 @@
                                 android:textSize="16sp" />
 
                             <TextView
-                                android:id="@+id/txt_pais_origen"
+                                android:id="@+id/txtPaisOrigen"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -216,7 +216,7 @@
                                 android:textSize="16sp" />
 
                             <TextView
-                                android:id="@+id/txt_documento"
+                                android:id="@+id/txtDocumento"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -241,7 +241,7 @@
                                 android:textSize="16sp" />
 
                             <TextView
-                                android:id="@+id/txt_dmx_expediente"
+                                android:id="@+id/txtDmxExpediente"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -316,7 +316,7 @@
                                 android:textSize="16sp" />
 
                             <TextView
-                                android:id="@+id/txt_identificacion"
+                                android:id="@+id/txtIdentificacion"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -340,7 +340,7 @@
                                 android:textSize="16sp" />
 
                             <TextView
-                                android:id="@+id/txt_nombres"
+                                android:id="@+id/txtNombres"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -364,7 +364,7 @@
                                 android:textSize="16sp" />
 
                             <TextView
-                                android:id="@+id/txt_apellidos"
+                                android:id="@+id/txtApellidos"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -388,7 +388,7 @@
                                 android:textSize="16sp" />
 
                             <TextView
-                                android:id="@+id/txt_sexo"
+                                android:id="@+id/txtSexo"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -412,7 +412,7 @@
                                 android:textSize="16sp" />
 
                             <TextView
-                                android:id="@+id/txt_edad"
+                                android:id="@+id/txtEdad"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -436,7 +436,7 @@
                                 android:textSize="16sp" />
 
                             <TextView
-                                android:id="@+id/txt_fecha_nacimiento"
+                                android:id="@+id/txtFechaNacimiento"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -461,7 +461,7 @@
                                 android:textSize="16sp" />
 
                             <TextView
-                                android:id="@+id/txt_lugar_nacimiento"
+                                android:id="@+id/txtLugarNacimiento"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -486,7 +486,7 @@
                                 android:textSize="16sp" />
 
                             <TextView
-                                android:id="@+id/txt_domicilio"
+                                android:id="@+id/txtDomicilio"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -511,7 +511,7 @@
                                 android:textSize="16sp" />
 
                             <TextView
-                                android:id="@+id/txt_nombre_madre"
+                                android:id="@+id/txtNombreMadre"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -536,7 +536,7 @@
                                 android:textSize="16sp" />
 
                             <TextView
-                                android:id="@+id/txt_nombre_padre"
+                                android:id="@+id/txtNombrePadre"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -585,7 +585,7 @@
                                 android:textSize="16sp" />
 
                             <TextView
-                                android:id="@+id/txt_meses"
+                                android:id="@+id/txtMeses"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -609,7 +609,7 @@
                                 android:textSize="16sp" />
 
                             <TextView
-                                android:id="@+id/txt_vencimiento"
+                                android:id="@+id/txtVencimiento"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"

@@ -4,16 +4,13 @@ import static com.react.Biometric.Constantes.OPTION_MODALIDAD;
 import static com.react.Biometric.Constantes.USER_NAME;
 import static com.react.Biometric.Constantes.USER_PASSWORD;
 
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.Base64;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -37,7 +34,6 @@ import com.react.Biometric.orquestador.Peticion;
 import com.react.Biometric.utilidades.HttpsPostRequest;
 import com.react.Biometric.utilidades.ResponseManager;
 import com.regula.documentreader.api.DocumentReader;
-import com.regula.documentreader.api.enums.Scenario;
 import com.regula.documentreader.api.params.DocReaderConfig;
 import com.react.Biometric.util.LicenseUtil;
 
@@ -134,13 +130,13 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
             }
         });
 
-        txt_estado = fragmentContainer.findViewById(R.id.txt_estado);
-        txt_identificacion = fragmentContainer.findViewById(R.id.txt_identificacion);
-        txt_nombres = fragmentContainer.findViewById(R.id.txt_nombres);
-        txt_apellidos = fragmentContainer.findViewById(R.id.txt_apellidos);
-        txt_sexo = fragmentContainer.findViewById(R.id.txt_sexo);
-        txt_fecha_nacimiento = fragmentContainer.findViewById(R.id.txt_fecha_nacimiento);
-        txt_cod_pais = fragmentContainer.findViewById(R.id.txt_cod_pais);
+        txt_estado = fragmentContainer.findViewById(R.id.txtEstado);
+        txt_identificacion = fragmentContainer.findViewById(R.id.txtIdentificacion);
+        txt_nombres = fragmentContainer.findViewById(R.id.txtNombres);
+        txt_apellidos = fragmentContainer.findViewById(R.id.txtApellidos);
+        txt_sexo = fragmentContainer.findViewById(R.id.txtSexo);
+        txt_fecha_nacimiento = fragmentContainer.findViewById(R.id.txtFechaNacimiento);
+        txt_cod_pais = fragmentContainer.findViewById(R.id.txtCodPais);
         img_foto = fragmentContainer.findViewById(R.id.img_foto);
         img_firma = fragmentContainer.findViewById(R.id.img_firma);
         img_documento_1 = fragmentContainer.findViewById(R.id.img_documento_1);
@@ -443,7 +439,7 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
         });
 
         try {
-            OrqResponse Respuesta = ResponseManager.ObtenerObjetoRespuesta(object);
+            OrqResponse Respuesta = ResponseManager.obtenerObjetoRespuesta(object);
 
             if (Respuesta != null)
             {
