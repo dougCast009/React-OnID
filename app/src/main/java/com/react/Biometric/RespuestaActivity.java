@@ -13,39 +13,34 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.react.Biometric.R;
-
 public class RespuestaActivity extends AppCompatActivity {
 
-    //BOTONES
-    private Button btnTabCapturar;
-    private Button btnTabInfo;
-    private Button btnIniciarCaptura;
-    private Button btnIniciarProceso;
+
+
     //LAYOUTS
-    private LinearLayout TabInformacion;
-    private LinearLayout TabEscaner;
+
+
     //CAMPOS DE TEXTO
-    private TextView txt_estado;
-    private TextView txt_documento;
-    private TextView txt_identificacion;
-    private TextView txt_nombres;
-    private TextView txt_apellidos;
-    private TextView txt_sexo;
-    private TextView txt_fecha_nacimiento;
-    private TextView txt_lugar_nacimiento;
-    private TextView txt_nombre_madre;
-    private TextView txt_nombre_padre;
-    private TextView txt_vencimiento;
+    private TextView txtEstado;
+    private TextView txtDocumento;
+    private TextView txtIdentificacion;
+    private TextView txtNombres;
+    private TextView txtApellidos;
+    private TextView txtSexo;
+    private TextView txtFechaNacimiento;
+    private TextView txtLugarNacimiento;
+    private TextView txtNombreMadre;
+    private TextView txtNombrePadre;
+    private TextView txtVencimiento;
     //CAMPOS DE IMAGENES
-    private ImageView img_foto;
-    private ImageView img_firma;
-    private ImageView img_documento_1;
-    private ImageView img_documento_2;
-    private ImageView img_huella_1;
-    private ImageView img_huella_2;
-    private ImageView img_huella_3;
-    private ImageView img_huella_4;
+    private ImageView imgFoto;
+    private ImageView imgFirma;
+    private ImageView imgDocumento1;
+    private ImageView imgDocumento2;
+    private ImageView imgHuella1;
+    private ImageView imgHuella2;
+    private ImageView imgHuella3;
+    private ImageView imgHuella4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,53 +52,48 @@ public class RespuestaActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+        toolbar.setNavigationOnClickListener(view -> onBackPressed());
 
-        btnTabCapturar = this.findViewById(R.id.btnTabCapturar);
-        btnTabInfo = this.findViewById(R.id.btnTabInfo);
-        btnIniciarCaptura = this.findViewById(R.id.btnIniciarCaptura);
-        btnIniciarProceso = this.findViewById(R.id.btnIniciarProceso);
-        TabInformacion = this.findViewById(R.id.TabInformacion);
-        TabEscaner = this.findViewById(R.id.TabEscaner);
-        txt_estado = this.findViewById(R.id.txt_estado);
-        txt_documento = this.findViewById(R.id.txt_documento);
-        txt_identificacion = this.findViewById(R.id.txt_identificacion);
-        txt_nombres = this.findViewById(R.id.txt_nombres);
-        txt_apellidos = this.findViewById(R.id.txt_apellidos);
-        txt_sexo = this.findViewById(R.id.txt_sexo);
-        txt_fecha_nacimiento = this.findViewById(R.id.txt_fecha_nacimiento);
-        txt_lugar_nacimiento = this.findViewById(R.id.txt_lugar_nacimiento);
-        txt_nombre_madre = this.findViewById(R.id.txt_nombre_madre);
-        txt_nombre_padre = this.findViewById(R.id.txt_nombre_padre);
-        txt_vencimiento = this.findViewById(R.id.txt_vencimiento);
-        img_foto = this.findViewById(R.id.img_foto);
-        img_firma = this.findViewById(R.id.img_firma);
-        img_documento_1 = this.findViewById(R.id.img_documento_1);
-        img_documento_2 = this.findViewById(R.id.img_documento_2);
-        img_huella_1 = this.findViewById(R.id.img_huella_1);
-        img_huella_2 = this.findViewById(R.id.img_huella_2);
-        img_huella_3 = this.findViewById(R.id.img_huella_3);
-        img_huella_4 = this.findViewById(R.id.img_huella_4);
+        Button btnTabCapturar = this.findViewById(R.id.btnTabCapturar);
+        Button btnTabInfo = this.findViewById(R.id.btnTabInfo);
+        Button btnIniciarCaptura = this.findViewById(R.id.btnIniciarCaptura);
+        Button btnIniciarProceso = this.findViewById(R.id.btnIniciarProceso);
+        LinearLayout tabInformacion = this.findViewById(R.id.TabInformacion);
+        LinearLayout tabEscaner = this.findViewById(R.id.TabEscaner);
+        txtEstado = this.findViewById(R.id.txtEstado);
+        txtDocumento = this.findViewById(R.id.txtDocumento);
+        txtIdentificacion = this.findViewById(R.id.txtIdentificacion);
+        txtNombres = this.findViewById(R.id.txtNombres);
+        txtApellidos = this.findViewById(R.id.txtApellidos);
+        txtSexo = this.findViewById(R.id.txtSexo);
+        txtFechaNacimiento = this.findViewById(R.id.txtFechaNacimiento);
+        txtLugarNacimiento = this.findViewById(R.id.txtLugarNacimiento);
+        txtNombreMadre = this.findViewById(R.id.txtNombreMadre);
+        txtNombrePadre = this.findViewById(R.id.txtNombrePadre);
+        txtVencimiento = this.findViewById(R.id.txtVencimiento);
+        imgFoto = this.findViewById(R.id.img_foto);
+        imgFirma = this.findViewById(R.id.img_firma);
+        imgDocumento1 = this.findViewById(R.id.img_documento_1);
+        imgDocumento2 = this.findViewById(R.id.img_documento_2);
+        imgHuella1 = this.findViewById(R.id.img_huella_1);
+        imgHuella2 = this.findViewById(R.id.img_huella_2);
+        imgHuella3 = this.findViewById(R.id.img_huella_3);
+        imgHuella4 = this.findViewById(R.id.img_huella_4);
 
         btnTabCapturar.setBackgroundColor(Color.parseColor(getString(R.string.color_primary)));
         btnTabInfo.setBackgroundColor(Color.parseColor(getString(R.string.color_primary_dark)));
         btnTabCapturar.setTextColor(Color.parseColor(getString(R.string.color_font_primary)));
         btnTabInfo.setTextColor(Color.parseColor(getString(R.string.color_font_primary_dark)));
-        TabInformacion.setVisibility(View.GONE);
-        TabEscaner.setVisibility(View.VISIBLE);
+        tabInformacion.setVisibility(View.GONE);
+        tabEscaner.setVisibility(View.VISIBLE);
 
         btnTabCapturar.setOnClickListener(view -> {
             btnTabCapturar.setBackgroundColor(Color.parseColor(getString(R.string.color_primary)));
             btnTabInfo.setBackgroundColor(Color.parseColor(getString(R.string.color_primary_dark)));
             btnTabCapturar.setTextColor(Color.parseColor(getString(R.string.color_font_primary)));
             btnTabInfo.setTextColor(Color.parseColor(getString(R.string.color_font_primary_dark)));
-            TabInformacion.setVisibility(View.GONE);
-            TabEscaner.setVisibility(View.VISIBLE);
+            tabInformacion.setVisibility(View.GONE);
+            tabEscaner.setVisibility(View.VISIBLE);
         });
 
         btnTabInfo.setOnClickListener(view -> {
@@ -111,8 +101,8 @@ public class RespuestaActivity extends AppCompatActivity {
             btnTabInfo.setBackgroundColor(Color.parseColor(getString(R.string.color_primary)));
             btnTabCapturar.setTextColor(Color.parseColor(getString(R.string.color_font_primary_dark)));
             btnTabInfo.setTextColor(Color.parseColor(getString(R.string.color_font_primary)));
-            TabInformacion.setVisibility(View.VISIBLE);
-            TabEscaner.setVisibility(View.GONE);
+            tabInformacion.setVisibility(View.VISIBLE);
+            tabEscaner.setVisibility(View.GONE);
         });
 
         btnIniciarCaptura.setOnClickListener(view -> {
@@ -128,25 +118,25 @@ public class RespuestaActivity extends AppCompatActivity {
 
     private void LimpiarCampos()
     {
-        txt_estado.setText(getString(R.string.document_pending));
-        txt_documento.setText(getString(R.string.document_pending));
-        txt_identificacion.setText(getString(R.string.document_pending));
-        txt_nombres.setText(getString(R.string.document_pending));
-        txt_apellidos.setText(getString(R.string.document_pending));
-        txt_sexo.setText(getString(R.string.document_pending));
-        txt_fecha_nacimiento.setText(getString(R.string.document_pending));
-        txt_lugar_nacimiento.setText(getString(R.string.document_pending));
-        txt_nombre_madre.setText(getString(R.string.document_pending));
-        txt_nombre_padre.setText(getString(R.string.document_pending));
-        txt_vencimiento.setText(getString(R.string.document_pending));
+        txtEstado.setText(getString(R.string.document_pending));
+        txtDocumento.setText(getString(R.string.document_pending));
+        txtIdentificacion.setText(getString(R.string.document_pending));
+        txtNombres.setText(getString(R.string.document_pending));
+        txtApellidos.setText(getString(R.string.document_pending));
+        txtSexo.setText(getString(R.string.document_pending));
+        txtFechaNacimiento.setText(getString(R.string.document_pending));
+        txtLugarNacimiento.setText(getString(R.string.document_pending));
+        txtNombreMadre.setText(getString(R.string.document_pending));
+        txtNombrePadre.setText(getString(R.string.document_pending));
+        txtVencimiento.setText(getString(R.string.document_pending));
 
-        img_foto.setImageDrawable(getResources().getDrawable(R.drawable.avatar));
-        img_firma.setImageDrawable(getResources().getDrawable(R.drawable.writing));
-        img_documento_1.setImageDrawable(getResources().getDrawable(R.drawable.membership));
-        img_documento_2.setImageDrawable(getResources().getDrawable(R.drawable.membership));
-        img_huella_1.setImageDrawable(getResources().getDrawable(R.drawable.finger));
-        img_huella_2.setImageDrawable(getResources().getDrawable(R.drawable.finger));
-        img_huella_3.setImageDrawable(getResources().getDrawable(R.drawable.finger));
-        img_huella_4.setImageDrawable(getResources().getDrawable(R.drawable.finger));
+        imgFoto.setImageDrawable(getResources().getDrawable(R.drawable.avatar));
+        imgFirma.setImageDrawable(getResources().getDrawable(R.drawable.writing));
+        imgDocumento1.setImageDrawable(getResources().getDrawable(R.drawable.membership));
+        imgDocumento2.setImageDrawable(getResources().getDrawable(R.drawable.membership));
+        imgHuella1.setImageDrawable(getResources().getDrawable(R.drawable.finger));
+        imgHuella2.setImageDrawable(getResources().getDrawable(R.drawable.finger));
+        imgHuella3.setImageDrawable(getResources().getDrawable(R.drawable.finger));
+        imgHuella4.setImageDrawable(getResources().getDrawable(R.drawable.finger));
     }
 }

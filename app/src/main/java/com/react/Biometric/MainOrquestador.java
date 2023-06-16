@@ -26,21 +26,19 @@ import java.util.List;
 
 public class MainOrquestador extends AppCompatActivity implements CustomCallback {
 
-    private Button btnIniciarCaptura;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_orquestador);
 
-        btnIniciarCaptura = (Button) this.findViewById(R.id.btnIniciarEscaner);
-        btnIniciarCaptura.setOnClickListener(view -> {
-            CrearPeticion();
-        });
+        Button btnIniciarCaptura = (Button) this.findViewById(R.id.btnIniciarEscaner);
+        btnIniciarCaptura.setOnClickListener(view -> crearPeticion());
 
     }
 
-    private void CrearPeticion()
+    private void crearPeticion()
     {
         try
         {
@@ -55,8 +53,8 @@ public class MainOrquestador extends AppCompatActivity implements CustomCallback
             biometric.setBiometryRawDataType("Jpeg");
             biometric.setRawData("");
             //biodata
-            List<Biometria> Biometrics = new ArrayList<>();
-            Biometrics.add(biometric);
+            List<Biometria> biometrics = new ArrayList<>();
+            biometrics.add(biometric);
 
             Peticion request = new Peticion();
             request.setCUSTOMERID("xpi");
@@ -65,78 +63,68 @@ public class MainOrquestador extends AppCompatActivity implements CustomCallback
             request.setMethodAuth("30");
             request.setNombres("COPPER");
             request.setApellidos("BRAND");
-            request.setBiometrics(Biometrics);
+            request.setBiometrics(biometrics);
 
             Gson gson = new Gson();
-            JsonObject JsonRequest = JsonParser.parseString(gson.toJson(request)).getAsJsonObject();
-            RealizarPeticion(JsonRequest);
+            JsonObject jsonRequest = JsonParser.parseString(gson.toJson(request)).getAsJsonObject();
+            realizarPeticion(jsonRequest);
         }
         catch (Exception ex) {
             //MOSTRAR ERROR
         }
     }
 
-    private void RealizarPeticion(JsonObject Request)
+    private void realizarPeticion(JsonObject request)
     {
         try
         {
             InputStream privateCrt = getResources().openRawResource(R.raw.certificado_android_pfx);
             InputStream certChain = getResources().openRawResource(R.raw.certificado_android_pem);
-            final HttpsPostRequest peticion = new HttpsPostRequest(Request, this, privateCrt, certChain);
+            final HttpsPostRequest peticion = new HttpsPostRequest(request, this, privateCrt, certChain);
             peticion.execute(Constantes.URL_BASE);
         }
         catch (Exception ex)
         {
-
+            Log.d("realizarPeticion", "Request: " + ex.getMessage());
         }
     }
 
     @Override
     public void ObtenerRespuesta(Boolean success, String object) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                /*findViewById(R.id.progress_overlay).setVisibility(View.GONE);
-                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                findViewById(R.id.toolbarMain).setVisibility(View.VISIBLE);*/
-            }
+        runOnUiThread(() -> {
+            /*findViewById(R.id.progress_overlay).setVisibility(View.GONE);
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            findViewById(R.id.toolbarMain).setVisibility(View.VISIBLE);*/
         });
         try {
-            OrqResponse Respuesta = ResponseManager.ObtenerObjetoRespuesta(object);
+            OrqResponse respuesta = ResponseManager.ObtenerObjetoRespuesta(object);
 
-            if (Respuesta != null)
+            if (respuesta != null)
             {
-                if (Integer.parseInt(Respuesta.ObtenerInfoPersonaResult.ErrorCode) == 00)
+                if (Integer.parseInt(respuesta.ObtenerInfoPersonaResult.ErrorCode) == 00)
                 {
 
                 }
                 else
                 {
-                    final String Mensaje = Respuesta.ObtenerInfoPersonaResult.Message;
 
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            /*txtIdentificacion.setEnabled(true);
-                            showToast(Mensaje);
-                            if (requestMethod == Constantes.VeriDactilar
-                                    || requestMethod == Constantes.VeriDactilarCompleto
-                                    || requestMethod == Constantes.VeriDactilarDemo)
-                            {
-                                redirectToActivity(MainFinger.class);
-                            }*/
-                        }
+                    runOnUiThread(() -> {
+                        /*txtIdentificacion.setEnabled(true);
+                        showToast(Mensaje);
+                        if (requestMethod == Constantes.VeriDactilar
+                                || requestMethod == Constantes.VeriDactilarCompleto
+                                || requestMethod == Constantes.VeriDactilarDemo)
+                        {
+                            redirectToActivity(MainFinger.class);
+                        }*/
                     });
                 }
             }
             else
             {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        /*txtIdentificacion.setEnabled(true);
-                        showToast("Ha ocurrido un error al procesar la respuesta.");*/
-                    }
+                runOnUiThread(() -> {
+                    /*txtIdentificacion.setEnabled(true);
+                    showToast("Ha ocurrido un error al procesar la respuesta.");*/
                 });
             }
 

@@ -40,7 +40,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -63,25 +62,12 @@ public class MainHuella extends BaseActivity implements CustomCallback
     //BOTONES
     private Button btnTabCapturar;
     private Button btnTabInfo;
-    private Button btnIniciarCaptura;
-    private Button btnIniciarProceso;
+
     //LAYOUTS
-    private LinearLayout TabInformacion;
-    private LinearLayout TabEscaner;
+    private LinearLayout tabInformacion;
+    private LinearLayout tabEscaner;
     //CAMPOS DE TEXTO
-    private TextView txt_estado;
-    private TextView txt_documento;
-    private TextView txt_identificacion;
-    private TextView txt_nombres;
-    private TextView txt_apellidos;
-    private TextView txt_sexo;
-    private TextView txt_fecha_nacimiento;
-    private TextView txt_lugar_nacimiento;
-    private TextView txt_domicilio;
-    private TextView txt_nombre_madre;
-    private TextView txt_nombre_padre;
-    private TextView txt_vencimiento;
-    private TextView txt_cod_pais;
+
     //VARIABLES DE PETICION
     private String peticionNID;
     private String peticionNombres;
@@ -89,19 +75,13 @@ public class MainHuella extends BaseActivity implements CustomCallback
     private String peticionSexo;
     private String peticionPais;
     private String peticionNacimiento;
-    private String peticionDoc;
-    private String peticionFirma;
-    private String peticionFoto;
 
     //ANTERIORES
-    private FingerDetectionMode[] detectionModes;
+
     String mode = "commercial";
     WSQCompression compression = WSQCompression.WSQ_10_1;
     int base64encoding = Base64.DEFAULT;
-    static String NET_KEY = "AIzaSyDFFGSONyHF0Aa7ikelLSyXw_CIa0PGVdk";
-    //private Button btnIniciarCaptura;
-    //private Button btnProcesar;
-    //private ImageView photoImageIv;
+    static final String NET_KEY = "AIzaSyDFFGSONyHF0Aa7ikelLSyXw_CIa0PGVdk";
     private ImageView imgIndice;
     private ImageView imgMedio;
     private ImageView imgAnular;
@@ -109,37 +89,33 @@ public class MainHuella extends BaseActivity implements CustomCallback
     private String userName;
     private String userPassword;
     private String userModalidad;
-    private String userNID;
-    private String userNombres;
-    private String userApellidos;
-    private String formModalidad;
-    private String Metodo;
-    private boolean Captura;
-    private String RostroCapturado;
+    private String mano;
+    private String metodo;
+    private boolean captura;
     private AlertDialog loadingDialog;
-    String HuellaPNG = "";
-    String HuellaWSQ = "";
-    String ManoIndice = "";
-    String PNG_Indce = "";
-    String PNG_Medio = "";
-    String PNG_Anular = "";
-    String PNG_Menique = "";
-    String WSQ_Indce = "";
-    String WSQ_Medio = "";
-    String WSQ_Anular = "";
-    String WSQ_Menique = "";
+    String huellaPNG = "";
+    String huellaWSQ = "";
+    String manoIndice = "";
+    String pngIndce = "";
+    String pngMedio = "";
+    String pngAnular = "";
+    String pngMenique = "";
+    String wsqIndce = "";
+    String wsqMedio = "";
+    String wsqAnular = "";
+    String wsqMenique = "";
 
-    private LinearLayout MainContent;
-    private LinearLayout TabRespuesta;
-    private ImageView img_resultado;
-    private TextView txt_continuar;
-    private TextView texto_principal;
+    private LinearLayout mainContent;
+    private LinearLayout tabRespuesta;
+    private ImageView imgResultado;
+
+
     private Toolbar toolbar;
 
-    private String ErrorCode = "";
-    private String Message = "";
-    private Boolean EstadoDocumento = false;
-    private Boolean Capturando = false;
+    private String errorCode = "";
+    private String message = "";
+    private Boolean estadoDocumento = false;
+    private Boolean capturando = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,23 +124,18 @@ public class MainHuella extends BaseActivity implements CustomCallback
 
         btnTabCapturar = findViewById(R.id.btnTabCapturar);
         btnTabInfo = findViewById(R.id.btnTabInfo);
-        btnIniciarCaptura = findViewById(R.id.btnIniciarCaptura);
-        btnIniciarProceso = findViewById(R.id.btnIniciarProceso);
-        TabInformacion = findViewById(R.id.TabInformacion);
-        TabEscaner = findViewById(R.id.TabEscaner);
-        txt_estado = findViewById(R.id.txt_estado);
-        txt_documento = findViewById(R.id.txt_documento);
-        txt_identificacion = findViewById(R.id.txt_identificacion);
-        txt_nombres = findViewById(R.id.txt_nombres);
-        txt_apellidos = findViewById(R.id.txt_apellidos);
-        txt_sexo = findViewById(R.id.txt_sexo);
-        txt_fecha_nacimiento = findViewById(R.id.txt_fecha_nacimiento);
-        txt_lugar_nacimiento = findViewById(R.id.txt_lugar_nacimiento);
-        txt_domicilio = findViewById(R.id.txt_domicilio);
-        txt_nombre_madre = findViewById(R.id.txt_nombre_madre);
-        txt_nombre_padre = findViewById(R.id.txt_nombre_padre);
-        txt_vencimiento = findViewById(R.id.txt_vencimiento);
-        txt_cod_pais = findViewById(R.id.txt_cod_pais);
+        Button btnIniciarCaptura = findViewById(R.id.btnIniciarCaptura);
+        Button btnIniciarProceso = findViewById(R.id.btnIniciarProceso);
+        tabInformacion = findViewById(R.id.TabInformacion);
+        tabEscaner = findViewById(R.id.TabEscaner);
+
+        TextView txtIdentificacion = findViewById(R.id.txtIdentificacion);
+        TextView txtNombres = findViewById(R.id.txtNombres);
+        TextView txtApellidos = findViewById(R.id.txtApellidos);
+        TextView txtSexo = findViewById(R.id.txtSexo);
+        TextView txtFechaNacimiento = findViewById(R.id.txtFechaNacimiento);
+
+        TextView txtCodPais = findViewById(R.id.txtCodPais);
         imgIndice = findViewById(R.id.img_huella_1);
         imgMedio = findViewById(R.id.img_huella_2);
         imgAnular = findViewById(R.id.img_huella_3);
@@ -179,34 +150,34 @@ public class MainHuella extends BaseActivity implements CustomCallback
         peticionSexo = getIntent().getStringExtra(Constantes.REQUEST_SEX);
         peticionPais = getIntent().getStringExtra(Constantes.REQUEST_COUNTRY);
         peticionNacimiento = getIntent().getStringExtra(Constantes.REQUEST_BIRTH);
+        mano = "right";
+        txtIdentificacion.setText(peticionNID);
+        txtNombres.setText(peticionNombres);
+        txtApellidos.setText(peticionApellidos);
+        txtSexo.setText(peticionSexo);
+        txtCodPais.setText(peticionPais);
+        txtFechaNacimiento.setText(peticionNacimiento);
 
-        txt_identificacion.setText(peticionNID);
-        txt_nombres.setText(peticionNombres);
-        txt_apellidos.setText(peticionApellidos);
-        txt_sexo.setText(peticionSexo);
-        txt_cod_pais.setText(peticionPais);
-        txt_fecha_nacimiento.setText(peticionNacimiento);
+        mostrarTabCaptura();
 
-        MostrarTabCaptura();
-
-        Captura = false;
-        Metodo = "99";
+        captura = false;
+        metodo = "99";
         toolbar = findViewById(R.id.toolbarMain);
-        MainContent = findViewById(R.id.MainContent);
-        TabRespuesta = findViewById(R.id.TabRespuesta);
-        img_resultado = findViewById(R.id.img_resultado);
-        txt_continuar = findViewById(R.id.txt_continuar);
-        texto_principal = findViewById(R.id.texto_principal);
+        mainContent = findViewById(R.id.MainContent);
+        tabRespuesta = findViewById(R.id.TabRespuesta);
+        imgResultado = findViewById(R.id.img_resultado);
+        TextView txtContinuar = findViewById(R.id.txt_continuar);
+
         if (userModalidad != null)
         {
             if (userModalidad.equals(Constantes.MODALIDADENROLA))
             {
-                Metodo = Constantes.ENROLL_HUELLA;
+                metodo = Constantes.ENROLL_HUELLA;
                 toolbar.setTitle(getString(R.string.title_huellas));
             }
             else
             {
-                Metodo = Constantes.VERI_HUELLA;
+                metodo = Constantes.VERI_HUELLA;
                 toolbar.setTitle(getString(R.string.title_huellas_val));
             }
         }
@@ -218,27 +189,21 @@ public class MainHuella extends BaseActivity implements CustomCallback
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+        toolbar.setNavigationOnClickListener(view -> onBackPressed());
 
         btnIniciarCaptura.setOnClickListener(view -> {
-            if (!Capturando)
+            if (Boolean.FALSE.equals(capturando))
             {
-                Captura = false;
-                RostroCapturado = "";
-                EstadoDocumento = false;
-                ErrorCode = "";
-                Message = "";
+                captura = false;
+                estadoDocumento = false;
+                errorCode = "";
+                message = "";
                 imgIndice.setImageResource(R.drawable.finger);
                 imgMedio.setImageResource(R.drawable.finger);
                 imgAnular.setImageResource(R.drawable.finger);
                 imgMenique.setImageResource(R.drawable.finger);
-                Capturando = true;
-                EjecutarCapturaHuella();
+                capturando = true;
+                ejecutarCapturaHuella();
             }
             else
             {
@@ -248,18 +213,14 @@ public class MainHuella extends BaseActivity implements CustomCallback
         });
 
         btnIniciarProceso.setOnClickListener(view -> {
-            if (Captura)
+            if (captura)
             {
                 AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
                 dlgAlert.setTitle(getString(R.string.consentimiento_title));
                 dlgAlert.setMessage(getString(R.string.consentimiento));
                 dlgAlert.setCancelable(false);
                 dlgAlert.setNegativeButton(getString(R.string.rechazar), null);
-                dlgAlert.setPositiveButton(getString(R.string.aceptar), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        CrearPeticion();
-                    }
-                });
+                dlgAlert.setPositiveButton(getString(R.string.aceptar), (dialog, whichButton) -> crearPeticion());
                 dlgAlert.create().show();
             }
             else
@@ -269,58 +230,52 @@ public class MainHuella extends BaseActivity implements CustomCallback
             }
         });
 
-        btnTabCapturar.setOnClickListener(view -> {
-            MostrarTabCaptura();
-        });
+        btnTabCapturar.setOnClickListener(view -> mostrarTabCaptura());
 
-        btnTabInfo.setOnClickListener(view -> {
-            MostrarTabInformacion();
-        });
+        btnTabInfo.setOnClickListener(view -> mostrarTabInformacion());
 
-        txt_continuar.setOnClickListener(view -> {
-            TabRespuesta.setVisibility(View.GONE);
+        txtContinuar.setOnClickListener(view -> {
+            tabRespuesta.setVisibility(View.GONE);
             toolbar.setVisibility(View.VISIBLE);
-            MainContent.setVisibility(View.VISIBLE);
+            mainContent.setVisibility(View.VISIBLE);
 
-            if (EstadoDocumento)
+            if (Boolean.TRUE.equals(estadoDocumento))
             {
-                String Titulo = getString(R.string.matched);
+                String titulo = getString(R.string.matched);
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainHuella.this);
                 LayoutInflater inflater = getLayoutInflater();
                 final View myView = inflater.inflate(R.layout.activity_main_orquestador, null);
                 ImageView imgPrincipal = myView.findViewById(R.id.imagen);
                 imgPrincipal.setImageResource(R.drawable.matched_size);
                 TextView txtTitulo = myView.findViewById(R.id.texto_principal);
-                txtTitulo.setText(Titulo);
+                txtTitulo.setText(titulo);
                 TextView txtMensaje = myView.findViewById(R.id.texto);
-                txtMensaje.setText(Message);
+                txtMensaje.setText(message);
 
                 builder.setView(myView)
                         .setCancelable(false)
-                        .setPositiveButton(R.string.aceptar, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                            }
+                        .setPositiveButton(R.string.aceptar, (dialog, whichButton) -> {
+                            //dont use
                         });
                 builder.create().show();
             }
             else
             {
-                String Titulo = getString(R.string.not_matched);
+                String titulo = getString(R.string.not_matched);
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainHuella.this);
                 LayoutInflater inflater = getLayoutInflater();
                 final View myView = inflater.inflate(R.layout.activity_main_orquestador, null);
                 ImageView imgPrincipal = myView.findViewById(R.id.imagen);
                 imgPrincipal.setImageResource(R.drawable.not_matched_size);
                 TextView txtTitulo = myView.findViewById(R.id.texto_principal);
-                txtTitulo.setText(Titulo);
+                txtTitulo.setText(titulo);
                 TextView txtMensaje = myView.findViewById(R.id.texto);
-                txtMensaje.setText(Message);
+                txtMensaje.setText(message);
 
                 builder.setView(myView)
                         .setCancelable(false)
-                        .setPositiveButton(R.string.aceptar, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                            }
+                        .setPositiveButton(R.string.aceptar, (dialog, whichButton) -> {
+                            //don´t used
                         });
                 builder.create().show();
             }
@@ -336,33 +291,32 @@ public class MainHuella extends BaseActivity implements CustomCallback
         startActivity(intent);
     }
 
-    private void MostrarTabCaptura()
+    private void mostrarTabCaptura()
     {
         btnTabCapturar.setBackgroundColor(Color.parseColor(getString(R.string.color_primary)));
         btnTabInfo.setBackgroundColor(Color.parseColor(getString(R.string.color_primary_dark)));
         btnTabCapturar.setTextColor(Color.parseColor(getString(R.string.color_font_primary)));
         btnTabInfo.setTextColor(Color.parseColor(getString(R.string.color_font_primary_dark)));
-        TabInformacion.setVisibility(View.GONE);
-        TabEscaner.setVisibility(View.VISIBLE);
+        tabInformacion.setVisibility(View.GONE);
+        tabEscaner.setVisibility(View.VISIBLE);
     }
 
-    private void MostrarTabInformacion()
+    private void mostrarTabInformacion()
     {
         btnTabCapturar.setBackgroundColor(Color.parseColor(getString(R.string.color_primary_dark)));
         btnTabInfo.setBackgroundColor(Color.parseColor(getString(R.string.color_primary)));
         btnTabCapturar.setTextColor(Color.parseColor(getString(R.string.color_font_primary_dark)));
         btnTabInfo.setTextColor(Color.parseColor(getString(R.string.color_font_primary)));
-        TabInformacion.setVisibility(View.VISIBLE);
-        TabEscaner.setVisibility(View.GONE);
+        tabInformacion.setVisibility(View.VISIBLE);
+        tabEscaner.setVisibility(View.GONE);
     }
 
-    private void EjecutarCapturaHuella()
+    private void ejecutarCapturaHuella()
     {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-
-            if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+        FingerDetectionMode[] detectionModes;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)) {
                 requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_LOGS}, 1);
-            }
+
         }
 
         String licenseFile = "1944-com.react.Biometric-09-11-2022.lic";
@@ -382,39 +336,36 @@ public class MainHuella extends BaseActivity implements CustomCallback
             requiredtemplates.put(Template.WSQ, fingerToGetTemplatesFor);
 
             final boolean showprogressdialog = true;
-            Captura = false;
+            captura = false;
 
             IdentySdk.newInstance(
                     MainHuella.this,
                     licenseFile,
-                    new InitializationListener<IdentySdk>() {
-                        @Override
-                        public void onInit(IdentySdk identySdk) {
-                            try
-                            {
-                                identySdk.setBase64EncodingFlag(base64encoding)
-                                         .setDisplayImages(false)
-                                         .setMode(mode)
-                                         .setAS(false)
-                                         .setDisplayBoxes(true)
-                                         .setRequiredTemplates(requiredtemplates)
-                                         .displayImages(false)
-                                         .setWSQCompression(compression)
-                                         .setDetectionMode(detectionModes)
-                                         .capture();
-                            }
-                            catch (Exception ex)
-                            {
-                                ex.printStackTrace();
-                                Log.e("ErrorControlado", ex.getMessage());
-                            }
+                    identySdk -> {
+                        try
+                        {
+                            identySdk.setBase64EncodingFlag(base64encoding)
+                                     .setDisplayImages(false)
+                                     .setMode(mode)
+                                     .setAS(false)
+                                     .setDisplayBoxes(true)
+                                     .setRequiredTemplates(requiredtemplates)
+                                     .displayImages(false)
+                                     .setWSQCompression(compression)
+                                     .setDetectionMode(detectionModes)
+                                     .capture();
+                        }
+                        catch (Exception ex)
+                        {
+                            ex.printStackTrace();
+                            Log.e("Fail_OnInit", ex.getMessage());
                         }
                     },
                     new IdentyResponseListener() {
                         @Override
                         public void onAttempt(Hand hand, int i, Map<Finger, Attempt> map) {
-                            Capturando = false;
-                            ManoIndice = hand.toString();
+                            capturando = false;
+                            manoIndice = hand.toString();
                         }
 
                         @Override
@@ -424,54 +375,52 @@ public class MainHuella extends BaseActivity implements CustomCallback
                                 Gson gson = new Gson();
                                 ResponseIdenty resp = gson.fromJson(identyResponse.toJson(MainHuella.this).toString(), ResponseIdenty.class);
 
-                                if (ManoIndice.equals("right"))
+                                if (manoIndice.equals(mano))
                                 {
-                                    WSQ_Indce = resp.data.rightindex.templates.WSQ.DEFAULT;
-                                    WSQ_Medio = resp.data.rightmiddle.templates.WSQ.DEFAULT;
-                                    WSQ_Anular = resp.data.rightring.templates.WSQ.DEFAULT;
-                                    WSQ_Menique = resp.data.rightlittle.templates.WSQ.DEFAULT;
+                                    wsqIndce = resp.data.rightindex.templates.WSQ.DEFAULT;
+                                    wsqMedio = resp.data.rightmiddle.templates.WSQ.DEFAULT;
+                                    wsqAnular = resp.data.rightring.templates.WSQ.DEFAULT;
+                                    wsqMenique = resp.data.rightlittle.templates.WSQ.DEFAULT;
 
-                                    PNG_Indce = resp.data.rightindex.templates.PNG.DEFAULT;
-                                    PNG_Medio = resp.data.rightmiddle.templates.PNG.DEFAULT;
-                                    PNG_Anular = resp.data.rightring.templates.PNG.DEFAULT;
-                                    PNG_Menique = resp.data.rightlittle.templates.PNG.DEFAULT;
+                                    pngIndce = resp.data.rightindex.templates.PNG.DEFAULT;
+                                    pngMedio = resp.data.rightmiddle.templates.PNG.DEFAULT;
+                                    pngAnular = resp.data.rightring.templates.PNG.DEFAULT;
+                                    pngMenique = resp.data.rightlittle.templates.PNG.DEFAULT;
                                 }
                                 else
                                 {
-                                    WSQ_Indce = resp.data.leftindex.templates.WSQ.DEFAULT;
-                                    WSQ_Medio = resp.data.leftmiddle.templates.WSQ.DEFAULT;
-                                    WSQ_Anular = resp.data.leftring.templates.WSQ.DEFAULT;
-                                    WSQ_Menique = resp.data.leftlittle.templates.WSQ.DEFAULT;
+                                    wsqIndce = resp.data.leftindex.templates.WSQ.DEFAULT;
+                                    wsqMedio = resp.data.leftmiddle.templates.WSQ.DEFAULT;
+                                    wsqAnular = resp.data.leftring.templates.WSQ.DEFAULT;
+                                    wsqMenique = resp.data.leftlittle.templates.WSQ.DEFAULT;
 
-                                    PNG_Indce = resp.data.leftindex.templates.PNG.DEFAULT;
-                                    PNG_Medio = resp.data.leftmiddle.templates.PNG.DEFAULT;
-                                    PNG_Anular = resp.data.leftring.templates.PNG.DEFAULT;
-                                    PNG_Menique = resp.data.leftlittle.templates.PNG.DEFAULT;
+                                    pngIndce = resp.data.leftindex.templates.PNG.DEFAULT;
+                                    pngMedio = resp.data.leftmiddle.templates.PNG.DEFAULT;
+                                    pngAnular = resp.data.leftring.templates.PNG.DEFAULT;
+                                    pngMenique = resp.data.leftlittle.templates.PNG.DEFAULT;
                                 }
 
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        try
-                                        {
-                                            imgIndice.setImageBitmap(convertBase64ToBitmap(PNG_Indce));
-                                            imgMedio.setImageBitmap(convertBase64ToBitmap(PNG_Medio));
-                                            imgAnular.setImageBitmap(convertBase64ToBitmap(PNG_Anular));
-                                            imgMenique.setImageBitmap(convertBase64ToBitmap(PNG_Menique));
-                                            Captura = true;
-                                            MostrarTabInformacion();
-                                        }
-                                        catch (Exception ex)
-                                        {
-                                            String Error = ex.getMessage();
-                                        }
+                                runOnUiThread(() -> {
+                                    try
+                                    {
+                                        imgIndice.setImageBitmap(convertBase64ToBitmap(pngIndce));
+                                        imgMedio.setImageBitmap(convertBase64ToBitmap(pngMedio));
+                                        imgAnular.setImageBitmap(convertBase64ToBitmap(pngAnular));
+                                        imgMenique.setImageBitmap(convertBase64ToBitmap(pngMenique));
+                                        captura = true;
+                                        mostrarTabInformacion();
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        Log.e("Fail_run", ex.getMessage());
+
                                     }
                                 });
 
                             }
                             catch (Exception ex)
                             {
-                                Log.e("ErrorControlado", ex.getMessage());
+                                Log.e("Fail_run", ex.getMessage());
                             }
                         }
 
@@ -512,18 +461,11 @@ public class MainHuella extends BaseActivity implements CustomCallback
         loadingDialog = builderDialog.show();
     }
 
-    private Boolean NoEsNuloOVacio(String Dato)
+    private Boolean noEsNuloOVacio(String dato)
     {
-        if (Dato != null)
+        if (dato != null)
         {
-            if (Dato.length() > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return dato.length() > 0;
         }
         else
         {
@@ -531,7 +473,7 @@ public class MainHuella extends BaseActivity implements CustomCallback
         }
     }
 
-    private void CrearPeticion()
+    private void crearPeticion()
     {
         try
         {
@@ -544,10 +486,10 @@ public class MainHuella extends BaseActivity implements CustomCallback
             }
 
             Peticion request = new Peticion();
-            request.setMethodAuth(Metodo);
+            request.setMethodAuth(metodo);
             request.setNID(peticionNID);
 
-            if (Constantes.ESDESARROLLO)
+            if (Boolean.TRUE.equals(Constantes.ESDESARROLLO))
             {
                 request.setCUSTOMERID("xpi");
                 request.setPASS("$tr@!ght1928");
@@ -558,46 +500,46 @@ public class MainHuella extends BaseActivity implements CustomCallback
                 request.setPASS(userPassword);
             }
 
-            List<Biometria> Biometrics = new ArrayList<>();
-            if (NoEsNuloOVacio(WSQ_Indce))
+            List<Biometria> biometrics = new ArrayList<>();
+            if (Boolean.TRUE.equals(noEsNuloOVacio(wsqIndce)))
             {
                 Biometria dedo = new Biometria();
-                String NumIndice = ManoIndice.equals("right") ? "2" : "7";
-                dedo.setBiometryName(NumIndice);
+                String numIndice = manoIndice.equals(mano) ? "2" : "7";
+                dedo.setBiometryName(numIndice);
                 dedo.setBiometryRawDataType("Jpeg");
-                dedo.setRawData(WSQ_Indce);
-                Biometrics.add(dedo);
+                dedo.setRawData(wsqIndce);
+                biometrics.add(dedo);
             }
-            if (NoEsNuloOVacio(WSQ_Medio))
+            if (Boolean.TRUE.equals(noEsNuloOVacio(wsqMedio)))
             {
                 Biometria dedo = new Biometria();
-                String NumMedio = ManoIndice.equals("right") ? "3" : "8";
-                dedo.setBiometryName(NumMedio);
+                String numMedio = manoIndice.equals(mano) ? "3" : "8";
+                dedo.setBiometryName(numMedio);
                 dedo.setBiometryRawDataType("Jpeg");
-                dedo.setRawData(WSQ_Medio);
-                Biometrics.add(dedo);
+                dedo.setRawData(wsqMedio);
+                biometrics.add(dedo);
             }
-            if (NoEsNuloOVacio(WSQ_Anular))
+            if (Boolean.TRUE.equals(Boolean.TRUE.equals(noEsNuloOVacio(wsqAnular))))
             {
                 Biometria dedo = new Biometria();
-                String NumAnular = ManoIndice.equals("right") ? "4" : "9";
-                dedo.setBiometryName(NumAnular);
+                String numAnular = manoIndice.equals(mano) ? "4" : "9";
+                dedo.setBiometryName(numAnular);
                 dedo.setBiometryRawDataType("Jpeg");
-                dedo.setRawData(WSQ_Anular);
-                Biometrics.add(dedo);
+                dedo.setRawData(wsqAnular);
+                biometrics.add(dedo);
             }
-            if (NoEsNuloOVacio(WSQ_Menique))
+            if (Boolean.TRUE.equals(noEsNuloOVacio(wsqMenique)))
             {
                 Biometria dedo = new Biometria();
-                String NumMenique = ManoIndice.equals("right") ? "5" : "10";
-                dedo.setBiometryName(NumMenique);
+                String numMenique = manoIndice.equals(mano) ? "5" : "10";
+                dedo.setBiometryName(numMenique);
                 dedo.setBiometryRawDataType("Jpeg");
-                dedo.setRawData(WSQ_Menique);
-                Biometrics.add(dedo);
+                dedo.setRawData(wsqMenique);
+                biometrics.add(dedo);
             }
-            request.setBiometrics(Biometrics);
+            request.setBiometrics(biometrics);
 
-            if (Metodo == "30")
+            if (metodo.equals("30") )
             {
                 request.setNombres(peticionNombres);
                 request.setApellidos(peticionApellidos);
@@ -610,8 +552,8 @@ public class MainHuella extends BaseActivity implements CustomCallback
             }
 
             Gson gson = new Gson();
-            JsonObject JsonRequest = JsonParser.parseString(gson.toJson(request)).getAsJsonObject();
-            RealizarPeticion(JsonRequest);
+            JsonObject jsonRequest = JsonParser.parseString(gson.toJson(request)).getAsJsonObject();
+            realizarPeticion(jsonRequest);
         }
         catch (Exception ex) {
             Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_peticion), Constantes.ToastDuration);
@@ -619,13 +561,13 @@ public class MainHuella extends BaseActivity implements CustomCallback
         }
     }
 
-    private void RealizarPeticion(JsonObject Request)
+    private void realizarPeticion(JsonObject request)
     {
         try
         {
             InputStream privateCrt = getResources().openRawResource(R.raw.certificado_android_pfx);
             InputStream certChain = getResources().openRawResource(R.raw.certificado_android_pem);
-            final HttpsPostRequest peticion = new HttpsPostRequest(Request, this, privateCrt, certChain);
+            final HttpsPostRequest peticion = new HttpsPostRequest(request, this, privateCrt, certChain);
             peticion.execute(Constantes.URL_BASE);
         }
         catch (Exception ex)
@@ -637,68 +579,51 @@ public class MainHuella extends BaseActivity implements CustomCallback
 
     @Override
     public void ObtenerRespuesta(Boolean success, String object) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                dismissDialog();
-            }
-        });
-
+        runOnUiThread(this::dismissDialog);
+        TextView textoPrincipal = findViewById(R.id.texto_principal);
         try {
-            OrqResponse Respuesta = ResponseManager.ObtenerObjetoRespuesta(object);
+            OrqResponse respuesta = ResponseManager.ObtenerObjetoRespuesta(object);
 
-            if (Respuesta != null)
+            if (respuesta != null)
             {
-                ErrorCode = Respuesta.ObtenerInfoPersonaResult.ErrorCode;
-                Message = Respuesta.ObtenerInfoPersonaResult.Message;
+                errorCode = respuesta.ObtenerInfoPersonaResult.ErrorCode;
+                message = respuesta.ObtenerInfoPersonaResult.Message;
 
-                if (ErrorCode.equals("00"))
+                if (errorCode.equals("00"))
                 {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            EstadoDocumento = true;
-                            TabRespuesta.setVisibility(View.VISIBLE);
-                            toolbar.setVisibility(View.GONE);
-                            MainContent.setVisibility(View.GONE);
-                            texto_principal.setText(EstadoDocumento ? getString(R.string.identidad_confirmada) : getString(R.string.identidad_no_confirmada));
-                            img_resultado.setImageResource(EstadoDocumento ? R.drawable.document_check : R.drawable.document_cross);
-                        }
+                    runOnUiThread(() -> {
+                        estadoDocumento = true;
+                        tabRespuesta.setVisibility(View.VISIBLE);
+                        toolbar.setVisibility(View.GONE);
+                        mainContent.setVisibility(View.GONE);
+                        textoPrincipal.setText(estadoDocumento ? getString(R.string.identidad_confirmada) : getString(R.string.identidad_no_confirmada));
+                        imgResultado.setImageResource(estadoDocumento ? R.drawable.document_check : R.drawable.document_cross);
                     });
                 }
                 else
                 {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            EstadoDocumento = false;
-                            TabRespuesta.setVisibility(View.VISIBLE);
-                            toolbar.setVisibility(View.GONE);
-                            MainContent.setVisibility(View.GONE);
-                            texto_principal.setText(EstadoDocumento ? getString(R.string.identidad_confirmada) : getString(R.string.identidad_no_confirmada));
-                            img_resultado.setImageResource(EstadoDocumento ? R.drawable.document_check : R.drawable.document_cross);
-                        }
+                    runOnUiThread(() -> {
+                        estadoDocumento = false;
+                        tabRespuesta.setVisibility(View.VISIBLE);
+                        toolbar.setVisibility(View.GONE);
+                        mainContent.setVisibility(View.GONE);
+                        textoPrincipal.setText(estadoDocumento ? getString(R.string.identidad_confirmada) : getString(R.string.identidad_no_confirmada));
+                        imgResultado.setImageResource(estadoDocumento ? R.drawable.document_check : R.drawable.document_cross);
                     });
                 }
             }
             else
             {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_realiza_peticion), Constantes.ToastDuration);
-                        toast.show();
-                    }
+                runOnUiThread(() -> {
+                    Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_realiza_peticion), Constantes.ToastDuration);
+                    toast.show();
                 });
             }
 
         } catch (Exception e) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Constantes.ToastDuration);
-                    toast.show();
-                }
+            runOnUiThread(() -> {
+                Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Constantes.ToastDuration);
+                toast.show();
             });
         }
     }
