@@ -118,9 +118,14 @@ public class MainFragment extends Fragment {
     private ImageView authenticityResultImg;
     private volatile MainCallbacks mCallbacks;
     public static int RFID_RESULT = 100;
-    private Boolean Capturado;
+//    private Boolean Capturado;
     private String RostroCapturado;
     private Boolean EstadoDocumento = false;
+
+    //Paleta Colores
+    private String TXTCOLORPRINCIPAL = "#1A83C4";
+    private String TXTCOLORSECUNDARIO = "#B33A3A";
+    private String TXTCOLORNEGRO = "#000000";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -185,7 +190,7 @@ public class MainFragment extends Fragment {
         authenticityLayout = root.findViewById(R.id.authenticityLayout);
         authenticityResultImg = root.findViewById(R.id.authenticityResultImg);
 
-        Capturado = false;
+//        Capturado = false;
 
         MainContent = root.findViewById(R.id.MainContent);
         TabRespuesta = root.findViewById(R.id.TabRespuesta);
@@ -266,7 +271,7 @@ public class MainFragment extends Fragment {
 
         if (results != null)
         {
-            Capturado = true;
+//            Capturado = true;
             //CARGAR CAMPOS DE TEXTO
             txt_cod_pais.setText(ValidarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_ISSUING_STATE_CODE)));
             txt_documento.setText(ValidarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_PERSONAL_NUMBER)));
@@ -295,11 +300,11 @@ public class MainFragment extends Fragment {
             {
                 if (Integer.parseInt(Meses) > 0)
                 {
-                    txt_meses.setTextColor(Color.parseColor("#1A83C4"));
+                    txt_meses.setTextColor(Color.parseColor(TXTCOLORPRINCIPAL));
                 }
                 else
                 {
-                    txt_meses.setTextColor(Color.parseColor("#B33A3A"));
+                    txt_meses.setTextColor(Color.parseColor(TXTCOLORSECUNDARIO));
                 }
             }
 
@@ -342,8 +347,8 @@ public class MainFragment extends Fragment {
             {
                 EstadoDocumento = true;
                 txt_estado.setText(getString(R.string.result_valido));
-                txt_estado.setTextColor(Color.parseColor("#1A83C4"));
-                txt_vencimiento.setTextColor(Color.parseColor("#1A83C4"));
+                txt_estado.setTextColor(Color.parseColor(TXTCOLORPRINCIPAL));
+                txt_vencimiento.setTextColor(Color.parseColor(TXTCOLORPRINCIPAL));
 
                 if (MostrarTabRespuesta)
                 {
@@ -384,8 +389,8 @@ public class MainFragment extends Fragment {
             else
             {
                 txt_estado.setText(getString(R.string.result_no_valido));
-                txt_estado.setTextColor(Color.parseColor("#B33A3A"));
-                txt_vencimiento.setTextColor(Color.parseColor("#B33A3A"));
+                txt_estado.setTextColor(Color.parseColor(TXTCOLORSECUNDARIO));
+                txt_vencimiento.setTextColor(Color.parseColor(TXTCOLORSECUNDARIO));
                 btnIniciarProceso.setVisibility(View.GONE);
             }
 
@@ -505,10 +510,10 @@ public class MainFragment extends Fragment {
         txt_dmx_nacionalidad.setText(getString(R.string.document_pending));
         txt_dmx_emision.setText(getString(R.string.document_pending));
         txt_dmx_cod_nacionalidad.setText(getString(R.string.document_pending));
-        txt_estado.setTextColor(Color.parseColor("#000000"));
-        txt_meses.setTextColor(Color.parseColor("#000000"));
-        txt_vencimiento.setTextColor(Color.parseColor("#000000"));
-        Capturado = false;
+        txt_estado.setTextColor(Color.parseColor(TXTCOLORNEGRO));
+        txt_meses.setTextColor(Color.parseColor(TXTCOLORNEGRO));
+        txt_vencimiento.setTextColor(Color.parseColor(TXTCOLORNEGRO));
+//        Capturado = false;
         img_foto.setImageDrawable(getResources().getDrawable(R.drawable.avatar));
         img_firma.setImageDrawable(getResources().getDrawable(R.drawable.writing));
         img_documento_1.setImageDrawable(getResources().getDrawable(R.drawable.membership));

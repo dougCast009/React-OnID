@@ -384,16 +384,6 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
                     rostro.setBiometryRawDataType("Jpeg");
                     rostro.setRawData(peticionFoto);
                     Biometrics.add(rostro);
-
-                    //LA FIRMA DA PROBLEMAS AL INTENTAR ENROLAR
-                    /*if (NoEsNuloOVacio(peticionFirma))
-                    {
-                        Biometria firma = new Biometria();
-                        firma.setBiometryName("Signature");
-                        firma.setBiometryRawDataType("Jpeg");
-                        firma.setRawData(peticionFirma);
-                        Biometrics.add(firma);
-                    }*/
                 }
                 request.setNombres(peticionNombres);
                 request.setApellidos(peticionApellidos);

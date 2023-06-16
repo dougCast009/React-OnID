@@ -74,12 +74,8 @@ public class FormularioActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+
+        toolbar.setNavigationOnClickListener(view -> onBackPressed());
 
         btnContinuar.setOnClickListener(view -> {
 
