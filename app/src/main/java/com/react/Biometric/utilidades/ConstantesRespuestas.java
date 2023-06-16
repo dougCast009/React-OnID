@@ -12,7 +12,6 @@ public class ConstantesRespuestas
         PROVINCIA("vProvincia"),
         CANTON("vCanton"),
         SEXO("vSexo"),
-        /**/
         APELLIDO("apellido1"),
         APELLIDO2("apellido2"),
         VAPELLIDO("vApellido1"),

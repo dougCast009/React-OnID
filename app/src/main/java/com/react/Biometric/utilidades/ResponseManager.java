@@ -14,10 +14,10 @@ import java.util.Set;
 
 public class ResponseManager
 {
-    public static OrqResponse ObtenerObjetoRespuesta(String Json) {
+    private static final String MSGINFO = "ObtenerInfoPersonaResult";
+    public static OrqResponse obtenerObjetoRespuesta(String json) {
         Gson gson = new Gson();
-        OrqResponse resp = gson.fromJson(Json, OrqResponse.class);
-        return resp;
+        return gson.fromJson(json, OrqResponse.class);
     }
 
     List<Map<String, String>> lista = new ArrayList<>();
@@ -25,7 +25,7 @@ public class ResponseManager
     /**
      * Convierte la respuesta del servidor, a sea en lista o en Cedula/Dimex
      **/
-    public List<Map<String, String>> jsonToList(String stringResultado, String error, int modalidad, boolean completo, boolean extranjero) {
+    public List<Map<String, String>> jsonToList(String stringResultado, String error) {
 
         try {
             ArrayList<String> resultados = getInnerContent(stringResultado);
@@ -52,8 +52,8 @@ public class ResponseManager
         JsonElement element = JsonParser.parseString(object);
         JsonObject obj = element.getAsJsonObject(); //la respuesta del servidor es un json
 
-        if (!obj.get("ObtenerInfoPersonaResult").isJsonNull()) {
-            JsonObject objResult = obj.getAsJsonObject("ObtenerInfoPersonaResult");
+        if (!obj.get(MSGINFO).isJsonNull()) {
+            JsonObject objResult = obj.getAsJsonObject(MSGINFO);
             if (objResult.has("DigitalID")) {
                 String digitalID = objResult.get("DigitalID").toString();
                 if (!(digitalID.equalsIgnoreCase("") || digitalID.contains("Error"))){
@@ -65,24 +65,24 @@ public class ResponseManager
         return "";
     }
 
-    public static String getPersonalURL(String Response)
+    public static String getPersonalURL(String response)
     {
         try {
-            JsonElement element = JsonParser.parseString(Response);
+            JsonElement element = JsonParser.parseString(response);
             JsonObject obj = element.getAsJsonObject();
 
-            if (!obj.get("ObtenerInfoPersonaResult").isJsonNull())
+            if (!obj.get(MSGINFO).isJsonNull())
             {
-                JsonObject objResult = obj.getAsJsonObject("ObtenerInfoPersonaResult");
+                JsonObject objResult = obj.getAsJsonObject(MSGINFO);
                 if (objResult.has("URLPersonal"))
                 {
                     //DIRECCION ACTIVACION PERFIL PERSONAL
-                    String BaseURL = objResult.get("URLPersonal").toString();
-                    String Personal = BaseURL.replace("\"", "");
-                    String PersonalURL = Personal;
-                    if (!(PersonalURL.equalsIgnoreCase("")))
+                    String baseURL = objResult.get("URLPersonal").toString();
+                    String personalURL = baseURL.replace("\"", "");
+
+                    if (!(personalURL.equalsIgnoreCase("")))
                     {
-                        return PersonalURL;
+                        return personalURL;
                     }
                 }
             }
@@ -93,23 +93,23 @@ public class ResponseManager
         }
     }
 
-    public static String getConsentimiento(String Response)
+    public static String getConsentimiento(String response)
     {
         try {
-            JsonElement element = JsonParser.parseString(Response);
+            JsonElement element = JsonParser.parseString(response);
             JsonObject obj = element.getAsJsonObject();
 
-            if (!obj.get("ObtenerInfoPersonaResult").isJsonNull())
+            if (!obj.get(MSGINFO).isJsonNull())
             {
-                JsonObject objResult = obj.getAsJsonObject("ObtenerInfoPersonaResult");
+                JsonObject objResult = obj.getAsJsonObject(MSGINFO);
                 if (objResult.has("Consentimiento"))
                 {
                     //CONSENTIMIENTO
-                    String BaseURL = objResult.get("Consentimiento").toString();
-                    String Personal = BaseURL.replace("\"", "");
-                    if (!(Personal.equalsIgnoreCase("")))
+                    String baseURL = objResult.get("Consentimiento").toString();
+                    String personal = baseURL.replace("\"", "");
+                    if (!(personal.equalsIgnoreCase("")))
                     {
-                        return Personal;
+                        return personal;
                     }
                 }
             }
@@ -130,7 +130,7 @@ public class ResponseManager
         Set<Map.Entry<String, JsonElement>> entries = obj.entrySet();
 
         for (Map.Entry<String, JsonElement> entry : entries) {
-            if (entry.getKey().equalsIgnoreCase("ObtenerInfoPersonaResult")) {
+            if (entry.getKey().equalsIgnoreCase(MSGINFO)) {
                 //Se repite el mismo proceso para la respuesta interna
                 obj = entry.getValue().getAsJsonObject();
                 Set<Map.Entry<String, JsonElement>> innerEntries = obj.entrySet();
@@ -171,9 +171,7 @@ public class ResponseManager
             } else {
                 //Excluye de la lista a los elementos de 'Huella' y 'Error, Errordescription'
                 for (ConstantesRespuestas.IncludeLista include : ConstantesRespuestas.IncludeLista.values()) {
-                    if (entry.getKey().toLowerCase().equalsIgnoreCase(include.getStringInclude())) {
-                        if (!(entry.getValue().toString().isEmpty() || entry.getValue().isJsonNull())) {
-                            if (checkNull(entry.getValue().toString())){
+                    if (entry.getKey().toLowerCase().equalsIgnoreCase(include.getStringInclude()) && (!(entry.getValue().toString().isEmpty() || entry.getValue().isJsonNull())) && (checkNull(entry.getValue().toString()))){
                                 mapa = new HashMap<String, String>();
 
                                 String key = entry.getKey().replaceAll("^[viVI]", "").trim();
@@ -184,16 +182,15 @@ public class ResponseManager
                                 mapa.put(titulo + key, value);
 
                                 lista.add(mapa);
-                            }
+
                         }
-                    }
+
                 }
                 //Si se encuentra con error en este punto, es un "no-match" por lo que retorna lista vacía
-                if (entry.getKey().equals("ErrorCode")) {
-                    if (!entry.getValue().toString().contains("00")) {
+                if (entry.getKey().equals("ErrorCode") && (!entry.getValue().toString().contains("00"))) {
                         lista.clear();
                         return;
-                    }
+
 
                 }
 

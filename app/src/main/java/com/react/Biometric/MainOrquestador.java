@@ -18,7 +18,6 @@ import com.react.Biometric.orquestador.OrqResponse;
 import com.react.Biometric.orquestador.Peticion;
 import com.react.Biometric.utilidades.HttpsPostRequest;
 import com.react.Biometric.utilidades.ResponseManager;
-import com.react.Biometric.R;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -97,7 +96,7 @@ public class MainOrquestador extends AppCompatActivity implements CustomCallback
             findViewById(R.id.toolbarMain).setVisibility(View.VISIBLE);*/
         });
         try {
-            OrqResponse respuesta = ResponseManager.ObtenerObjetoRespuesta(object);
+            OrqResponse respuesta = ResponseManager.obtenerObjetoRespuesta(object);
 
             if (respuesta != null)
             {

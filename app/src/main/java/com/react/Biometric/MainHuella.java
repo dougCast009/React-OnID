@@ -12,7 +12,6 @@ import com.identy.IdentyError;
 import com.identy.IdentyResponse;
 import com.identy.IdentyResponseListener;
 import com.identy.IdentySdk;
-import com.identy.InitializationListener;
 import com.identy.TemplateSize;
 import com.identy.WSQCompression;
 import com.identy.enums.Finger;
@@ -30,7 +29,6 @@ import com.react.Biometric.utilidades.ResponseManager;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -582,7 +580,7 @@ public class MainHuella extends BaseActivity implements CustomCallback
         runOnUiThread(this::dismissDialog);
         TextView textoPrincipal = findViewById(R.id.texto_principal);
         try {
-            OrqResponse respuesta = ResponseManager.ObtenerObjetoRespuesta(object);
+            OrqResponse respuesta = ResponseManager.obtenerObjetoRespuesta(object);
 
             if (respuesta != null)
             {

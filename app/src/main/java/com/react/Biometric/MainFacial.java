@@ -418,7 +418,7 @@ public class MainFacial extends BaseActivity implements CustomCallback
         });
 
         try {
-            OrqResponse Respuesta = ResponseManager.ObtenerObjetoRespuesta(object);
+            OrqResponse Respuesta = ResponseManager.obtenerObjetoRespuesta(object);
 
             if (Respuesta != null)
             {
