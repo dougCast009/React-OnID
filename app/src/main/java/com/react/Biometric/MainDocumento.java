@@ -77,7 +77,8 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
     private String userModalidad;
     private String Metodo;
     private String formModalidad;
-    protected FrameLayout fragmentContainer;
+//    protected FrameLayout fragmentContainer;
+    protected FrameLayout fragmentContainerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,8 +115,8 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
         super.onResumeFragments();
 
         //CARGAR ELEMENTOS DE LA VISTA
-        fragmentContainer = findViewById(R.id.fragmentContainer);
-        Toolbar toolbar = fragmentContainer.findViewById(R.id.toolbarMain);
+        fragmentContainerLayout = findViewById(R.id.fragmentContainer);
+        Toolbar toolbar = fragmentContainerLayout.findViewById(R.id.toolbarMain);
         if (userModalidad.equals(Constantes.MODALIDADENROLA))
         {
             toolbar.setTitle(getString(R.string.title_documentos));
@@ -134,18 +135,18 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
             }
         });
 
-        txt_estado = fragmentContainer.findViewById(R.id.txt_estado);
-        txt_identificacion = fragmentContainer.findViewById(R.id.txt_identificacion);
-        txt_nombres = fragmentContainer.findViewById(R.id.txt_nombres);
-        txt_apellidos = fragmentContainer.findViewById(R.id.txt_apellidos);
-        txt_sexo = fragmentContainer.findViewById(R.id.txt_sexo);
-        txt_fecha_nacimiento = fragmentContainer.findViewById(R.id.txt_fecha_nacimiento);
-        txt_cod_pais = fragmentContainer.findViewById(R.id.txt_cod_pais);
-        img_foto = fragmentContainer.findViewById(R.id.img_foto);
-        img_firma = fragmentContainer.findViewById(R.id.img_firma);
-        img_documento_1 = fragmentContainer.findViewById(R.id.img_documento_1);
-        img_documento_2 = fragmentContainer.findViewById(R.id.img_documento_2);
-        btnIniciarProceso = fragmentContainer.findViewById(R.id.btnIniciarProceso);
+        txt_estado = fragmentContainerLayout.findViewById(R.id.txt_estado);
+        txt_identificacion = fragmentContainerLayout.findViewById(R.id.txt_identificacion);
+        txt_nombres = fragmentContainerLayout.findViewById(R.id.txt_nombres);
+        txt_apellidos = fragmentContainerLayout.findViewById(R.id.txt_apellidos);
+        txt_sexo = fragmentContainerLayout.findViewById(R.id.txt_sexo);
+        txt_fecha_nacimiento = fragmentContainerLayout.findViewById(R.id.txt_fecha_nacimiento);
+        txt_cod_pais = fragmentContainerLayout.findViewById(R.id.txt_cod_pais);
+        img_foto = fragmentContainerLayout.findViewById(R.id.img_foto);
+        img_firma = fragmentContainerLayout.findViewById(R.id.img_firma);
+        img_documento_1 = fragmentContainerLayout.findViewById(R.id.img_documento_1);
+        img_documento_2 = fragmentContainerLayout.findViewById(R.id.img_documento_2);
+        btnIniciarProceso = fragmentContainerLayout.findViewById(R.id.btnIniciarProceso);
 
         if (formModalidad.equals(Constantes.FORMFACIAL))
         {
