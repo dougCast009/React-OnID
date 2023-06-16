@@ -76,9 +76,6 @@ public class MainFacial extends BaseActivity implements CustomCallback
     private String peticionSexo;
     private String peticionPais;
     private String peticionNacimiento;
-    private String peticionDoc;
-    private String peticionFirma;
-    private String peticionFoto;
 
     private LinearLayout MainContent;
     private LinearLayout TabRespuesta;
@@ -372,7 +369,7 @@ public class MainFacial extends BaseActivity implements CustomCallback
             Biometrics.add(rostro);
             request.setBiometrics(Biometrics);
 
-            if (Metodo == "30")
+            if (Metodo.equals("30"))
             {
                 request.setNombres(peticionNombres);
                 request.setApellidos(peticionApellidos);

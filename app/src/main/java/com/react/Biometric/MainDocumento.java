@@ -77,7 +77,6 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
     private String userModalidad;
     private String Metodo;
     private String formModalidad;
-//    protected FrameLayout fragmentContainer;
     protected FrameLayout fragmentContainerLayout;
 
     @Override
