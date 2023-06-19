@@ -4,13 +4,16 @@ import static com.react.Biometric.Constantes.OPTION_MODALIDAD;
 import static com.react.Biometric.Constantes.USER_NAME;
 import static com.react.Biometric.Constantes.USER_PASSWORD;
 
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.Base64;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -34,6 +37,7 @@ import com.react.Biometric.orquestador.Peticion;
 import com.react.Biometric.utilidades.HttpsPostRequest;
 import com.react.Biometric.utilidades.ResponseManager;
 import com.regula.documentreader.api.DocumentReader;
+import com.regula.documentreader.api.enums.Scenario;
 import com.regula.documentreader.api.params.DocReaderConfig;
 import com.react.Biometric.util.LicenseUtil;
 
@@ -73,7 +77,7 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
     private String userModalidad;
     private String Metodo;
     private String formModalidad;
-    protected FrameLayout fragmentContainer;
+    protected FrameLayout fragmentContainerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +104,7 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
         }
         else
         {
-            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_modalidad), Constantes.ToastDuration);
+            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_modalidad), Constantes.TOASTDURATION);
             toast.show();
         }
     }
@@ -110,8 +114,8 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
         super.onResumeFragments();
 
         //CARGAR ELEMENTOS DE LA VISTA
-        fragmentContainer = findViewById(R.id.fragmentContainer);
-        Toolbar toolbar = fragmentContainer.findViewById(R.id.toolbarMain);
+        fragmentContainerLayout = findViewById(R.id.fragmentContainer);
+        Toolbar toolbar = fragmentContainerLayout.findViewById(R.id.toolbarMain);
         if (userModalidad.equals(Constantes.MODALIDADENROLA))
         {
             toolbar.setTitle(getString(R.string.title_documentos));
@@ -130,18 +134,18 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
             }
         });
 
-        txt_estado = fragmentContainer.findViewById(R.id.txtEstado);
-        txt_identificacion = fragmentContainer.findViewById(R.id.txtIdentificacion);
-        txt_nombres = fragmentContainer.findViewById(R.id.txtNombres);
-        txt_apellidos = fragmentContainer.findViewById(R.id.txtApellidos);
-        txt_sexo = fragmentContainer.findViewById(R.id.txtSexo);
-        txt_fecha_nacimiento = fragmentContainer.findViewById(R.id.txtFechaNacimiento);
-        txt_cod_pais = fragmentContainer.findViewById(R.id.txtCodPais);
-        img_foto = fragmentContainer.findViewById(R.id.img_foto);
-        img_firma = fragmentContainer.findViewById(R.id.img_firma);
-        img_documento_1 = fragmentContainer.findViewById(R.id.img_documento_1);
-        img_documento_2 = fragmentContainer.findViewById(R.id.img_documento_2);
-        btnIniciarProceso = fragmentContainer.findViewById(R.id.btnIniciarProceso);
+        txt_estado = fragmentContainerLayout.findViewById(R.id.txtEstado);
+        txt_identificacion = fragmentContainerLayout.findViewById(R.id.txtIdentificacion);
+        txt_nombres = fragmentContainerLayout.findViewById(R.id.txtNombres);
+        txt_apellidos = fragmentContainerLayout.findViewById(R.id.txtApellidos);
+        txt_sexo = fragmentContainerLayout.findViewById(R.id.txtSexo);
+        txt_fecha_nacimiento = fragmentContainerLayout.findViewById(R.id.txtFechaNacimiento);
+        txt_cod_pais = fragmentContainerLayout.findViewById(R.id.txtCodPais);
+        img_foto = fragmentContainerLayout.findViewById(R.id.img_foto);
+        img_firma = fragmentContainerLayout.findViewById(R.id.img_firma);
+        img_documento_1 = fragmentContainerLayout.findViewById(R.id.img_documento_1);
+        img_documento_2 = fragmentContainerLayout.findViewById(R.id.img_documento_2);
+        btnIniciarProceso = fragmentContainerLayout.findViewById(R.id.btnIniciarProceso);
 
         if (formModalidad.equals(Constantes.FORMFACIAL))
         {
@@ -239,31 +243,31 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
                             }
                             else
                             {
-                                Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_datos), Constantes.ToastDuration);
+                                Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_datos), Constantes.TOASTDURATION);
                                 toast.show();
                             }
                         }
                         else
                         {
-                            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_modalidad), Constantes.ToastDuration);
+                            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_modalidad), Constantes.TOASTDURATION);
                             toast.show();
                         }
                     }
                     else
                     {
-                        Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_datos), Constantes.ToastDuration);
+                        Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_datos), Constantes.TOASTDURATION);
                         toast.show();
                     }
                 }
                 else
                 {
-                    Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.invalid_doc), Constantes.ToastDuration);
+                    Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.invalid_doc), Constantes.TOASTDURATION);
                     toast.show();
                 }
             }
             else
             {
-                Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.document_error_face), Constantes.ToastDuration);
+                Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.document_error_face), Constantes.TOASTDURATION);
                 toast.show();
             }
         });
@@ -380,16 +384,6 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
                     rostro.setBiometryRawDataType("Jpeg");
                     rostro.setRawData(peticionFoto);
                     Biometrics.add(rostro);
-
-                    //LA FIRMA DA PROBLEMAS AL INTENTAR ENROLAR
-                    /*if (NoEsNuloOVacio(peticionFirma))
-                    {
-                        Biometria firma = new Biometria();
-                        firma.setBiometryName("Signature");
-                        firma.setBiometryRawDataType("Jpeg");
-                        firma.setRawData(peticionFirma);
-                        Biometrics.add(firma);
-                    }*/
                 }
                 request.setNombres(peticionNombres);
                 request.setApellidos(peticionApellidos);
@@ -408,7 +402,7 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
             RealizarPeticion(JsonRequest);
         }
         catch (Exception ex) {
-            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_peticion), Constantes.ToastDuration);
+            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_peticion), Constantes.TOASTDURATION);
             toast.show();
         }
     }
@@ -424,7 +418,7 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
         }
         catch (Exception ex)
         {
-            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_realiza_peticion), Constantes.ToastDuration);
+            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_realiza_peticion), Constantes.TOASTDURATION);
             toast.show();
         }
     }
@@ -504,7 +498,7 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_realiza_peticion), Constantes.ToastDuration);
+                        Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_realiza_peticion), Constantes.TOASTDURATION);
                         toast.show();
                     }
                 });
@@ -514,7 +508,7 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Constantes.ToastDuration);
+                    Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Constantes.TOASTDURATION);
                     toast.show();
                 }
             });

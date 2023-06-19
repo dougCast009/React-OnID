@@ -51,14 +51,9 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
     private Button btnIniciarSesion;
 
     private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
-    private String WARNING_PROCEED_WITH_NOT_GRANTED_PERMISSIONS = "";
-    private String WARNING_NOT_ALL_GRANTED = "";
-    private String MESSAGE_ALL_PERMISSIONS_GRANTED = "";
     private static final String TAG = IniciarSesionActivity.class.getSimpleName();
-    private Map<String, Integer> mPermissions = new HashMap<String, Integer>();
     private SharedPreferences sharedPreferences;
     private int duration = Toast.LENGTH_SHORT;
-    private boolean firstOpen;
     private int ERROR_NEGATIVE_BUTTON = 13;
     private String Metodo = "50";
     private String Usuario = "";
@@ -80,10 +75,6 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
         });
 
         ValidarPermisos();
-
-        WARNING_PROCEED_WITH_NOT_GRANTED_PERMISSIONS = getString(R.string.permissions_not_continue);
-        WARNING_NOT_ALL_GRANTED = getString(R.string.permissions_some_warning);
-        MESSAGE_ALL_PERMISSIONS_GRANTED = getString(R.string.permissions_all_granted);
         CerroSesion = getIntent().getBooleanExtra(Constantes.CERRO_SESION, false);
 
         CargarPreferenciasCompartidas();
@@ -92,11 +83,6 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
         {
             IniciarSesion();
         }
-    }
-
-    //EVENTO BOTON btnIniciarSesion
-    public void IniciarSesion(View view) {
-        IniciarSesion();
     }
 
     private void EstadoBoton(Boolean Estado)
@@ -138,7 +124,7 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
         }
         else
         {
-            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.login_toast_no_credenciales), Constantes.ToastDuration);
+            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.login_toast_no_credenciales), Constantes.TOASTDURATION);
             toast.show();
         }
     }
@@ -174,7 +160,7 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
             RealizarPeticion(JsonRequest);
         }
         catch (Exception ex) {
-            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_peticion), Constantes.ToastDuration);
+            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_peticion), Constantes.TOASTDURATION);
             toast.show();
         }
     }
@@ -190,7 +176,7 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
         }
         catch (Exception ex)
         {
-            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_realiza_peticion), Constantes.ToastDuration);
+            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_realiza_peticion), Constantes.TOASTDURATION);
             toast.show();
         }
     }
@@ -255,7 +241,7 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_realiza_peticion), Constantes.ToastDuration);
+                        Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_realiza_peticion), Constantes.TOASTDURATION);
                         toast.show();
                     }
                 });
@@ -265,7 +251,7 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Constantes.ToastDuration);
+                    Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Constantes.TOASTDURATION);
                     toast.show();
                 }
             });
@@ -312,12 +298,13 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
                 super.onAuthenticationError(errorCode, errString);
                 if (!(errorCode == ERROR_NEGATIVE_BUTTON))
                 {
-                    Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.fingerprint_error), Constantes.ToastDuration);
+                    Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.fingerprint_error), Constantes.TOASTDURATION);
                     toast.show();
                 }
                 cbxRemember.setChecked(false);
             }
 
+            @Override
             public void onAuthenticationSucceeded(BiometricPrompt.AuthenticationResult result)
             {
                 super.onAuthenticationSucceeded(result);
@@ -347,6 +334,7 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
                 }
             }
 
+            @Override
             public void onAuthenticationFailed() {
                 super.onAuthenticationFailed();
             }
@@ -382,7 +370,6 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
         try
         {
             sharedPreferences = getSharedPreferences("app_local", MODE_PRIVATE);
-            firstOpen = sharedPreferences.getBoolean(Constantes.FIRST_OPEN, true);
             txtUsuario.setText(sharedPreferences.getString(Constantes.USER_NAME, ""));
             txtContrasenna.setText(sharedPreferences.getString(Constantes.USER_PASSWORD,""));
             cbxRemember.setChecked(sharedPreferences.getBoolean(Constantes.USER_CHECKED, false));

@@ -74,12 +74,8 @@ public class FormularioActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+
+        toolbar.setNavigationOnClickListener(view -> onBackPressed());
 
         btnContinuar.setOnClickListener(view -> {
 
@@ -120,19 +116,19 @@ public class FormularioActivity extends AppCompatActivity {
                     }
                     else
                     {
-                        Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.form_error_apellidos), Constantes.ToastDuration);
+                        Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.form_error_apellidos), Constantes.TOASTDURATION);
                         toast.show();
                     }
                 }
                 else
                 {
-                    Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.form_error_nombres), Constantes.ToastDuration);
+                    Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.form_error_nombres), Constantes.TOASTDURATION);
                     toast.show();
                 }
             }
             else
             {
-                Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.form_error_identificacion), Constantes.ToastDuration);
+                Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.form_error_identificacion), Constantes.TOASTDURATION);
                 toast.show();
             }
         });

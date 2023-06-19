@@ -237,12 +237,9 @@ public abstract class BaseActivity extends AppCompatActivity implements MainFrag
                 //Checking, if nfc chip reading should be performed
                 if (doRfid && results != null && results.chipPage != 0) {
                     //starting chip reading
-                    DocumentReader.Instance().startRFIDReader(BaseActivity.this, new IDocumentReaderCompletion() {
-                        @Override
-                        public void onCompleted(int rfidAction, DocumentReaderResults results, DocumentReaderException error) {
-                            if (rfidAction == DocReaderAction.COMPLETE || rfidAction == DocReaderAction.CANCEL) {
-                                mainFragment.displayResults(results);
-                            }
+                    DocumentReader.Instance().startRFIDReader(BaseActivity.this, (rfidAction, results1, error1) -> {
+                        if (rfidAction == DocReaderAction.COMPLETE || rfidAction == DocReaderAction.CANCEL) {
+                            mainFragment.displayResults(results1);
                         }
                     });
                 } else {

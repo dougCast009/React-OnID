@@ -74,9 +74,6 @@ public class MainFacial extends BaseActivity implements CustomCallback
     private String peticionSexo;
     private String peticionPais;
     private String peticionNacimiento;
-    private String peticionDoc;
-    private String peticionFirma;
-    private String peticionFoto;
 
     private LinearLayout MainContent;
     private LinearLayout TabRespuesta;
@@ -164,19 +161,20 @@ public class MainFacial extends BaseActivity implements CustomCallback
         }
         else
         {
-            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_modalidad), Constantes.ToastDuration);
+            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_modalidad), Constantes.TOASTDURATION);
             toast.show();
         }
 
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+        toolbar.setNavigationOnClickListener(view -> onBackPressed());
+//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                onBackPressed();
+//            }
+//        });
 
         MainContent = findViewById(R.id.MainContent);
         TabRespuesta = findViewById(R.id.TabRespuesta);
@@ -210,16 +208,17 @@ public class MainFacial extends BaseActivity implements CustomCallback
                 dlgAlert.setMessage(getString(R.string.consentimiento));
                 dlgAlert.setCancelable(false);
                 dlgAlert.setNegativeButton(getString(R.string.rechazar), null);
-                dlgAlert.setPositiveButton(getString(R.string.aceptar), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        CrearPeticion();
-                    }
-                });
+                dlgAlert.setPositiveButton(getString(R.string.aceptar), (dialog, whichButton) -> CrearPeticion());
+//                dlgAlert.setPositiveButton(getString(R.string.aceptar), new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int whichButton) {
+//                        CrearPeticion();
+//                    }
+//                });
                 dlgAlert.create().show();
             }
             else
             {
-                Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_face), Constantes.ToastDuration);
+                Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_face), Constantes.TOASTDURATION);
                 toast.show();
             }
         });
@@ -252,10 +251,12 @@ public class MainFacial extends BaseActivity implements CustomCallback
 
                 builder.setView(myView)
                         .setCancelable(false)
-                        .setPositiveButton(R.string.aceptar, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                            }
+                        .setPositiveButton(R.string.aceptar, (dialog, whichButton) -> {
                         });
+//                .setPositiveButton(R.string.aceptar, new DialogInterface.OnClickListener() {
+//                public void onClick(DialogInterface dialog, int whichButton) {
+//                }
+//            });
                 builder.create().show();
             }
             else
@@ -273,10 +274,12 @@ public class MainFacial extends BaseActivity implements CustomCallback
 
                 builder.setView(myView)
                         .setCancelable(false)
-                        .setPositiveButton(R.string.aceptar, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                            }
+                        .setPositiveButton(R.string.aceptar, (dialog, whichButton) -> {
                         });
+//                .setPositiveButton(R.string.aceptar, new DialogInterface.OnClickListener() {
+//                public void onClick(DialogInterface dialog, int whichButton) {
+//                }
+//            });
                 builder.create().show();
             }
         });
@@ -351,7 +354,7 @@ public class MainFacial extends BaseActivity implements CustomCallback
             request.setMethodAuth(Metodo);
             request.setNID(peticionNID);
 
-            if (Constantes.ESDESARROLLO)
+            if (Boolean.TRUE.equals(Constantes.ESDESARROLLO))
             {
                 request.setCUSTOMERID("xpi");
                 request.setPASS("$tr@!ght1928");
@@ -370,7 +373,7 @@ public class MainFacial extends BaseActivity implements CustomCallback
             Biometrics.add(rostro);
             request.setBiometrics(Biometrics);
 
-            if (Metodo == "30")
+            if (Metodo.equals("30"))
             {
                 request.setNombres(peticionNombres);
                 request.setApellidos(peticionApellidos);
@@ -387,7 +390,7 @@ public class MainFacial extends BaseActivity implements CustomCallback
             RealizarPeticion(JsonRequest);
         }
         catch (Exception ex) {
-            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_peticion), Constantes.ToastDuration);
+            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_peticion), Constantes.TOASTDURATION);
             toast.show();
         }
     }
@@ -403,19 +406,20 @@ public class MainFacial extends BaseActivity implements CustomCallback
         }
         catch (Exception ex)
         {
-            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_realiza_peticion), Constantes.ToastDuration);
+            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_realiza_peticion), Constantes.TOASTDURATION);
             toast.show();
         }
     }
 
     @Override
     public void ObtenerRespuesta(Boolean success, String object) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                dismissDialog();
-            }
-        });
+        runOnUiThread(() -> dismissDialog());
+//        runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                dismissDialog();
+//            }
+//        });
 
         try {
             OrqResponse Respuesta = ResponseManager.obtenerObjetoRespuesta(object);
@@ -427,52 +431,63 @@ public class MainFacial extends BaseActivity implements CustomCallback
 
                 if (ErrorCode.equals("00"))
                 {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            EstadoDocumento = true;
-                            TabRespuesta.setVisibility(View.VISIBLE);
-                            toolbar.setVisibility(View.GONE);
-                            MainContent.setVisibility(View.GONE);
-                            texto_principal.setText(EstadoDocumento ? getString(R.string.identidad_confirmada) : getString(R.string.identidad_no_confirmada));
-                            img_resultado.setImageResource(EstadoDocumento ? R.drawable.document_check : R.drawable.document_cross);
-                        }
+                    runOnUiThread(() -> {
+                        EstadoDocumento = true;
+                        TabRespuesta.setVisibility(View.VISIBLE);
+                        toolbar.setVisibility(View.GONE);
+                        MainContent.setVisibility(View.GONE);
+                        texto_principal.setText(EstadoDocumento ? getString(R.string.identidad_confirmada) : getString(R.string.identidad_no_confirmada));
+                        img_resultado.setImageResource(EstadoDocumento ? R.drawable.document_check : R.drawable.document_cross);
                     });
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            EstadoDocumento = true;
+//                            TabRespuesta.setVisibility(View.VISIBLE);
+//                            toolbar.setVisibility(View.GONE);
+//                            MainContent.setVisibility(View.GONE);
+//                            texto_principal.setText(EstadoDocumento ? getString(R.string.identidad_confirmada) : getString(R.string.identidad_no_confirmada));
+//                            img_resultado.setImageResource(EstadoDocumento ? R.drawable.document_check : R.drawable.document_cross);
+//                        }
+//                    });
                 }
                 else
                 {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            EstadoDocumento = false;
-                            TabRespuesta.setVisibility(View.VISIBLE);
-                            toolbar.setVisibility(View.GONE);
-                            MainContent.setVisibility(View.GONE);
-                            texto_principal.setText(EstadoDocumento ? getString(R.string.identidad_confirmada) : getString(R.string.identidad_no_confirmada));
-                            img_resultado.setImageResource(EstadoDocumento ? R.drawable.document_check : R.drawable.document_cross);
-                        }
+                    runOnUiThread(() -> {
+                        EstadoDocumento = false;
+                        TabRespuesta.setVisibility(View.VISIBLE);
+                        toolbar.setVisibility(View.GONE);
+                        MainContent.setVisibility(View.GONE);
+                        texto_principal.setText(EstadoDocumento ? getString(R.string.identidad_confirmada) : getString(R.string.identidad_no_confirmada));
+                        img_resultado.setImageResource(EstadoDocumento ? R.drawable.document_check : R.drawable.document_cross);
                     });
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            EstadoDocumento = false;
+//                            TabRespuesta.setVisibility(View.VISIBLE);
+//                            toolbar.setVisibility(View.GONE);
+//                            MainContent.setVisibility(View.GONE);
+//                            texto_principal.setText(EstadoDocumento ? getString(R.string.identidad_confirmada) : getString(R.string.identidad_no_confirmada));
+//                            img_resultado.setImageResource(EstadoDocumento ? R.drawable.document_check : R.drawable.document_cross);
+//                        }
+//                    });
                 }
             }
             else
             {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_realiza_peticion), Constantes.ToastDuration);
-                        toast.show();
-                    }
+                runOnUiThread(() -> {
+                    Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_realiza_peticion), Constantes.TOASTDURATION);
+                    toast.show();
                 });
             }
 
         } catch (Exception e) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Constantes.ToastDuration);
-                    toast.show();
-                }
+            runOnUiThread(() -> {
+                Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Constantes.TOASTDURATION);
+                toast.show();
             });
+
         }
     }
 }
