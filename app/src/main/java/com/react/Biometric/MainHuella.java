@@ -576,7 +576,7 @@ public class MainHuella extends BaseActivity implements CustomCallback
     }
 
     @Override
-    public void ObtenerRespuesta(Boolean success, String object) {
+    public void obtenerRespuesta(Boolean success, String object) {
         runOnUiThread(this::dismissDialog);
         TextView textoPrincipal = findViewById(R.id.texto_principal);
         try {
@@ -594,8 +594,8 @@ public class MainHuella extends BaseActivity implements CustomCallback
                         tabRespuesta.setVisibility(View.VISIBLE);
                         toolbar.setVisibility(View.GONE);
                         mainContent.setVisibility(View.GONE);
-                        textoPrincipal.setText(estadoDocumento ? getString(R.string.identidad_confirmada) : getString(R.string.identidad_no_confirmada));
-                        imgResultado.setImageResource(estadoDocumento ? R.drawable.document_check : R.drawable.document_cross);
+                        textoPrincipal.setText(Boolean.TRUE.equals(estadoDocumento) ? getString(R.string.identidad_confirmada) : getString(R.string.identidad_no_confirmada));
+                        imgResultado.setImageResource(Boolean.TRUE.equals(estadoDocumento) ? R.drawable.document_check : R.drawable.document_cross);
                     });
                 }
                 else
@@ -605,8 +605,8 @@ public class MainHuella extends BaseActivity implements CustomCallback
                         tabRespuesta.setVisibility(View.VISIBLE);
                         toolbar.setVisibility(View.GONE);
                         mainContent.setVisibility(View.GONE);
-                        textoPrincipal.setText(estadoDocumento ? getString(R.string.identidad_confirmada) : getString(R.string.identidad_no_confirmada));
-                        imgResultado.setImageResource(estadoDocumento ? R.drawable.document_check : R.drawable.document_cross);
+                        textoPrincipal.setText(Boolean.TRUE.equals(estadoDocumento) ? getString(R.string.identidad_confirmada) : getString(R.string.identidad_no_confirmada));
+                        imgResultado.setImageResource(Boolean.TRUE.equals(estadoDocumento) ? R.drawable.document_check : R.drawable.document_cross);
                     });
                 }
             }
