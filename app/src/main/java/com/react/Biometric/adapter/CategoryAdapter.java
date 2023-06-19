@@ -85,7 +85,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView titleTv, descriptionTv;
+        public final TextView titleTv;
+        public final TextView descriptionTv;
 
         public ItemViewHolder(View itemView) {
             super(itemView);

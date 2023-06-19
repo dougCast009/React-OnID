@@ -88,47 +88,9 @@ public class MainOrquestador extends AppCompatActivity implements CustomCallback
         }
     }
 
+
     @Override
-    public void ObtenerRespuesta(Boolean success, String object) {
-        runOnUiThread(() -> {
-            /*findViewById(R.id.progress_overlay).setVisibility(View.GONE);
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-            findViewById(R.id.toolbarMain).setVisibility(View.VISIBLE);*/
-        });
-        try {
-            OrqResponse respuesta = ResponseManager.obtenerObjetoRespuesta(object);
-
-            if (respuesta != null)
-            {
-                if (Integer.parseInt(respuesta.ObtenerInfoPersonaResult.ErrorCode) == 00)
-                {
-
-                }
-                else
-                {
-
-                    runOnUiThread(() -> {
-                        /*txtIdentificacion.setEnabled(true);
-                        showToast(Mensaje);
-                        if (requestMethod == Constantes.VeriDactilar
-                                || requestMethod == Constantes.VeriDactilarCompleto
-                                || requestMethod == Constantes.VeriDactilarDemo)
-                        {
-                            redirectToActivity(MainFinger.class);
-                        }*/
-                    });
-                }
-            }
-            else
-            {
-                runOnUiThread(() -> {
-                    /*txtIdentificacion.setEnabled(true);
-                    showToast("Ha ocurrido un error al procesar la respuesta.");*/
-                });
-            }
-
-        } catch (Exception e) {
-            Log.d("Verificar", "Request: " + e.getMessage());
-        }
+    public void obtenerRespuesta(Boolean success, String object) {
+        Log.d("ObtenerRespuesta", "No funciona este metodo");
     }
 }

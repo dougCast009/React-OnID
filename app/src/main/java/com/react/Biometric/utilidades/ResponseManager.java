@@ -122,7 +122,7 @@ public class ResponseManager
 
     private ArrayList<String> getInnerContent(String object) {
 
-        ArrayList<String> innerDataResult = new ArrayList<String>();
+        ArrayList<String> innerDataResult = new ArrayList<>();
 
         JsonElement element = JsonParser.parseString(object);
         JsonObject obj = element.getAsJsonObject(); //la respuesta del servidor es un json
@@ -172,12 +172,12 @@ public class ResponseManager
                 //Excluye de la lista a los elementos de 'Huella' y 'Error, Errordescription'
                 for (ConstantesRespuestas.IncludeLista include : ConstantesRespuestas.IncludeLista.values()) {
                     if (entry.getKey().toLowerCase().equalsIgnoreCase(include.getStringInclude()) && (!(entry.getValue().toString().isEmpty() || entry.getValue().isJsonNull())) && (checkNull(entry.getValue().toString()))){
-                                mapa = new HashMap<String, String>();
+                                mapa = new HashMap<>();
 
                                 String key = entry.getKey().replaceAll("^[viVI]", "").trim();
-                                key = key.replaceAll("[_]", " ");
+                                key = key.replace("_", " ");
                                 String value = entry.getValue().toString().trim();
-                                value = value.replaceAll("[\"]", "");
+                                value = value.replace("\"", "");
 
                                 mapa.put(titulo + key, value);
 

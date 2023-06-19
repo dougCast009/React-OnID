@@ -424,7 +424,7 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
     }
 
     @Override
-    public void ObtenerRespuesta(Boolean success, String object) {
+    public void obtenerRespuesta(Boolean success, String object) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {

@@ -57,7 +57,7 @@ public final class LivenessProcessingCustomFragment extends BaseFaceLivenessProc
         }
 
         for (int strId : stringResourceId) {
-            guidelineTextBuilder.append(String.format("- %s\n", getString(strId)));
+            guidelineTextBuilder.append(String.format("- %s%n", getString(strId)));
         }
 
         guidelinesTextView.setText(guidelineTextBuilder);
