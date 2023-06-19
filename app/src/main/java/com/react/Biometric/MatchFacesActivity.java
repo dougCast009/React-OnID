@@ -35,6 +35,7 @@ public class MatchFacesActivity extends Activity {
 
     private static final int PICK_IMAGE_1 = 1;
     private static final int PICK_IMAGE_2 = 2;
+    private final String[] txtSimilaridad ={"Similarity: null","Liveness: null","Liveness: passed","Liveness: unknown"};
 
     ImageView imageView1;
     ImageView imageView2;
@@ -66,13 +67,9 @@ public class MatchFacesActivity extends Activity {
         textViewSimilarity = findViewById(R.id.textViewSimilarity);
         textViewLiveness = findViewById(R.id.textViewLiveness);
 
-        imageView1.setOnClickListener(v -> {
-            showMenu(imageView1, PICK_IMAGE_1);
-        });
+        imageView1.setOnClickListener(v -> showMenu(imageView1, PICK_IMAGE_1));
 
-        imageView2.setOnClickListener(v -> {
-            showMenu(imageView2, PICK_IMAGE_2);
-        });
+        imageView2.setOnClickListener(v -> showMenu(imageView2, PICK_IMAGE_2));
 
         buttonMatch.setOnClickListener(v -> {
             if (imageView1.getDrawable() != null && imageView2.getDrawable() != null) {
@@ -92,8 +89,8 @@ public class MatchFacesActivity extends Activity {
         buttonClear.setOnClickListener(v -> {
             imageView1.setImageDrawable(null);
             imageView2.setImageDrawable(null);
-            textViewSimilarity.setText("Similarity: null");
-            textViewLiveness.setText("Liveness: null");
+            textViewSimilarity.setText(txtSimilaridad[0]);
+            textViewLiveness.setText(txtSimilaridad[1]);
         });
     }
 
@@ -149,7 +146,7 @@ public class MatchFacesActivity extends Activity {
             return;
 
         imageUri = data.getData();
-        textViewSimilarity.setText("Similarity: null");
+        textViewSimilarity.setText(txtSimilaridad[0]);
 
         ImageView imageView = null;
 
@@ -174,11 +171,11 @@ public class MatchFacesActivity extends Activity {
         FaceSDK.Instance().matchFaces(matchRequest, matchFacesResponse -> {
             MatchFacesSimilarityThresholdSplit  split =
                     new MatchFacesSimilarityThresholdSplit(matchFacesResponse.getResults(), 0.75d);
-            if (split.getMatchedFaces().size() > 0) {
+            if (!split.getMatchedFaces().isEmpty()) {
                 double similarity = split.getMatchedFaces().get(0).getSimilarity();
                 textViewSimilarity.setText("Similarity: " + String.format("%.2f", similarity * 100) + "%");
             } else {
-                textViewSimilarity.setText("Similarity: null");
+                textViewSimilarity.setText(txtSimilaridad[0]);
             }
 
             buttonMatch.setEnabled(true);
@@ -198,15 +195,15 @@ public class MatchFacesActivity extends Activity {
                 imageView1.setTag(ImageType.LIVE);
 
                 if (livenessResponse.getLiveness() == LivenessStatus.PASSED) {
-                    textViewLiveness.setText("Liveness: passed");
+                    textViewLiveness.setText(txtSimilaridad[2]);
                 } else {
-                    textViewLiveness.setText("Liveness: unknown");
+                    textViewLiveness.setText(txtSimilaridad[3]);
                 }
             } else {
-                textViewLiveness.setText("Liveness: null");
+                textViewLiveness.setText(txtSimilaridad[1]);
             }
 
-            textViewSimilarity.setText("Similarity: null");
+            textViewSimilarity.setText(txtSimilaridad[0]);
         });
     }
 }

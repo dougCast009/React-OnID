@@ -11,7 +11,9 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 public class Utils {
-
+    private Utils() {
+        throw new IllegalStateException("Utility class");
+    }
     // loads bitmap from uri
     public static Bitmap getBitmap(ContentResolver resolver, Uri selectedImage, int targetWidth, int targetHeight) {
         InputStream is = null;

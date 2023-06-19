@@ -28,24 +28,18 @@ public class BaseActivity extends AppCompatActivity {
 
     protected void showProgress(final String message, final String title, final Context contexto) {
         hideProgress();
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mProgressDialog = new ProgressDialog(contexto, R.style.AlertDialogProgressStyle);
-                mProgressDialog.setTitle(title);
-                mProgressDialog.setMessage(message);
-                mProgressDialog.show();
-            }
+        runOnUiThread(() -> {
+            mProgressDialog = new ProgressDialog(contexto, R.style.AlertDialogProgressStyle);
+            mProgressDialog.setTitle(title);
+            mProgressDialog.setMessage(message);
+            mProgressDialog.show();
         });
     }
 
     protected void hideProgress() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (mProgressDialog != null && mProgressDialog.isShowing()) {
-                    mProgressDialog.dismiss();
-                }
+        runOnUiThread(() -> {
+            if (mProgressDialog != null && mProgressDialog.isShowing()) {
+                mProgressDialog.dismiss();
             }
         });
     }
@@ -55,12 +49,9 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     protected void showToast(final String message) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast toast = Toast.makeText(getApplicationContext(), message, Constantes.ToastDuration);
-                toast.show();
-            }
+        runOnUiThread(() -> {
+            Toast toast = Toast.makeText(getApplicationContext(), message, Constantes.ToastDuration);
+            toast.show();
         });
     }
 
@@ -69,16 +60,13 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     protected void showMessage(final String message) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                AlertDialog.Builder builder = new AlertDialog.Builder(BaseActivity.this);
-                builder
-                        .setMessage(message)
-                        .setPositiveButton(android.R.string.ok, null).show();
+        runOnUiThread(() -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(BaseActivity.this);
+            builder
+                    .setMessage(message)
+                    .setPositiveButton(android.R.string.ok, null).show();
 
-                //AlertDialog dialog = builder.create();
-            }
+            //AlertDialog dialog = builder.create();
         });
     }
 

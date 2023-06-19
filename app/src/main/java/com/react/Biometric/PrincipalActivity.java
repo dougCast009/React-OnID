@@ -19,11 +19,8 @@ public class PrincipalActivity extends AppCompatActivity {
 
     private String userName;
     private String userPassword;
-    private String userModalidad;
 
-    private Button btnDocument;
-    private Button btnFace;
-    private Button btnFinger;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +29,11 @@ public class PrincipalActivity extends AppCompatActivity {
 
         userName = getIntent().getStringExtra(USER_NAME);
         userPassword = getIntent().getStringExtra(USER_PASSWORD);
-        userModalidad = getIntent().getStringExtra(OPTION_MODALIDAD);
+        String  userModalidad = getIntent().getStringExtra(OPTION_MODALIDAD);
 
-        btnDocument = (Button) findViewById(R.id.btnDocumento);
-        btnFace = (Button) findViewById(R.id.btnFacial);
-        btnFinger = (Button) findViewById(R.id.btnHuella);
+        Button btnDocument = (Button) findViewById(R.id.btnDocumento);
+        Button btnFace = (Button) findViewById(R.id.btnFacial);
+        Button btnFinger = (Button) findViewById(R.id.btnHuella);
 
         Toolbar toolbar = findViewById(R.id.toolbarMain);
         if (userModalidad.equals(Constantes.MODALIDADENROLA))
@@ -56,12 +53,7 @@ public class PrincipalActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+        toolbar.setNavigationOnClickListener(view -> onBackPressed());
 
         btnDocument.setOnClickListener(view -> {
             Intent intent = new Intent(this, MainDocumento.class);

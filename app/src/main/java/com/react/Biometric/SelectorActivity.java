@@ -19,8 +19,7 @@ public class SelectorActivity extends AppCompatActivity {
 
     private String userName;
     private String userPassword;
-    private Button btnEnrola;
-    private Button btnValida;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,32 +31,23 @@ public class SelectorActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+        toolbar.setNavigationOnClickListener(view -> onBackPressed());
 
         userName = getIntent().getStringExtra(USER_NAME);
         userPassword = getIntent().getStringExtra(USER_PASSWORD);
-        btnEnrola = (Button) findViewById(R.id.btnEnrolamiento);
-        btnValida = (Button) findViewById(R.id.btnValidacion);
+        Button btnEnrola = (Button) findViewById(R.id.btnEnrolamiento);
+        Button btnValida = (Button) findViewById(R.id.btnValidacion);
 
-        btnEnrola.setOnClickListener(view -> {
-            SeleccionarMetodo(Constantes.MODALIDADENROLA);
-        });
+        btnEnrola.setOnClickListener(view -> seleccionarMetodo(Constantes.MODALIDADENROLA));
 
-        btnValida.setOnClickListener(view -> {
-            SeleccionarMetodo(Constantes.MODALIDADVALIDA);
-        });
+        btnValida.setOnClickListener(view -> seleccionarMetodo(Constantes.MODALIDADVALIDA));
     }
 
-    public void SeleccionarMetodo(String Metodo) {
+    public void seleccionarMetodo(String metodo) {
         Intent intent = new Intent(this, PrincipalActivity.class);
         intent.putExtra(USER_NAME, userName);
         intent.putExtra(USER_PASSWORD, userPassword);
-        intent.putExtra(OPTION_MODALIDAD, Metodo);
+        intent.putExtra(OPTION_MODALIDAD, metodo);
         startActivity(intent);
     }
 
@@ -67,12 +57,10 @@ public class SelectorActivity extends AppCompatActivity {
                 .setTitle("Atención")
                 .setMessage("¿Esta seguro que desea salir?")
                 .setNegativeButton(android.R.string.no, null)
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface arg0, int arg1) {
-                        Intent intent = new Intent(SelectorActivity.this, IniciarSesionActivity.class);
-                        intent.putExtra(Constantes.CERRO_SESION, true);
-                        startActivity(intent);
-                    }
+                .setPositiveButton(android.R.string.yes, (arg0, arg1) -> {
+                    Intent intent = new Intent(SelectorActivity.this, IniciarSesionActivity.class);
+                    intent.putExtra(Constantes.CERRO_SESION, true);
+                    startActivity(intent);
                 }).create().show();
     }
 }

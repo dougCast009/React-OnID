@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -48,18 +47,19 @@ public class PermissionsHelper {
                         .setTitle("Permissions denied")
                         .setMessage("Permissions denied for app. Open settings to provide permissions.")
                         .setNegativeButton(android.R.string.cancel, null)
-                        .setPositiveButton("Settings", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                Intent intent = new Intent();
-                                intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                                Uri uri = Uri.fromParts("package", activity.getPackageName(), null);
-                                intent.setData(uri);
-                                activity.startActivity(intent);
-                            }
+                        .setPositiveButton("Settings", (dialogInterface, i) -> {
+                            Intent intent = new Intent();
+                            intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                            Uri uri = Uri.fromParts("package", activity.getPackageName(), null);
+                            intent.setData(uri);
+                            activity.startActivity(intent);
                         })
                         .create()
                         .show();
+                break;
+            case GRANTED:
+                break;
+            default:
                 break;
         }
     }

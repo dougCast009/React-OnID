@@ -24,6 +24,7 @@ import okhttp3.Response;
 import com.react.Biometric.Constantes;
 import com.react.Biometric.interfaces.CustomCallback;
 
+
 public class HttpsPostRequest extends AsyncTask<String,Void,String>
 {
     public static final int READ_TIMEOUT = 180000;
@@ -49,6 +50,7 @@ public class HttpsPostRequest extends AsyncTask<String,Void,String>
     }
 
     @Override
+    @Deprecated
     protected void onPreExecute() {
         super.onPreExecute();
     }
@@ -62,8 +64,8 @@ public class HttpsPostRequest extends AsyncTask<String,Void,String>
             OkHttpClient okHttpClient = new OkHttpClient()
                     .newBuilder()
                     .followSslRedirects(true)
-                    .connectTimeout((long) CONNECTION_TIMEOUT, timeUnit)
-                    .readTimeout((long) READ_TIMEOUT, timeUnit)
+                    .connectTimeout(CONNECTION_TIMEOUT, timeUnit)
+                    .readTimeout(READ_TIMEOUT, timeUnit)
                     //.sslSocketFactory(sslContext.getSocketFactory(),customTrust)
                     .build();
 
@@ -85,14 +87,14 @@ public class HttpsPostRequest extends AsyncTask<String,Void,String>
             }
 
         } catch (Exception e) {
-            callback.ObtenerRespuesta(false, result.toString());
+            callback.ObtenerRespuesta(false, result);
             Log.d("doInBackground", "Excepcion: " + e.getMessage());
         }
         return null;
     }
 
     private Headers getHeaders(String host, String contentLength){
-        Headers headers = new Headers.Builder()
+        return new Headers.Builder()
                 .add("Content-Type",CONTENT_TYPE)
                 //.add("User-Agent", "Android Client")
                 .add("Host", host)
@@ -102,7 +104,6 @@ public class HttpsPostRequest extends AsyncTask<String,Void,String>
                 //.add("Expect", "100-Continue")
                 //.add("Accept-Language", "en")
                 .build();
-        return headers;
     }
 
     private KeyManager[] getKeyManager(String password){

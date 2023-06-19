@@ -30,7 +30,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.react.Biometric.interfaces.CustomCallback;
-import com.react.Biometric.orquestador.Biometria;
 import com.react.Biometric.orquestador.OrqResponse;
 import com.react.Biometric.orquestador.Peticion;
 import com.react.Biometric.utilidades.HttpsPostRequest;
@@ -193,7 +192,7 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
         });
 
         try {
-            OrqResponse Respuesta = ResponseManager.ObtenerObjetoRespuesta(object);
+            OrqResponse Respuesta = ResponseManager.obtenerObjetoRespuesta(object);
 
             if (Respuesta != null)
             {
