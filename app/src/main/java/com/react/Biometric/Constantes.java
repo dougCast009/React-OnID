@@ -52,7 +52,7 @@ public class Constantes
     public static final int VERIFACIALDEMO = 1;
     public static final int VERICONSENTIMIENTO = 16;
 
-    public static int ToastDuration = Toast.LENGTH_SHORT;
+    public static int TOASTDURATION = Toast.LENGTH_SHORT;
     public static final String MODALIDADENROLA = "ENROLA";
     public static final String MODALIDADVALIDA = "VALIDA";
 

@@ -124,7 +124,7 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
         }
         else
         {
-            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.login_toast_no_credenciales), Constantes.ToastDuration);
+            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.login_toast_no_credenciales), Constantes.TOASTDURATION);
             toast.show();
         }
     }
@@ -160,7 +160,7 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
             RealizarPeticion(JsonRequest);
         }
         catch (Exception ex) {
-            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_peticion), Constantes.ToastDuration);
+            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_peticion), Constantes.TOASTDURATION);
             toast.show();
         }
     }
@@ -176,7 +176,7 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
         }
         catch (Exception ex)
         {
-            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_realiza_peticion), Constantes.ToastDuration);
+            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_realiza_peticion), Constantes.TOASTDURATION);
             toast.show();
         }
     }
@@ -241,7 +241,7 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_realiza_peticion), Constantes.ToastDuration);
+                        Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_realiza_peticion), Constantes.TOASTDURATION);
                         toast.show();
                     }
                 });
@@ -251,7 +251,7 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Constantes.ToastDuration);
+                    Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Constantes.TOASTDURATION);
                     toast.show();
                 }
             });
@@ -298,7 +298,7 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
                 super.onAuthenticationError(errorCode, errString);
                 if (!(errorCode == ERROR_NEGATIVE_BUTTON))
                 {
-                    Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.fingerprint_error), Constantes.ToastDuration);
+                    Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.fingerprint_error), Constantes.TOASTDURATION);
                     toast.show();
                 }
                 cbxRemember.setChecked(false);

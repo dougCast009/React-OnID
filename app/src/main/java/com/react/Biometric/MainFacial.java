@@ -161,7 +161,7 @@ public class MainFacial extends BaseActivity implements CustomCallback
         }
         else
         {
-            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_modalidad), Constantes.ToastDuration);
+            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_modalidad), Constantes.TOASTDURATION);
             toast.show();
         }
 
@@ -218,7 +218,7 @@ public class MainFacial extends BaseActivity implements CustomCallback
             }
             else
             {
-                Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_face), Constantes.ToastDuration);
+                Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_face), Constantes.TOASTDURATION);
                 toast.show();
             }
         });
@@ -390,7 +390,7 @@ public class MainFacial extends BaseActivity implements CustomCallback
             RealizarPeticion(JsonRequest);
         }
         catch (Exception ex) {
-            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_peticion), Constantes.ToastDuration);
+            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_peticion), Constantes.TOASTDURATION);
             toast.show();
         }
     }
@@ -406,7 +406,7 @@ public class MainFacial extends BaseActivity implements CustomCallback
         }
         catch (Exception ex)
         {
-            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_realiza_peticion), Constantes.ToastDuration);
+            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_realiza_peticion), Constantes.TOASTDURATION);
             toast.show();
         }
     }
@@ -477,30 +477,17 @@ public class MainFacial extends BaseActivity implements CustomCallback
             else
             {
                 runOnUiThread(() -> {
-                    Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_realiza_peticion), Constantes.ToastDuration);
+                    Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_realiza_peticion), Constantes.TOASTDURATION);
                     toast.show();
                 });
-//                runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_realiza_peticion), Constantes.ToastDuration);
-//                        toast.show();
-//                    }
-//                });
             }
 
         } catch (Exception e) {
             runOnUiThread(() -> {
-                Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Constantes.ToastDuration);
+                Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Constantes.TOASTDURATION);
                 toast.show();
             });
-//            runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Constantes.ToastDuration);
-//                    toast.show();
-//                }
-//            });
+
         }
     }
 }

@@ -50,7 +50,7 @@ public class BaseActivity extends AppCompatActivity {
 
     protected void showToast(final String message) {
         runOnUiThread(() -> {
-            Toast toast = Toast.makeText(getApplicationContext(), message, Constantes.ToastDuration);
+            Toast toast = Toast.makeText(getApplicationContext(), message, Constantes.TOASTDURATION);
             toast.show();
         });
     }

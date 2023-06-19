@@ -116,19 +116,19 @@ public class FormularioActivity extends AppCompatActivity {
                     }
                     else
                     {
-                        Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.form_error_apellidos), Constantes.ToastDuration);
+                        Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.form_error_apellidos), Constantes.TOASTDURATION);
                         toast.show();
                     }
                 }
                 else
                 {
-                    Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.form_error_nombres), Constantes.ToastDuration);
+                    Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.form_error_nombres), Constantes.TOASTDURATION);
                     toast.show();
                 }
             }
             else
             {
-                Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.form_error_identificacion), Constantes.ToastDuration);
+                Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.form_error_identificacion), Constantes.TOASTDURATION);
                 toast.show();
             }
         });
