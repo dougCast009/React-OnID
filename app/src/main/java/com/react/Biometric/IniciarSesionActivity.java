@@ -87,7 +87,7 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
     private void estadoBoton(Boolean estado)
     {
         btnIniciarSesion.setEnabled(estado);
-        btnIniciarSesion.setBackgroundColor(estado ? Color.parseColor(getString(R.string.color_primary)) : Color.parseColor(getString(R.string.color_primary_dark)));
+        btnIniciarSesion.setBackgroundColor(Boolean.TRUE.equals(estado) ? Color.parseColor(getString(R.string.color_primary)) : Color.parseColor(getString(R.string.color_primary_dark)));
     }
 
     private void iniciarSesion()

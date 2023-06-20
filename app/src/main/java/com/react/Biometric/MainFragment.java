@@ -84,24 +84,19 @@ public class MainFragment extends Fragment {
     private ImageView imgDocumento1;
     private ImageView imgDocumento2;
 
-    private LinearLayout MainContent;
-    private LinearLayout TabRespuesta;
-    private ImageView img_resultado;
-    private TextView txt_continuar;
-    private TextView texto_principal;
+    private LinearLayout mainContent;
+    private LinearLayout tabRespuesta;
+    private ImageView imgResultado;
+    private TextView txtContinuar;
+    private TextView textoPrincipal;
     private Toolbar toolbar;
     //ANTIGUOS
-    private TextView nameTv;
-    private TextView numberTv;
     private TextView showScanner;
     private TextView recognizeImage;
     private TextView recognizePdf;
-    private ImageView portraitIv;
-    private RelativeLayout authenticityLayout;
-    private ImageView authenticityResultImg;
-    private volatile MainCallbacks mCallbacks;
-    public static int RFID_RESULT = 100;
-    private Boolean EstadoDocumento = false;
+    private MainCallbacks mCallbacks;
+    public static final int RFIDRESULT = 100;
+    private Boolean estadoDocumento = false;
 
     //Paleta Colores
     private static final String TXTCOLORPRINCIPAL = "#1A83C4";
@@ -159,21 +154,16 @@ public class MainFragment extends Fragment {
         imgFirma = root.findViewById(R.id.img_firma);
         imgDocumento1 = root.findViewById(R.id.img_documento_1);
         imgDocumento2 = root.findViewById(R.id.img_documento_2);
-        MostrarTabCaptura();
-        nameTv = root.findViewById(R.id.nameTv);
-        numberTv = root.findViewById(R.id.numberTv);
+        mostrarTabCaptura();
         showScanner = root.findViewById(R.id.showScannerLink);
         recognizeImage = root.findViewById(R.id.recognizeImageLink);
         recognizePdf = root.findViewById(R.id.recognizePdfLink);
-        portraitIv = root.findViewById(R.id.portraitIv);
-        authenticityLayout = root.findViewById(R.id.authenticityLayout);
-        authenticityResultImg = root.findViewById(R.id.authenticityResultImg);
 
-        MainContent = root.findViewById(R.id.MainContent);
-        TabRespuesta = root.findViewById(R.id.TabRespuesta);
-        img_resultado = root.findViewById(R.id.img_resultado);
-        txt_continuar = root.findViewById(R.id.txt_continuar);
-        texto_principal = root.findViewById(R.id.texto_principal);
+        mainContent = root.findViewById(R.id.MainContent);
+        tabRespuesta = root.findViewById(R.id.TabRespuesta);
+        imgResultado = root.findViewById(R.id.img_resultado);
+        txtContinuar = root.findViewById(R.id.txt_continuar);
+        textoPrincipal = root.findViewById(R.id.texto_principal);
         toolbar = root.findViewById(R.id.toolbarMain);
 
         initView();
@@ -183,7 +173,7 @@ public class MainFragment extends Fragment {
     @Override
     public void onResume() {//used to show scenarios after fragments transaction
         super.onResume();
-        if (getActivity() != null && DocumentReader.Instance().isReady() && (DocumentReader.Instance().availableScenarios.size() > 0))
+        if (getActivity() != null && DocumentReader.Instance().isReady() && (!DocumentReader.Instance().availableScenarios.isEmpty()))
                 ((BaseActivity) getActivity()).setScenarios();
     }
 
@@ -199,7 +189,7 @@ public class MainFragment extends Fragment {
         mCallbacks = null;
     }
 
-    private void MostrarTabCaptura()
+    private void mostrarTabCaptura()
     {
         btnTabCapturar.setBackgroundColor(Color.parseColor(getString(R.string.color_primary)));
         btnTabInfo.setBackgroundColor(Color.parseColor(getString(R.string.color_primary_dark)));
@@ -209,7 +199,7 @@ public class MainFragment extends Fragment {
         tabEscaner.setVisibility(View.VISIBLE);
     }
 
-    private void MostrarTabInformacion()
+    private void mostrarTabInformacion()
     {
         btnTabCapturar.setBackgroundColor(Color.parseColor(getString(R.string.color_primary_dark)));
         btnTabInfo.setBackgroundColor(Color.parseColor(getString(R.string.color_primary)));
@@ -220,23 +210,19 @@ public class MainFragment extends Fragment {
     }
 
     private void initView() {
-        txt_continuar.setOnClickListener(view -> {
-            TabRespuesta.setVisibility(View.GONE);
+        txtContinuar.setOnClickListener(view -> {
+            tabRespuesta.setVisibility(View.GONE);
             toolbar.setVisibility(View.VISIBLE);
-            MainContent.setVisibility(View.VISIBLE);
+            mainContent.setVisibility(View.VISIBLE);
         });
 
-        btnTabCapturar.setOnClickListener(view -> {
-            MostrarTabCaptura();
-        });
+        btnTabCapturar.setOnClickListener(view -> mostrarTabCaptura());
 
-        btnTabInfo.setOnClickListener(view -> {
-            MostrarTabInformacion();
-        });
+        btnTabInfo.setOnClickListener(view -> mostrarTabInformacion());
 
         btnIniciarCaptura.setOnClickListener(view -> {
             mCallbacks.scenarioLv(Scenario.SCENARIO_FULL_AUTH);
-            LimpiarCampos();
+            limpiarCampos();
             mCallbacks.showScanner();
         });
     }
@@ -247,32 +233,32 @@ public class MainFragment extends Fragment {
         if (results != null)
         {
             //CARGAR CAMPOS DE TEXTO
-            txtCodPais.setText(ValidarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_ISSUING_STATE_CODE)));
-            txtDcumento.setText(ValidarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_PERSONAL_NUMBER)));
-            String Extra = ValidarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_OPTIONAL_DATA));
-            String Identificacion = Extra.equals(getString(R.string.document_pending)) ? ValidarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_DOCUMENT_NUMBER)) : ValidarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_DOCUMENT_NUMBER) + Extra);
-            txtIdentificacion.setText(Identificacion);
-            txtNombres.setText(ValidarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_GIVEN_NAMES)));
-            txtApellidos.setText(ValidarNulosApellidos(results.getTextFieldValueByType(eVisualFieldType.FT_SURNAME)) + " " + ValidarNulosApellidos(results.getTextFieldValueByType(eVisualFieldType.FT_SECOND_SURNAME)));
-            txtSexo.setText(ValidarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_SEX)));
-            txtEdad.setText(ValidarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_AGE)));
-            txtFechaNacimiento.setText(ValidarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_DATE_OF_BIRTH)));
-            txtLugarNacimiento.setText(ValidarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_PLACE_OF_BIRTH)));
-            txtDomicilio.setText(ValidarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_PLACE_OF_REGISTRATION)));
-            txtNombreMadre.setText(ValidarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_MOTHER_GIVENNAME)));
-            txtNombrePadre.setText(ValidarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_FATHER_GIVENNAME)));
-            String Meses = ValidarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_REMAINDER_TERM));
-            txtMeses.setText(Meses);
-            txtVencimiento.setText(ValidarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_DATE_OF_EXPIRY)));
-            txtPaisOrigen.setText(ValidarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_ISSUING_STATE_NAME)));
-            txtDmxExpediente.setText(ValidarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_REG_CERT_REG_NUMBER)));
-            txtDmxNacionalidad.setText(ValidarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_NATIONALITY)));
-            txtDmxEmision.setText(ValidarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_DATE_OF_ISSUE)));
-            txtDmxCodNacionalidad.setText(ValidarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_NATIONALITY_CODE)));
+            txtCodPais.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_ISSUING_STATE_CODE)));
+            txtDcumento.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_PERSONAL_NUMBER)));
+            String extra = validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_OPTIONAL_DATA));
+            String identificacion = extra.equals(getString(R.string.document_pending)) ? validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_DOCUMENT_NUMBER)) : validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_DOCUMENT_NUMBER) + extra);
+            txtIdentificacion.setText(identificacion);
+            txtNombres.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_GIVEN_NAMES)));
+            txtApellidos.setText(validarNulosApellidos(results.getTextFieldValueByType(eVisualFieldType.FT_SURNAME)) + " " + validarNulosApellidos(results.getTextFieldValueByType(eVisualFieldType.FT_SECOND_SURNAME)));
+            txtSexo.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_SEX)));
+            txtEdad.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_AGE)));
+            txtFechaNacimiento.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_DATE_OF_BIRTH)));
+            txtLugarNacimiento.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_PLACE_OF_BIRTH)));
+            txtDomicilio.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_PLACE_OF_REGISTRATION)));
+            txtNombreMadre.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_MOTHER_GIVENNAME)));
+            txtNombrePadre.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_FATHER_GIVENNAME)));
+            String meses = validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_REMAINDER_TERM));
+            txtMeses.setText(meses);
+            txtVencimiento.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_DATE_OF_EXPIRY)));
+            txtPaisOrigen.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_ISSUING_STATE_NAME)));
+            txtDmxExpediente.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_REG_CERT_REG_NUMBER)));
+            txtDmxNacionalidad.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_NATIONALITY)));
+            txtDmxEmision.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_DATE_OF_ISSUE)));
+            txtDmxCodNacionalidad.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_NATIONALITY_CODE)));
 
-            if (!Meses.equals(getString(R.string.document_pending)))
+            if (!meses.equals(getString(R.string.document_pending)))
             {
-                if (Integer.parseInt(Meses) > 0)
+                if (Integer.parseInt(meses) > 0)
                 {
                     txtMeses.setTextColor(Color.parseColor(TXTCOLORPRINCIPAL));
                 }
@@ -282,14 +268,14 @@ public class MainFragment extends Fragment {
                 }
             }
 
-            if (Identificacion.length() == 9)
+            if (identificacion.length() == 9)
             {
                 lblDmxExpediente.setVisibility(View.GONE);
                 lblDmxCodNacionalidad.setVisibility(View.GONE);
                 lblDmxNacionalidad.setVisibility(View.GONE);
                 lblDmxEmision.setVisibility(View.GONE);
             }
-            else if (Identificacion.length() == 12)
+            else if (identificacion.length() == 12)
             {
                 lblDocumento.setVisibility(View.GONE);
                 lblLugarNacimiento.setVisibility(View.GONE);
@@ -315,16 +301,16 @@ public class MainFragment extends Fragment {
                 imgDocumento2.setImageBitmap(imgDoc2);
             }
 
-            Boolean MostrarTabRespuesta = btnIniciarProceso.getText().equals(getString(R.string.verificar));
+            Boolean mostrarTabRespuesta = btnIniciarProceso.getText().equals(getString(R.string.verificar));
 
-            if (Boolean.TRUE.equals(ValidarFechaVencimiento(txtVencimiento.getText().toString())))
+            if (Boolean.TRUE.equals(validarFechaVencimiento(txtVencimiento.getText().toString())))
             {
-                EstadoDocumento = true;
+                estadoDocumento = true;
                 txtEstado.setText(getString(R.string.result_valido));
                 txtEstado.setTextColor(Color.parseColor(TXTCOLORPRINCIPAL));
                 txtVencimiento.setTextColor(Color.parseColor(TXTCOLORPRINCIPAL));
 
-                if (MostrarTabRespuesta && (imgFoto != null))
+                if (Boolean.TRUE.equals(mostrarTabRespuesta) && (imgFoto != null))
                     {
                         FaceSDK.Instance().startLiveness(getActivity(), livenessResponse -> {
                             if (livenessResponse.getLiveness() == LivenessStatus.PASSED) {
@@ -341,13 +327,13 @@ public class MainFragment extends Fragment {
                                     List<MatchFacesComparedFacesPair> matched = split.getMatchedFaces();
                                     List<MatchFacesComparedFacesPair> notmatched = split.getUnmatchedFaces();
 
-                                    if (matched.size() > 0 && notmatched.size() == 0)
+                                    if (!matched.isEmpty() && notmatched.isEmpty())
                                     {
-                                        EstadoDocumento = true;
+                                        estadoDocumento = true;
                                     }
                                     else
                                     {
-                                        EstadoDocumento = false;
+                                        estadoDocumento = false;
                                     }
 
                                 });
@@ -365,20 +351,20 @@ public class MainFragment extends Fragment {
                 btnIniciarProceso.setVisibility(View.GONE);
             }
 
-            if (MostrarTabRespuesta)
+            if (Boolean.TRUE.equals(mostrarTabRespuesta))
             {
-                TabRespuesta.setVisibility(View.VISIBLE);
+                tabRespuesta.setVisibility(View.VISIBLE);
                 toolbar.setVisibility(View.GONE);
-                MainContent.setVisibility(View.GONE);
-                texto_principal.setText(EstadoDocumento ? getString(R.string.identidad_confirmada) : getString(R.string.identidad_no_confirmada));
-                img_resultado.setImageResource(EstadoDocumento ? R.drawable.document_check : R.drawable.document_cross);
+                mainContent.setVisibility(View.GONE);
+                textoPrincipal.setText(Boolean.TRUE.equals(estadoDocumento) ? getString(R.string.identidad_confirmada) : getString(R.string.identidad_no_confirmada));
+                imgResultado.setImageResource(Boolean.TRUE.equals(estadoDocumento) ? R.drawable.document_check : R.drawable.document_cross);
             }
 
-            MostrarTabInformacion();
+            mostrarTabInformacion();
         }
         else
         {
-            MostrarTabCaptura();
+            mostrarTabCaptura();
         }
     }
 
@@ -386,8 +372,7 @@ public class MainFragment extends Fragment {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] imageBytes = baos.toByteArray();
-        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-        return encodedImage;
+        return Base64.encodeToString(imageBytes, Base64.DEFAULT);
     }
 
     public void disableUiElements() {
@@ -400,11 +385,11 @@ public class MainFragment extends Fragment {
         recognizeImage.setTextColor(Color.GRAY);
     }
 
-    private String ValidarNulos(String Datos)
+    private String validarNulos(String datos)
     {
-        if (Datos != null)
+        if (datos != null)
         {
-            return Datos;
+            return datos;
         }
         else
         {
@@ -412,11 +397,11 @@ public class MainFragment extends Fragment {
         }
     }
 
-    private String ValidarNulosApellidos(String Datos)
+    private String validarNulosApellidos(String datos)
     {
-        if (Datos != null)
+        if (datos != null)
         {
-            return Datos;
+            return datos;
         }
         else
         {
@@ -424,21 +409,14 @@ public class MainFragment extends Fragment {
         }
     }
 
-    private Boolean ValidarFechaVencimiento(String Datos) {
-        if (Datos != null)
+    private Boolean validarFechaVencimiento(String datos) {
+        if (datos != null)
         {
             try {
-                Date FechaVence = new SimpleDateFormat("yyyy-MM-dd").parse(Datos);
-                Date FechaActual = Calendar.getInstance().getTime();
+                Date fechaVence = new SimpleDateFormat("yyyy-MM-dd").parse(datos);
+                Date fechaActual = Calendar.getInstance().getTime();
 
-                if (FechaActual.before(FechaVence) || FechaActual.equals(FechaVence))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return fechaActual.before(fechaVence) || fechaActual.equals(fechaVence);
             }
             catch(Exception ex)
             {
@@ -451,7 +429,7 @@ public class MainFragment extends Fragment {
         }
     }
 
-    private void LimpiarCampos()
+    private void limpiarCampos()
     {
         txtEstado.setText(getString(R.string.document_pending));
         txtDcumento.setText(getString(R.string.document_pending));
