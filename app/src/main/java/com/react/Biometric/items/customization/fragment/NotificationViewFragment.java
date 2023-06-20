@@ -22,6 +22,6 @@ public class NotificationViewFragment extends FaceDefaultUiFragment {
 
     @Override
     public int getNotificationTextColor(boolean isLightOn) {
-        return getResources().getColor(isLightOn ? R.color.notification_view_text_color_light_on : R.color.notification_view_text_color_light_off);
+        return  getResources().getColor(isLightOn ? R.color.notification_view_text_color_light_on : R.color.notification_view_text_color_light_off);
     }
 }

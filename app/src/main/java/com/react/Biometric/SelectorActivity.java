@@ -56,8 +56,8 @@ public class SelectorActivity extends AppCompatActivity {
         new AlertDialog.Builder(this)
                 .setTitle("Atención")
                 .setMessage("¿Esta seguro que desea salir?")
-                .setNegativeButton(android.R.string.no, null)
-                .setPositiveButton(android.R.string.yes, (arg0, arg1) -> {
+                .setNegativeButton("No", null)
+                .setPositiveButton("Yes", (arg0, arg1) -> {
                     Intent intent = new Intent(SelectorActivity.this, IniciarSesionActivity.class);
                     intent.putExtra(Constantes.CERRO_SESION, true);
                     startActivity(intent);

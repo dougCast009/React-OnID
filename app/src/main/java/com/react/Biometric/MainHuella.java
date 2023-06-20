@@ -87,7 +87,7 @@ public class MainHuella extends BaseActivity implements CustomCallback
     private String userName;
     private String userPassword;
     private String userModalidad;
-    private String mano;
+
     private String metodo;
     private boolean captura;
     private AlertDialog loadingDialog;
@@ -148,7 +148,6 @@ public class MainHuella extends BaseActivity implements CustomCallback
         peticionSexo = getIntent().getStringExtra(Constantes.REQUEST_SEX);
         peticionPais = getIntent().getStringExtra(Constantes.REQUEST_COUNTRY);
         peticionNacimiento = getIntent().getStringExtra(Constantes.REQUEST_BIRTH);
-        mano = "right";
         txtIdentificacion.setText(peticionNID);
         txtNombres.setText(peticionNombres);
         txtApellidos.setText(peticionApellidos);
@@ -289,8 +288,7 @@ public class MainHuella extends BaseActivity implements CustomCallback
         startActivity(intent);
     }
 
-    private void mostrarTabCaptura()
-    {
+    private void mostrarTabCaptura() {
         btnTabCapturar.setBackgroundColor(Color.parseColor(getString(R.string.color_primary)));
         btnTabInfo.setBackgroundColor(Color.parseColor(getString(R.string.color_primary_dark)));
         btnTabCapturar.setTextColor(Color.parseColor(getString(R.string.color_font_primary)));
@@ -299,8 +297,7 @@ public class MainHuella extends BaseActivity implements CustomCallback
         tabEscaner.setVisibility(View.VISIBLE);
     }
 
-    private void mostrarTabInformacion()
-    {
+    private void mostrarTabInformacion() {
         btnTabCapturar.setBackgroundColor(Color.parseColor(getString(R.string.color_primary_dark)));
         btnTabInfo.setBackgroundColor(Color.parseColor(getString(R.string.color_primary)));
         btnTabCapturar.setTextColor(Color.parseColor(getString(R.string.color_font_primary_dark)));
@@ -373,7 +370,7 @@ public class MainHuella extends BaseActivity implements CustomCallback
                                 Gson gson = new Gson();
                                 ResponseIdenty resp = gson.fromJson(identyResponse.toJson(MainHuella.this).toString(), ResponseIdenty.class);
 
-                                if (manoIndice.equals(mano))
+                                if (manoIndice.equals(R.string.mano))
                                 {
                                     wsqIndce = resp.data.rightindex.templates.WSQ.DEFAULT;
                                     wsqMedio = resp.data.rightmiddle.templates.WSQ.DEFAULT;
@@ -502,7 +499,7 @@ public class MainHuella extends BaseActivity implements CustomCallback
             if (Boolean.TRUE.equals(noEsNuloOVacio(wsqIndce)))
             {
                 Biometria dedo = new Biometria();
-                String numIndice = manoIndice.equals(mano) ? "2" : "7";
+                String numIndice = manoIndice.equals(R.string.mano) ? "2" : "7";
                 dedo.setBiometryName(numIndice);
                 dedo.setBiometryRawDataType("Jpeg");
                 dedo.setRawData(wsqIndce);
@@ -511,7 +508,7 @@ public class MainHuella extends BaseActivity implements CustomCallback
             if (Boolean.TRUE.equals(noEsNuloOVacio(wsqMedio)))
             {
                 Biometria dedo = new Biometria();
-                String numMedio = manoIndice.equals(mano) ? "3" : "8";
+                String numMedio = manoIndice.equals(R.string.mano) ? "3" : "8";
                 dedo.setBiometryName(numMedio);
                 dedo.setBiometryRawDataType("Jpeg");
                 dedo.setRawData(wsqMedio);
@@ -520,7 +517,7 @@ public class MainHuella extends BaseActivity implements CustomCallback
             if (Boolean.TRUE.equals(Boolean.TRUE.equals(noEsNuloOVacio(wsqAnular))))
             {
                 Biometria dedo = new Biometria();
-                String numAnular = manoIndice.equals(mano) ? "4" : "9";
+                String numAnular = manoIndice.equals(R.string.mano) ? "4" : "9";
                 dedo.setBiometryName(numAnular);
                 dedo.setBiometryRawDataType("Jpeg");
                 dedo.setRawData(wsqAnular);
@@ -529,7 +526,7 @@ public class MainHuella extends BaseActivity implements CustomCallback
             if (Boolean.TRUE.equals(noEsNuloOVacio(wsqMenique)))
             {
                 Biometria dedo = new Biometria();
-                String numMenique = manoIndice.equals(mano) ? "5" : "10";
+                String numMenique = manoIndice.equals(R.string.mano) ? "5" : "10";
                 dedo.setBiometryName(numMenique);
                 dedo.setBiometryRawDataType("Jpeg");
                 dedo.setRawData(wsqMenique);
