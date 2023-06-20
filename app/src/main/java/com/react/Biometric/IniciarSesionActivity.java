@@ -54,11 +54,10 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
     private static final String TAG = IniciarSesionActivity.class.getSimpleName();
     private SharedPreferences sharedPreferences;
     private int duration = Toast.LENGTH_SHORT;
-    private int ERROR_NEGATIVE_BUTTON = 13;
-    private String Metodo = "50";
-    private String Usuario = "";
-    private String Contrasenna = "";
-    private Boolean CerroSesion = false;
+    private static final int ERROR_NEGATIVE_BUTTON = 13;
+    private static final String METODO = "50";
+    private String usuario = "";
+    private String contrasenna = "";
     private AlertDialog loadingDialog;
 
     @Override
@@ -66,34 +65,34 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_iniciar_sesion);
 
+        Boolean cerroSesion = false;
+
         txtUsuario = findViewById(R.id.etxtUser);
         txtContrasenna = findViewById(R.id.etxtPassword);
         cbxRemember = findViewById(R.id.cbxRemember);
         btnIniciarSesion = (Button) findViewById(R.id.btnIniciarSesion);
-        btnIniciarSesion.setOnClickListener(view -> {
-            IniciarSesion();
-        });
+        btnIniciarSesion.setOnClickListener(view -> iniciarSesion());
 
-        ValidarPermisos();
-        CerroSesion = getIntent().getBooleanExtra(Constantes.CERRO_SESION, false);
+        validarPermisos();
+        cerroSesion = getIntent().getBooleanExtra(Constantes.CERRO_SESION, false);
 
-        CargarPreferenciasCompartidas();
+        cargarPreferenciasCompartidas();
 
-        if (cbxRemember.isChecked() && !CerroSesion)
+        if (cbxRemember.isChecked() && Boolean.FALSE.equals(cerroSesion))
         {
-            IniciarSesion();
+            iniciarSesion();
         }
     }
 
-    private void EstadoBoton(Boolean Estado)
+    private void estadoBoton(Boolean estado)
     {
-        btnIniciarSesion.setEnabled(Estado);
-        btnIniciarSesion.setBackgroundColor(Estado ? Color.parseColor(getString(R.string.color_primary)) : Color.parseColor(getString(R.string.color_primary_dark)));
+        btnIniciarSesion.setEnabled(estado);
+        btnIniciarSesion.setBackgroundColor(estado ? Color.parseColor(getString(R.string.color_primary)) : Color.parseColor(getString(R.string.color_primary_dark)));
     }
 
-    private void IniciarSesion()
+    private void iniciarSesion()
     {
-        EstadoBoton(false);
+        estadoBoton(false);
         showDialog("Validando...");
         String userName = txtUsuario.getText().toString();
         String userPassword = txtContrasenna.getText().toString();
@@ -108,7 +107,7 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
             {
                 try
                 {
-                    RedireccionarInicio(userName, userPassword);
+                    redireccionarInicio(userName, userPassword);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.remove(Constantes.USER_NAME);
                     editor.remove(Constantes.USER_PASSWORD);
@@ -129,7 +128,7 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
         }
     }
 
-    private void CrearPeticion(String userName, String userPassword)
+    private void crearPeticion(String userName, String userPassword)
     {
         try
         {
@@ -140,8 +139,8 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
             }
 
             Peticion request = new Peticion();
-            request.setMethodAuth(Metodo);
-            if (Constantes.ESDESARROLLO)
+            request.setMethodAuth(METODO);
+            if (Boolean.TRUE.equals(Constantes.ESDESARROLLO))
             {
                 request.setCUSTOMERID("xpi");
                 request.setPASS("$tr@!ght1928");
@@ -152,12 +151,12 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
                 request.setPASS(userPassword);
             }
 
-            Usuario = request.getCUSTOMERID();
-            Contrasenna = request.getPASS();
+            usuario = request.getCUSTOMERID();
+            contrasenna = request.getPASS();
 
             Gson gson = new Gson();
-            JsonObject JsonRequest = JsonParser.parseString(gson.toJson(request)).getAsJsonObject();
-            RealizarPeticion(JsonRequest);
+            JsonObject jsonRequest = JsonParser.parseString(gson.toJson(request)).getAsJsonObject();
+            realizarPeticion(jsonRequest);
         }
         catch (Exception ex) {
             Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_peticion), Constantes.TOASTDURATION);
@@ -165,13 +164,13 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
         }
     }
 
-    private void RealizarPeticion(JsonObject Request)
+    private void realizarPeticion(JsonObject request)
     {
         try
         {
             InputStream privateCrt = getResources().openRawResource(R.raw.certificado_android_pfx);
             InputStream certChain = getResources().openRawResource(R.raw.certificado_android_pem);
-            final HttpsPostRequest peticion = new HttpsPostRequest(Request, this, privateCrt, certChain);
+            final HttpsPostRequest peticion = new HttpsPostRequest(request, this, privateCrt, certChain);
             peticion.execute(Constantes.URL_BASE);
         }
         catch (Exception ex)
@@ -184,76 +183,55 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
 
     @Override
     public void ObtenerRespuesta(Boolean success, String object) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                dismissDialog();
-            }
-        });
+        runOnUiThread(this::dismissDialog);
 
         try {
-            OrqResponse Respuesta = ResponseManager.obtenerObjetoRespuesta(object);
+            OrqResponse respuesta = ResponseManager.obtenerObjetoRespuesta(object);
 
-            if (Respuesta != null)
+            if (respuesta != null)
             {
-                String ErrorCode = Respuesta.ObtenerInfoPersonaResult.ErrorCode;
-                String Message = Respuesta.ObtenerInfoPersonaResult.Message;
+                String errorCode = respuesta.ObtenerInfoPersonaResult.ErrorCode;
+                String message = respuesta.ObtenerInfoPersonaResult.Message;
 
-                if (ErrorCode.equals("00"))
+                if (errorCode.equals("00"))
                 {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            IrInicio();
-                        }
-                    });
+                    runOnUiThread(this::irInicio);
                 }
                 else
                 {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            EstadoBoton(true);
-                            String Titulo = getString(R.string.not_matched);
-                            AlertDialog.Builder builder = new AlertDialog.Builder(IniciarSesionActivity.this);
-                            LayoutInflater inflater = getLayoutInflater();
-                            final View myView = inflater.inflate(R.layout.activity_main_orquestador, null);
-                            ImageView imgPrincipal = myView.findViewById(R.id.imagen);
-                            imgPrincipal.setImageResource(R.drawable.not_matched_size);
-                            TextView txtTitulo = myView.findViewById(R.id.texto_principal);
-                            txtTitulo.setText(Titulo);
-                            TextView txtMensaje = myView.findViewById(R.id.texto);
-                            txtMensaje.setText(Message);
+                    runOnUiThread(() -> {
+                        estadoBoton(true);
+                        String titulo = getString(R.string.not_matched);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(IniciarSesionActivity.this);
+                        LayoutInflater inflater = getLayoutInflater();
+                        final View myView = inflater.inflate(R.layout.activity_main_orquestador, null);
+                        ImageView imgPrincipal = myView.findViewById(R.id.imagen);
+                        imgPrincipal.setImageResource(R.drawable.not_matched_size);
+                        TextView txtTitulo = myView.findViewById(R.id.texto_principal);
+                        txtTitulo.setText(titulo);
+                        TextView txtMensaje = myView.findViewById(R.id.texto);
+                        txtMensaje.setText(message);
 
-                            builder.setView(myView)
-                                    .setCancelable(false)
-                                    .setPositiveButton(R.string.aceptar, new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int whichButton) {
-                                        }
-                                    });
-                            builder.create().show();
-                        }
+                        builder.setView(myView)
+                                .setCancelable(false)
+                                .setPositiveButton(R.string.aceptar, (dialog, whichButton) -> {
+                                });
+                        builder.create().show();
                     });
                 }
             }
             else
             {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_realiza_peticion), Constantes.TOASTDURATION);
-                        toast.show();
-                    }
+                runOnUiThread(() -> {
+                    Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_realiza_peticion), Constantes.TOASTDURATION);
+                    toast.show();
                 });
             }
 
         } catch (Exception e) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Constantes.TOASTDURATION);
-                    toast.show();
-                }
+            runOnUiThread(() -> {
+                Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Constantes.TOASTDURATION);
+                toast.show();
             });
         }
     }
@@ -274,16 +252,16 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
         }
     }
 
-    private void RedireccionarInicio(String Usuario, String Contrasenna)
+    private void redireccionarInicio(String usuario, String contrasenna)
     {
-        CrearPeticion(Usuario, Contrasenna);
+        crearPeticion(usuario, contrasenna);
     }
 
-    private void IrInicio()
+    private void irInicio()
     {
         Intent intent = new Intent(this, SelectorActivity.class);
-        intent.putExtra(Constantes.USER_NAME, Usuario);
-        intent.putExtra(Constantes.USER_PASSWORD, Contrasenna);
+        intent.putExtra(Constantes.USER_NAME, usuario);
+        intent.putExtra(Constantes.USER_PASSWORD, contrasenna);
         startActivity(intent);
     }
 
@@ -296,7 +274,7 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
             public void onAuthenticationError(int errorCode, CharSequence errString)
             {
                 super.onAuthenticationError(errorCode, errString);
-                if (!(errorCode == ERROR_NEGATIVE_BUTTON))
+                if (errorCode != ERROR_NEGATIVE_BUTTON)
                 {
                     Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.fingerprint_error), Constantes.TOASTDURATION);
                     toast.show();
@@ -325,7 +303,7 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
                         editor.apply();
                     }
 
-                    RedireccionarInicio(userName, userPassword);
+                    redireccionarInicio(userName, userPassword);
                 }
                 catch (Exception e)
                 {
@@ -365,7 +343,7 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
         }
     }
 
-    private void CargarPreferenciasCompartidas()
+    private void cargarPreferenciasCompartidas()
     {
         try
         {
@@ -385,7 +363,7 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
         }
     }
 
-    private void ValidarPermisos()
+    private void validarPermisos()
     {
         String[] neededPermissions = getNotGrantedPermissions();
 
@@ -401,7 +379,7 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
 
     //PERMISOS NECESARIOS
     private String[] getNotGrantedPermissions() {
-        List<String> neededPermissions = new ArrayList<String>();
+        List<String> neededPermissions = new ArrayList<>();
         int cameraPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
 
         if (cameraPermission != PackageManager.PERMISSION_GRANTED) {

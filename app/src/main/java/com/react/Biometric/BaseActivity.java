@@ -50,9 +50,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MainFrag
     private AlertDialog loadingDialog;
     protected MainFragment mainFragment;
     protected FrameLayout fragmentContainer;
-
-    public int rfidMode;
-    public static DocumentReaderResults documentReaderResults;
+    private static DocumentReaderResults documentReaderResults;
 
 
     protected abstract void initializeReader();
