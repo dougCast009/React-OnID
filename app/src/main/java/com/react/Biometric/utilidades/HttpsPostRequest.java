@@ -8,6 +8,7 @@ import java.security.KeyStore;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
+import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 import javax.net.ssl.KeyManager;
 import javax.net.ssl.KeyManagerFactory;
@@ -27,6 +28,8 @@ import com.react.Biometric.interfaces.CustomCallback;
 
 public class HttpsPostRequest extends AsyncTask<String,Void,String>
 {
+    private final Executor executor = Executors.newSingleThreadExecutor(); // change according to your requirements
+    private final Handler handler = new Handler(Looper.getMainLooper());
     public static final int READ_TIMEOUT = 180000;
     public static final int CONNECTION_TIMEOUT = 180000;
     public static final String CONTENT_TYPE = "application/json";
