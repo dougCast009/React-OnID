@@ -22,7 +22,6 @@ public class AdvancedCustomUiFragment extends FaceUiFragment {
     private ImageButton mSwapCameraBtn;
     private ImageButton mFlashLightBtn;
     private ImageButton mCloseBtn;
-    private NotificationTextView mNotificationTextView;
 
     @Override
     public View getSwapCameraButton(@NonNull View v) {
@@ -38,8 +37,7 @@ public class AdvancedCustomUiFragment extends FaceUiFragment {
 
     @Override
     public TextView getNotificationView(@NonNull View v) {
-        mNotificationTextView = v.findViewById(R.id.notificationTextView);
-        return mNotificationTextView;
+        return v.findViewById(R.id.notificationTextView);
     }
 
     @Override

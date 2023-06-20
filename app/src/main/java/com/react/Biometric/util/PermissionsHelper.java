@@ -33,9 +33,6 @@ public class PermissionsHelper {
     public static final int BLOCKED_OR_NEVER_ASKED = 2;
 
     public static void requestLocationPermission(@NonNull final Activity activity) {
-        if (activity == null)
-            return;
-
         switch (getPermissionStatus(activity, Manifest.permission.ACCESS_FINE_LOCATION)) {
             case DENIED:
                 ActivityCompat.requestPermissions(activity,

@@ -72,6 +72,6 @@ public final class Constantes
     public static final String ENROLL_FACIAL = "30";
     public static final String ENROLL_HUELLA = "30";
 
-    public static final Boolean ESDESARROLLO = false;
+    public static final Boolean ESDESARROLLO = true;
 
 }

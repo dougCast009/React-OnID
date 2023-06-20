@@ -50,7 +50,6 @@ public class HttpsPostRequest extends AsyncTask<String,Void,String>
     }
 
     @Override
-    @Deprecated
     protected void onPreExecute() {
         super.onPreExecute();
     }
@@ -81,13 +80,13 @@ public class HttpsPostRequest extends AsyncTask<String,Void,String>
             int statusCode = response.code();
             if (statusCode == 200) {
                 result = response.body().string();
-                callback.ObtenerRespuesta(true, result);
+                callback.obtenerRespuesta(true, result);
             } else if (statusCode == 400){
-                callback.ObtenerRespuesta(false, "400");
+                callback.obtenerRespuesta(false, "400");
             }
 
         } catch (Exception e) {
-            callback.ObtenerRespuesta(false, result);
+            callback.obtenerRespuesta(false, result);
             Log.d("doInBackground", "Excepcion: " + e.getMessage());
         }
         return null;
