@@ -50,9 +50,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MainFrag
     private AlertDialog loadingDialog;
     protected MainFragment mainFragment;
     protected FrameLayout fragmentContainer;
-
-    public int rfidMode;
-    public static DocumentReaderResults documentReaderResults;
+    private static DocumentReaderResults documentReaderResults;
 
 
     protected abstract void initializeReader();
@@ -169,7 +167,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MainFrag
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == MainFragment.RFID_RESULT && documentReaderResults != null) {
+        if (requestCode == MainFragment.RFIDRESULT && documentReaderResults != null) {
             mainFragment.displayResults(documentReaderResults);
         }
 
@@ -205,7 +203,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MainFrag
 
         mainFragment.setDoRfid(DocumentReader.Instance().isRFIDAvailableForUse(), sharedPreferences);
         //getting current processing scenario and loading available scenarios to ListView
-        if (DocumentReader.Instance().availableScenarios.size() > 0)
+        if (!DocumentReader.Instance().availableScenarios.isEmpty())
             setScenarios();
         else {
             Toast.makeText(
@@ -259,20 +257,16 @@ public abstract class BaseActivity extends AppCompatActivity implements MainFrag
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE:
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    //access to gallery is allowed
-                    createImageBrowsingRequest();
-                } else {
-                    Toast.makeText(this, "Permission required, to browse images", Toast.LENGTH_LONG).show();
-                }
-                break;
-            default:
-                Toast.makeText(this, "The requested code is invalid.", Toast.LENGTH_LONG).show();
-                break;
+        if (requestCode == PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE) {// If request is cancelled, the result arrays are empty.
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //access to gallery is allowed
+                createImageBrowsingRequest();
+            } else {
+                Toast.makeText(this, "Permission required, to browse images", Toast.LENGTH_LONG).show();
+            }
+        } else {
+            Toast.makeText(this, "The requested code is invalid.", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -283,7 +277,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MainFrag
         intent.setType("image/*");
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), REQUEST_BROWSE_PICTURE);
+         startActivityForResult(Intent.createChooser(intent, "Select Picture"), REQUEST_BROWSE_PICTURE);
     }
 
     @Override
@@ -351,7 +345,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MainFrag
         for (DocumentReaderScenario scenario : DocumentReader.Instance().availableScenarios) {
             scenarios.add(scenario.name);
         }
-        if (scenarios.size() > 0) {
+        if (!scenarios.isEmpty()) {
             //setting default scenario
             if (DocumentReader.Instance().processParams().scenario.isEmpty())
                 DocumentReader.Instance().processParams().scenario = scenarios.get(0);

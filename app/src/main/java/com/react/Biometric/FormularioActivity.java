@@ -17,15 +17,6 @@ public class FormularioActivity extends AppCompatActivity {
     private String userName;
     private String userPassword;
     private String userModalidad;
-    private String formModalidad;
-    private Button btnContinuar;
-
-    private EditText txtIdentificacion;
-    private EditText txtNombres;
-    private EditText txtApellidos;
-    private TextView lblNombres;
-    private TextView lblApellidos;
-
     private String userNID;
     private String userNombres;
     private String userApellidos;
@@ -34,6 +25,17 @@ public class FormularioActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario);
+
+        String formModalidad;
+        Button btnContinuar;
+
+        EditText txtIdentificacion;
+        EditText txtNombres;
+        EditText txtApellidos;
+        TextView lblNombres;
+        TextView lblApellidos;
+
+
 
         userName = getIntent().getStringExtra(Constantes.USER_NAME);
         userPassword = getIntent().getStringExtra(Constantes.USER_PASSWORD);

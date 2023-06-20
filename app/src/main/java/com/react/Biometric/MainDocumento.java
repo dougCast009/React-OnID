@@ -49,18 +49,6 @@ import java.util.List;
 public class MainDocumento extends BaseActivity implements CustomCallback {
 
     //NUEVOS
-    private Button btnIniciarProceso;
-    private TextView txt_estado;
-    private TextView txt_identificacion;
-    private TextView txt_nombres;
-    private TextView txt_apellidos;
-    private TextView txt_sexo;
-    private TextView txt_cod_pais;
-    private TextView txt_fecha_nacimiento;
-    private ImageView img_foto;
-    private ImageView img_firma;
-    private ImageView img_documento_1;
-    private ImageView img_documento_2;
     private String peticionNID;
     private String peticionNombres;
     private String peticionApellidos;
@@ -75,7 +63,7 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
     private String userName;
     private String userPassword;
     private String userModalidad;
-    private String Metodo;
+    private String metodo;
     private String formModalidad;
     protected FrameLayout fragmentContainerLayout;
 
@@ -90,16 +78,16 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
         userModalidad = getIntent().getStringExtra(OPTION_MODALIDAD);
         formModalidad = getIntent().getStringExtra(Constantes.FORM_MODALIDAD);
 
-        Metodo = "99";
-        if (NoEsNuloOVacio(userModalidad))
+        metodo = "99";
+        if (Boolean.TRUE.equals(noEsNuloOVacio(userModalidad)))
         {
             if (userModalidad.equals(Constantes.MODALIDADENROLA))
             {
-                Metodo = Constantes.ENROLL_DOCMENTOS;
+                metodo = Constantes.ENROLL_DOCMENTOS;
             }
             else
             {
-                Metodo = Constantes.VERI_DOCMENTOS;
+                metodo = Constantes.VERI_DOCMENTOS;
             }
         }
         else
@@ -112,6 +100,19 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
     @Override
     protected void onResumeFragments() {
         super.onResumeFragments();
+
+        //Variables
+        TextView txtNombres;
+        TextView txtSexo;
+        TextView txtIdentificacion;
+        TextView txtFechaNacimiento;
+        TextView txtEstado;
+        TextView txtCodPais;
+        TextView txtApellidos;
+        ImageView imgFoto;
+        ImageView imgFirma;
+        Button btnIniciarProceso;
+        ImageView imgDocumento1;
 
         //CARGAR ELEMENTOS DE LA VISTA
         fragmentContainerLayout = findViewById(R.id.fragmentContainer);
@@ -127,24 +128,18 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+        toolbar.setNavigationOnClickListener(view -> onBackPressed());
 
-        txt_estado = fragmentContainerLayout.findViewById(R.id.txtEstado);
-        txt_identificacion = fragmentContainerLayout.findViewById(R.id.txtIdentificacion);
-        txt_nombres = fragmentContainerLayout.findViewById(R.id.txtNombres);
-        txt_apellidos = fragmentContainerLayout.findViewById(R.id.txtApellidos);
-        txt_sexo = fragmentContainerLayout.findViewById(R.id.txtSexo);
-        txt_fecha_nacimiento = fragmentContainerLayout.findViewById(R.id.txtFechaNacimiento);
-        txt_cod_pais = fragmentContainerLayout.findViewById(R.id.txtCodPais);
-        img_foto = fragmentContainerLayout.findViewById(R.id.img_foto);
-        img_firma = fragmentContainerLayout.findViewById(R.id.img_firma);
-        img_documento_1 = fragmentContainerLayout.findViewById(R.id.img_documento_1);
-        img_documento_2 = fragmentContainerLayout.findViewById(R.id.img_documento_2);
+        txtEstado = fragmentContainerLayout.findViewById(R.id.txtEstado);
+        txtIdentificacion = fragmentContainerLayout.findViewById(R.id.txtIdentificacion);
+        txtNombres = fragmentContainerLayout.findViewById(R.id.txtNombres);
+        txtApellidos = fragmentContainerLayout.findViewById(R.id.txtApellidos);
+        txtSexo = fragmentContainerLayout.findViewById(R.id.txtSexo);
+        txtFechaNacimiento = fragmentContainerLayout.findViewById(R.id.txtFechaNacimiento);
+        txtCodPais = fragmentContainerLayout.findViewById(R.id.txtCodPais);
+        imgFoto = fragmentContainerLayout.findViewById(R.id.img_foto);
+        imgFirma = fragmentContainerLayout.findViewById(R.id.img_firma);
+        imgDocumento1 = fragmentContainerLayout.findViewById(R.id.img_documento_1);
         btnIniciarProceso = fragmentContainerLayout.findViewById(R.id.btnIniciarProceso);
 
         if (formModalidad.equals(Constantes.FORMFACIAL))
@@ -164,7 +159,7 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
             else
             {
                 btnIniciarProceso.setText(getString(R.string.verificar));
-                if (Metodo.equals("20"))
+                if (metodo.equals("20"))
                 {
                     btnIniciarProceso.setVisibility(View.GONE);
                 }
@@ -172,25 +167,25 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
         }
 
         btnIniciarProceso.setOnClickListener(view -> {
-            String Estado = txt_estado.getText().toString();
-            if (NoEsNuloOVacio(Estado))
+            String estado = txtEstado.getText().toString();
+            if (Boolean.TRUE.equals(noEsNuloOVacio(estado)))
             {
-                if (Estado.equals(getString(R.string.result_valido)))
+                if (estado.equals(getString(R.string.result_valido)))
                 {
-                    Boolean Valido = true;
-                    peticionNID = txt_identificacion.getText().toString();
-                    peticionNombres = txt_nombres.getText().toString();
-                    peticionApellidos = txt_apellidos.getText().toString();
-                    peticionSexo = txt_sexo.getText().toString();
-                    peticionNacimiento = txt_fecha_nacimiento.getText().toString();
-                    peticionPais = txt_cod_pais.getText().toString();
-                    Valido = NoEsNuloOVacio(peticionNID) && Valido ? true : false;
-                    Valido = NoEsNuloOVacio(peticionNombres) && Valido ? true : false;
-                    Valido = NoEsNuloOVacio(peticionApellidos) && Valido ? true : false;
-                    Valido = NoEsNuloOVacio(peticionNacimiento) && Valido ? true : false;
-                    Valido = NoEsNuloOVacio(peticionPais) && Valido ? true : false;
+                    Boolean valido = true;
+                    peticionNID = txtIdentificacion.getText().toString();
+                    peticionNombres = txtNombres.getText().toString();
+                    peticionApellidos = txtApellidos.getText().toString();
+                    peticionSexo = txtSexo.getText().toString();
+                    peticionNacimiento = txtFechaNacimiento.getText().toString();
+                    peticionPais = txtCodPais.getText().toString();
+                    valido = noEsNuloOVacio(peticionNID) && valido;
+                    valido = noEsNuloOVacio(peticionNombres) && valido;
+                    valido = noEsNuloOVacio(peticionApellidos) && valido;
+                    valido = noEsNuloOVacio(peticionNacimiento) && valido;
+                    valido = noEsNuloOVacio(peticionPais) && valido;
 
-                    if (Valido)
+                    if (Boolean.TRUE.equals(valido))
                     {
                         if (formModalidad.equals(Constantes.FORMFACIAL))
                         {
@@ -222,23 +217,19 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
                         }
                         else if (formModalidad.equals(Constantes.FORMDOCUMENTO))
                         {
-                            peticionFoto = getStringImage(img_foto);
-                            peticionFirma = getStringImage(img_firma);
-                            peticionDoc = getStringImage(img_documento_1);
-                            Valido = (NoEsNuloOVacio(peticionDoc)) || (NoEsNuloOVacio(peticionFoto) && NoEsNuloOVacio(peticionFirma)) && Valido ? true : false;
+                            peticionFoto = getStringImage(imgFoto);
+                            peticionFirma = getStringImage(imgFirma);
+                            peticionDoc = getStringImage(imgDocumento1);
+                            valido = ( Boolean.TRUE.equals(noEsNuloOVacio(peticionDoc))) || Boolean.TRUE.equals((noEsNuloOVacio(peticionFoto) && noEsNuloOVacio(peticionFirma)) && valido);
 
-                            if (Valido)
+                            if (Boolean.TRUE.equals(valido))
                             {
                                 AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
                                 dlgAlert.setTitle(getString(R.string.consentimiento_title));
                                 dlgAlert.setMessage(getString(R.string.consentimiento));
                                 dlgAlert.setCancelable(false);
                                 dlgAlert.setNegativeButton(getString(R.string.rechazar), null);
-                                dlgAlert.setPositiveButton(getString(R.string.aceptar), new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int whichButton) {
-                                        CrearPeticion();
-                                    }
-                                });
+                                dlgAlert.setPositiveButton(getString(R.string.aceptar), (dialog, whichButton) -> crearPeticion());
                                 dlgAlert.create().show();
                             }
                             else
@@ -311,37 +302,15 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bit.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] imageBytes = baos.toByteArray();
-        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-        return encodedImage;
+        return Base64.encodeToString(imageBytes, Base64.DEFAULT);
     }
 
-    private Boolean NoEsNuloOVacio(String Dato)
+    private Boolean noEsNuloOVacio(String dato)
     {
-        if (Dato != null)
-        {
-            if (Dato.length() > 0)
-            {
-                if (!Dato.equals(getString(R.string.document_pending)))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                return false;
-            }
-        }
-        else
-        {
-            return false;
-        }
+        return dato != null && dato.length() > 0;
     }
 
-    private void CrearPeticion()
+    private void crearPeticion()
     {
         try
         {
@@ -353,9 +322,9 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
             }
 
             Peticion request = new Peticion();
-            request.setMethodAuth(Metodo);
+            request.setMethodAuth(metodo);
             request.setNID(peticionNID);
-            if (Constantes.ESDESARROLLO)
+            if (Boolean.TRUE.equals(Constantes.ESDESARROLLO))
             {
                 request.setCUSTOMERID("xpi");
                 request.setPASS("$tr@!ght1928");
@@ -365,25 +334,25 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
                 request.setCUSTOMERID(userName);
                 request.setPASS(userPassword);
             }
-            List<Biometria> Biometrics = new ArrayList<>();
-            if (NoEsNuloOVacio(peticionDoc))
+            List<Biometria> biometrics = new ArrayList<>();
+            if (Boolean.TRUE.equals(noEsNuloOVacio(peticionDoc)))
             {
                 Biometria documento = new Biometria();
                 documento.setBiometryName("Document");
                 documento.setBiometryRawDataType("Jpeg");
                 documento.setRawData(peticionDoc);
-                Biometrics.add(documento);
+                biometrics.add(documento);
             }
 
-            if (Metodo.equals("30"))
+            if (metodo.equals("30"))
             {
-                if (NoEsNuloOVacio(peticionFoto))
+                if (Boolean.TRUE.equals(noEsNuloOVacio(peticionFoto)))
                 {
                     Biometria rostro = new Biometria();
                     rostro.setBiometryName("Face");
                     rostro.setBiometryRawDataType("Jpeg");
                     rostro.setRawData(peticionFoto);
-                    Biometrics.add(rostro);
+                    biometrics.add(rostro);
                 }
                 request.setNombres(peticionNombres);
                 request.setApellidos(peticionApellidos);
@@ -395,11 +364,11 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
                 request.setFechaNacimiento(peticionNacimiento);
 
             }
-            request.setBiometrics(Biometrics);
+            request.setBiometrics(biometrics);
 
             Gson gson = new Gson();
-            JsonObject JsonRequest = JsonParser.parseString(gson.toJson(request)).getAsJsonObject();
-            RealizarPeticion(JsonRequest);
+            JsonObject jsonRequest = JsonParser.parseString(gson.toJson(request)).getAsJsonObject();
+            realizarPeticion(jsonRequest);
         }
         catch (Exception ex) {
             Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_peticion), Constantes.TOASTDURATION);
@@ -407,13 +376,13 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
         }
     }
 
-    private void RealizarPeticion(JsonObject Request)
+    private void realizarPeticion(JsonObject request)
     {
         try
         {
             InputStream privateCrt = getResources().openRawResource(R.raw.certificado_android_pfx);
             InputStream certChain = getResources().openRawResource(R.raw.certificado_android_pem);
-            final HttpsPostRequest peticion = new HttpsPostRequest(Request, this, privateCrt, certChain);
+            final HttpsPostRequest peticion = new HttpsPostRequest(request, this, privateCrt, certChain);
             peticion.execute(Constantes.URL_BASE);
         }
         catch (Exception ex)
@@ -425,92 +394,71 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
 
     @Override
     public void obtenerRespuesta(Boolean success, String object) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                dismissDialog();
-            }
-        });
+        runOnUiThread(() -> dismissDialog());
 
         try {
-            OrqResponse Respuesta = ResponseManager.obtenerObjetoRespuesta(object);
+            OrqResponse respuesta = ResponseManager.obtenerObjetoRespuesta(object);
 
-            if (Respuesta != null)
+            if (respuesta != null)
             {
-                String ErrorCode = Respuesta.ObtenerInfoPersonaResult.ErrorCode;
-                String Message = Respuesta.ObtenerInfoPersonaResult.Message;
+                String errorCode = respuesta.ObtenerInfoPersonaResult.ErrorCode;
+                String message = respuesta.ObtenerInfoPersonaResult.Message;
 
-                if (ErrorCode.equals("00"))
+                if (errorCode.equals("00"))
                 {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            String Titulo = getString(R.string.matched);
-                            AlertDialog.Builder builder = new AlertDialog.Builder(MainDocumento.this);
-                            LayoutInflater inflater = getLayoutInflater();
-                            final View myView = inflater.inflate(R.layout.activity_main_orquestador, null);
-                            ImageView imgPrincipal = myView.findViewById(R.id.imagen);
-                            imgPrincipal.setImageResource(R.drawable.matched_size);
-                            TextView txtTitulo = myView.findViewById(R.id.texto_principal);
-                            txtTitulo.setText(Titulo);
-                            TextView txtMensaje = myView.findViewById(R.id.texto);
-                            txtMensaje.setText(Message);
+                    runOnUiThread(() -> {
+                        String titulo = getString(R.string.matched);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MainDocumento.this);
+                        LayoutInflater inflater = getLayoutInflater();
+                        final View myView = inflater.inflate(R.layout.activity_main_orquestador, null);
+                        ImageView imgPrincipal = myView.findViewById(R.id.imagen);
+                        imgPrincipal.setImageResource(R.drawable.matched_size);
+                        TextView txtTitulo = myView.findViewById(R.id.texto_principal);
+                        txtTitulo.setText(titulo);
+                        TextView txtMensaje = myView.findViewById(R.id.texto);
+                        txtMensaje.setText(message);
 
-                            builder.setView(myView)
-                                    .setCancelable(false)
-                                    .setPositiveButton(R.string.aceptar, new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int whichButton) {
-                                        }
-                                    });
-                            builder.create().show();
-                        }
+                        builder.setView(myView)
+                                .setCancelable(false)
+                                .setPositiveButton(R.string.aceptar, (dialog, whichButton) -> {
+                                });
+                        builder.create().show();
                     });
                 }
                 else
                 {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            String Titulo = getString(R.string.not_matched);
-                            AlertDialog.Builder builder = new AlertDialog.Builder(MainDocumento.this);
-                            LayoutInflater inflater = getLayoutInflater();
-                            final View myView = inflater.inflate(R.layout.activity_main_orquestador, null);
-                            ImageView imgPrincipal = myView.findViewById(R.id.imagen);
-                            imgPrincipal.setImageResource(R.drawable.not_matched_size);
-                            TextView txtTitulo = myView.findViewById(R.id.texto_principal);
-                            txtTitulo.setText(Titulo);
-                            TextView txtMensaje = myView.findViewById(R.id.texto);
-                            txtMensaje.setText(Message);
+                    runOnUiThread(() -> {
+                        String titulo = getString(R.string.not_matched);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MainDocumento.this);
+                        LayoutInflater inflater = getLayoutInflater();
+                        final View myView = inflater.inflate(R.layout.activity_main_orquestador, null);
+                        ImageView imgPrincipal = myView.findViewById(R.id.imagen);
+                        imgPrincipal.setImageResource(R.drawable.not_matched_size);
+                        TextView txtTitulo = myView.findViewById(R.id.texto_principal);
+                        txtTitulo.setText(titulo);
+                        TextView txtMensaje = myView.findViewById(R.id.texto);
+                        txtMensaje.setText(message);
 
-                            builder.setView(myView)
-                                    .setCancelable(false)
-                                    .setPositiveButton(R.string.aceptar, new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int whichButton) {
-                                        }
-                                    });
-                            builder.create().show();
-                        }
+                        builder.setView(myView)
+                                .setCancelable(false)
+                                .setPositiveButton(R.string.aceptar, (dialog, whichButton) -> {
+                                });
+                        builder.create().show();
                     });
                 }
             }
             else
             {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_realiza_peticion), Constantes.TOASTDURATION);
-                        toast.show();
-                    }
+                runOnUiThread(() -> {
+                    Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_realiza_peticion), Constantes.TOASTDURATION);
+                    toast.show();
                 });
             }
 
         } catch (Exception e) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Constantes.TOASTDURATION);
-                    toast.show();
-                }
+            runOnUiThread(() -> {
+                Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Constantes.TOASTDURATION);
+                toast.show();
             });
         }
     }

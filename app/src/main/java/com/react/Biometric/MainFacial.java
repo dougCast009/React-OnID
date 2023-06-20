@@ -43,30 +43,10 @@ public class MainFacial extends BaseActivity implements CustomCallback
     //BOTONES
     private Button btnTabCapturar;
     private Button btnTabInfo;
-    private Button btnIniciarCaptura;
-    private Button btnIniciarProceso;
     //LAYOUTS
-    private LinearLayout TabInformacion;
-    private LinearLayout TabEscaner;
-    //CAMPOS DE TEXTO
-    private TextView txt_estado;
-    private TextView txt_documento;
-    private TextView txt_identificacion;
-    private TextView txt_nombres;
-    private TextView txt_apellidos;
-    private TextView txt_sexo;
-    private TextView txt_fecha_nacimiento;
-    private TextView txt_lugar_nacimiento;
-    private TextView txt_domicilio;
-    private TextView txt_nombre_madre;
-    private TextView txt_nombre_padre;
-    private TextView txt_vencimiento;
-    private TextView txt_cod_pais;
-    //CAMPOS DE IMAGENES
-    private ImageView img_foto;
-    private ImageView img_firma;
-    private ImageView img_documento_1;
-    private ImageView img_documento_2;
+    private LinearLayout tabInformacion;
+    private LinearLayout tabEscaner;
+
     //VARIABLES DE PETICION
     private String peticionNID;
     private String peticionNombres;
@@ -75,24 +55,23 @@ public class MainFacial extends BaseActivity implements CustomCallback
     private String peticionPais;
     private String peticionNacimiento;
 
-    private LinearLayout MainContent;
-    private LinearLayout TabRespuesta;
-    private ImageView img_resultado;
-    private TextView txt_continuar;
-    private TextView texto_principal;
+    private LinearLayout mainContent;
+    private LinearLayout tabRespuesta;
+    private ImageView imgResultado;
+    private TextView textoPrincipal;
     private Toolbar toolbar;
-    private Boolean EstadoDocumento = false;
+    private Boolean estadoDocumento = false;
 
-    private String ErrorCode = "";
-    private String Message = "";
+    private String errorCode = "";
+    private String message = "";
 
     //ANTERIORES
     private String userName;
     private String userPassword;
     private String userModalidad;
-    private String Metodo;
-    private boolean Captura;
-    private String RostroCapturado;
+    private String metodo;
+    private boolean captura;
+    private String rostroCapturado;
     private AlertDialog loadingDialog;
 
     @Override
@@ -100,29 +79,31 @@ public class MainFacial extends BaseActivity implements CustomCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_facial);
 
+        //Variables
+        TextView txtContinuar;
+        TextView txtNombres;
+        TextView txtSexo;
+        TextView txtFechaNacimiento;
+        TextView txtIdentificacion;
+        TextView txtApellidos;
+        TextView txtCodPais;
+        ImageView imgFoto;
+        Button btnIniciarCaptura;
+        Button btnIniciarProceso;
+
         btnTabCapturar = findViewById(R.id.btnTabCapturar);
         btnTabInfo = findViewById(R.id.btnTabInfo);
         btnIniciarCaptura = findViewById(R.id.btnIniciarCaptura);
         btnIniciarProceso = findViewById(R.id.btnIniciarProceso);
-        TabInformacion = findViewById(R.id.TabInformacion);
-        TabEscaner = findViewById(R.id.TabEscaner);
-        txt_estado = findViewById(R.id.txtEstado);
-        txt_documento = findViewById(R.id.txtDocumento);
-        txt_identificacion = findViewById(R.id.txtIdentificacion);
-        txt_nombres = findViewById(R.id.txtNombres);
-        txt_apellidos = findViewById(R.id.txtApellidos);
-        txt_sexo = findViewById(R.id.txtSexo);
-        txt_fecha_nacimiento = findViewById(R.id.txtFechaNacimiento);
-        txt_lugar_nacimiento = findViewById(R.id.txtLugarNacimiento);
-        txt_domicilio = findViewById(R.id.txtDomicilio);
-        txt_nombre_madre = findViewById(R.id.txtNombreMadre);
-        txt_nombre_padre = findViewById(R.id.txtNombrePadre);
-        txt_vencimiento = findViewById(R.id.txtVencimiento);
-        txt_cod_pais = findViewById(R.id.txtCodPais);
-        img_foto = findViewById(R.id.img_foto);
-        img_firma = findViewById(R.id.img_firma);
-        img_documento_1 = findViewById(R.id.img_documento_1);
-        img_documento_2 = findViewById(R.id.img_documento_2);
+        tabInformacion = findViewById(R.id.TabInformacion);
+        tabEscaner = findViewById(R.id.TabEscaner);
+        txtIdentificacion = findViewById(R.id.txtIdentificacion);
+        txtNombres = findViewById(R.id.txtNombres);
+        txtApellidos = findViewById(R.id.txtApellidos);
+        txtSexo = findViewById(R.id.txtSexo);
+        txtFechaNacimiento = findViewById(R.id.txtFechaNacimiento);
+        txtCodPais = findViewById(R.id.txtCodPais);
+        imgFoto = findViewById(R.id.img_foto);
 
         userName = getIntent().getStringExtra(Constantes.USER_NAME);
         userPassword = getIntent().getStringExtra(Constantes.USER_PASSWORD);
@@ -134,28 +115,28 @@ public class MainFacial extends BaseActivity implements CustomCallback
         peticionPais = getIntent().getStringExtra(Constantes.REQUEST_COUNTRY);
         peticionNacimiento = getIntent().getStringExtra(Constantes.REQUEST_BIRTH);
 
-        txt_identificacion.setText(peticionNID);
-        txt_nombres.setText(peticionNombres);
-        txt_apellidos.setText(peticionApellidos);
-        txt_sexo.setText(peticionSexo);
-        txt_cod_pais.setText(peticionPais);
-        txt_fecha_nacimiento.setText(peticionNacimiento);
+        txtIdentificacion.setText(peticionNID);
+        txtNombres.setText(peticionNombres);
+        txtApellidos.setText(peticionApellidos);
+        txtSexo.setText(peticionSexo);
+        txtCodPais.setText(peticionPais);
+        txtFechaNacimiento.setText(peticionNacimiento);
 
-        MostrarTabCaptura();
+        mostrarTabCaptura();
 
-        Metodo = "99";
-        Captura = false;
+        metodo = "99";
+        captura = false;
         toolbar = findViewById(R.id.toolbarMain);
         if (userModalidad != null)
         {
             if (userModalidad.equals(Constantes.MODALIDADENROLA))
             {
-                Metodo = Constantes.ENROLL_FACIAL;
+                metodo = Constantes.ENROLL_FACIAL;
                 toolbar.setTitle(getString(R.string.title_rostro));
             }
             else
             {
-                Metodo = Constantes.VERI_FACIAL;
+                metodo = Constantes.VERI_FACIAL;
                 toolbar.setTitle(getString(R.string.title_rostro_val));
             }
         }
@@ -169,51 +150,40 @@ public class MainFacial extends BaseActivity implements CustomCallback
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(view -> onBackPressed());
-//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                onBackPressed();
-//            }
-//        });
 
-        MainContent = findViewById(R.id.MainContent);
-        TabRespuesta = findViewById(R.id.TabRespuesta);
-        img_resultado = findViewById(R.id.img_resultado);
-        txt_continuar = findViewById(R.id.txt_continuar);
-        texto_principal = findViewById(R.id.texto_principal);
+        mainContent = findViewById(R.id.MainContent);
+        tabRespuesta = findViewById(R.id.TabRespuesta);
+        imgResultado = findViewById(R.id.img_resultado);
+        txtContinuar = findViewById(R.id.txt_continuar);
+        textoPrincipal = findViewById(R.id.texto_principal);
 
         btnIniciarCaptura.setOnClickListener(view -> {
-            EstadoDocumento = false;
-            ErrorCode = "";
-            Message = "";
-            Captura = false;
-            RostroCapturado = "";
-            img_foto.setImageResource(R.drawable.avatar);
+            estadoDocumento = false;
+            errorCode = "";
+            message = "";
+            captura = false;
+            rostroCapturado = "";
+            imgFoto.setImageResource(R.drawable.avatar);
 
             FaceSDK.Instance().startLiveness(this, livenessResponse -> {
                 if (livenessResponse.getLiveness() == LivenessStatus.PASSED) {
-                    Captura = true;
-                    RostroCapturado = this.getStringImage(livenessResponse.getBitmap());
-                    img_foto.setImageBitmap(livenessResponse.getBitmap());
-                    MostrarTabInformacion();
+                    captura = true;
+                    rostroCapturado = this.getStringImage(livenessResponse.getBitmap());
+                    imgFoto.setImageBitmap(livenessResponse.getBitmap());
+                    mostrarTabInformacion();
                 }
             });
         });
 
         btnIniciarProceso.setOnClickListener(view -> {
-            if (Captura)
+            if (captura)
             {
                 AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
                 dlgAlert.setTitle(getString(R.string.consentimiento_title));
                 dlgAlert.setMessage(getString(R.string.consentimiento));
                 dlgAlert.setCancelable(false);
                 dlgAlert.setNegativeButton(getString(R.string.rechazar), null);
-                dlgAlert.setPositiveButton(getString(R.string.aceptar), (dialog, whichButton) -> CrearPeticion());
-//                dlgAlert.setPositiveButton(getString(R.string.aceptar), new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int whichButton) {
-//                        CrearPeticion();
-//                    }
-//                });
+                dlgAlert.setPositiveButton(getString(R.string.aceptar), (dialog, whichButton) -> crearPeticion());
                 dlgAlert.create().show();
             }
             else
@@ -223,86 +193,74 @@ public class MainFacial extends BaseActivity implements CustomCallback
             }
         });
 
-        btnTabCapturar.setOnClickListener(view -> {
-            MostrarTabCaptura();
-        });
+        btnTabCapturar.setOnClickListener(view -> mostrarTabCaptura());
 
-        btnTabInfo.setOnClickListener(view -> {
-            MostrarTabInformacion();
-        });
+        btnTabInfo.setOnClickListener(view -> mostrarTabInformacion());
 
-        txt_continuar.setOnClickListener(view -> {
-            TabRespuesta.setVisibility(View.GONE);
+        txtContinuar.setOnClickListener(view -> {
+            tabRespuesta.setVisibility(View.GONE);
             toolbar.setVisibility(View.VISIBLE);
-            MainContent.setVisibility(View.VISIBLE);
+            mainContent.setVisibility(View.VISIBLE);
 
-            if (EstadoDocumento)
+            if (Boolean.TRUE.equals(estadoDocumento))
             {
-                String Titulo = getString(R.string.matched);
+                String titulo = getString(R.string.matched);
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainFacial.this);
                 LayoutInflater inflater = getLayoutInflater();
                 final View myView = inflater.inflate(R.layout.activity_main_orquestador, null);
                 ImageView imgPrincipal = myView.findViewById(R.id.imagen);
                 imgPrincipal.setImageResource(R.drawable.matched_size);
                 TextView txtTitulo = myView.findViewById(R.id.texto_principal);
-                txtTitulo.setText(Titulo);
+                txtTitulo.setText(titulo);
                 TextView txtMensaje = myView.findViewById(R.id.texto);
-                txtMensaje.setText(Message);
+                txtMensaje.setText(message);
 
                 builder.setView(myView)
                         .setCancelable(false)
                         .setPositiveButton(R.string.aceptar, (dialog, whichButton) -> {
                         });
-//                .setPositiveButton(R.string.aceptar, new DialogInterface.OnClickListener() {
-//                public void onClick(DialogInterface dialog, int whichButton) {
-//                }
-//            });
                 builder.create().show();
             }
             else
             {
-                String Titulo = getString(R.string.not_matched);
+                String titulo = getString(R.string.not_matched);
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainFacial.this);
                 LayoutInflater inflater = getLayoutInflater();
                 final View myView = inflater.inflate(R.layout.activity_main_orquestador, null);
                 ImageView imgPrincipal = myView.findViewById(R.id.imagen);
                 imgPrincipal.setImageResource(R.drawable.not_matched_size);
                 TextView txtTitulo = myView.findViewById(R.id.texto_principal);
-                txtTitulo.setText(Titulo);
+                txtTitulo.setText(titulo);
                 TextView txtMensaje = myView.findViewById(R.id.texto);
-                txtMensaje.setText(Message);
+                txtMensaje.setText(message);
 
                 builder.setView(myView)
                         .setCancelable(false)
                         .setPositiveButton(R.string.aceptar, (dialog, whichButton) -> {
                         });
-//                .setPositiveButton(R.string.aceptar, new DialogInterface.OnClickListener() {
-//                public void onClick(DialogInterface dialog, int whichButton) {
-//                }
-//            });
                 builder.create().show();
             }
         });
     }
 
-    private void MostrarTabCaptura()
+    private void mostrarTabCaptura()
     {
         btnTabCapturar.setBackgroundColor(Color.parseColor(getString(R.string.color_primary)));
         btnTabInfo.setBackgroundColor(Color.parseColor(getString(R.string.color_primary_dark)));
         btnTabCapturar.setTextColor(Color.parseColor(getString(R.string.color_font_primary)));
         btnTabInfo.setTextColor(Color.parseColor(getString(R.string.color_font_primary_dark)));
-        TabInformacion.setVisibility(View.GONE);
-        TabEscaner.setVisibility(View.VISIBLE);
+        tabInformacion.setVisibility(View.GONE);
+        tabEscaner.setVisibility(View.VISIBLE);
     }
 
-    private void MostrarTabInformacion()
+    private void mostrarTabInformacion()
     {
         btnTabCapturar.setBackgroundColor(Color.parseColor(getString(R.string.color_primary_dark)));
         btnTabInfo.setBackgroundColor(Color.parseColor(getString(R.string.color_primary)));
         btnTabCapturar.setTextColor(Color.parseColor(getString(R.string.color_font_primary_dark)));
         btnTabInfo.setTextColor(Color.parseColor(getString(R.string.color_font_primary)));
-        TabInformacion.setVisibility(View.VISIBLE);
-        TabEscaner.setVisibility(View.GONE);
+        tabInformacion.setVisibility(View.VISIBLE);
+        tabEscaner.setVisibility(View.GONE);
     }
 
     @Override
@@ -318,8 +276,7 @@ public class MainFacial extends BaseActivity implements CustomCallback
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] imageBytes = baos.toByteArray();
-        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-        return encodedImage;
+        return Base64.encodeToString(imageBytes, Base64.DEFAULT);
     }
 
     protected void dismissDialog() {
@@ -338,7 +295,7 @@ public class MainFacial extends BaseActivity implements CustomCallback
         loadingDialog = builderDialog.show();
     }
 
-    private void CrearPeticion()
+    private void crearPeticion()
     {
         try
         {
@@ -351,7 +308,7 @@ public class MainFacial extends BaseActivity implements CustomCallback
             }
 
             Peticion request = new Peticion();
-            request.setMethodAuth(Metodo);
+            request.setMethodAuth(metodo);
             request.setNID(peticionNID);
 
             if (Boolean.TRUE.equals(Constantes.ESDESARROLLO))
@@ -365,15 +322,15 @@ public class MainFacial extends BaseActivity implements CustomCallback
                 request.setPASS(userPassword);
             }
 
-            List<Biometria> Biometrics = new ArrayList<>();
+            List<Biometria> biometrics = new ArrayList<>();
             Biometria rostro = new Biometria();
             rostro.setBiometryName("Face");
             rostro.setBiometryRawDataType("Jpeg");
-            rostro.setRawData(RostroCapturado);
-            Biometrics.add(rostro);
-            request.setBiometrics(Biometrics);
+            rostro.setRawData(rostroCapturado);
+            biometrics.add(rostro);
+            request.setBiometrics(biometrics);
 
-            if (Metodo.equals("30"))
+            if (metodo.equals("30"))
             {
                 request.setNombres(peticionNombres);
                 request.setApellidos(peticionApellidos);
@@ -386,8 +343,8 @@ public class MainFacial extends BaseActivity implements CustomCallback
             }
 
             Gson gson = new Gson();
-            JsonObject JsonRequest = JsonParser.parseString(gson.toJson(request)).getAsJsonObject();
-            RealizarPeticion(JsonRequest);
+            JsonObject jsonRequest = JsonParser.parseString(gson.toJson(request)).getAsJsonObject();
+            realizarPeticion(jsonRequest);
         }
         catch (Exception ex) {
             Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_peticion), Constantes.TOASTDURATION);
@@ -395,13 +352,13 @@ public class MainFacial extends BaseActivity implements CustomCallback
         }
     }
 
-    private void RealizarPeticion(JsonObject Request)
+    private void realizarPeticion(JsonObject request)
     {
         try
         {
             InputStream privateCrt = getResources().openRawResource(R.raw.certificado_android_pfx);
             InputStream certChain = getResources().openRawResource(R.raw.certificado_android_pem);
-            final HttpsPostRequest peticion = new HttpsPostRequest(Request, this, privateCrt, certChain);
+            final HttpsPostRequest peticion = new HttpsPostRequest(request, this, privateCrt, certChain);
             peticion.execute(Constantes.URL_BASE);
         }
         catch (Exception ex)
@@ -412,66 +369,38 @@ public class MainFacial extends BaseActivity implements CustomCallback
     }
 
     @Override
-    public void obtenerRespuesta(Boolean success, String object) {
-        runOnUiThread(() -> dismissDialog());
-//        runOnUiThread(new Runnable() {
-//            @Override
-//            public void run() {
-//                dismissDialog();
-//            }
-//        });
+    public void ObtenerRespuesta(Boolean success, String object) {
+        runOnUiThread(this::dismissDialog);
 
         try {
-            OrqResponse Respuesta = ResponseManager.obtenerObjetoRespuesta(object);
+            OrqResponse respuesta = ResponseManager.obtenerObjetoRespuesta(object);
 
-            if (Respuesta != null)
+            if (respuesta != null)
             {
-                ErrorCode = Respuesta.ObtenerInfoPersonaResult.ErrorCode;
-                Message = Respuesta.ObtenerInfoPersonaResult.Message;
+                errorCode = respuesta.ObtenerInfoPersonaResult.ErrorCode;
+                message = respuesta.ObtenerInfoPersonaResult.Message;
 
-                if (ErrorCode.equals("00"))
+                if (errorCode.equals("00"))
                 {
                     runOnUiThread(() -> {
-                        EstadoDocumento = true;
-                        TabRespuesta.setVisibility(View.VISIBLE);
+                        estadoDocumento = true;
+                        tabRespuesta.setVisibility(View.VISIBLE);
                         toolbar.setVisibility(View.GONE);
-                        MainContent.setVisibility(View.GONE);
-                        texto_principal.setText(EstadoDocumento ? getString(R.string.identidad_confirmada) : getString(R.string.identidad_no_confirmada));
-                        img_resultado.setImageResource(EstadoDocumento ? R.drawable.document_check : R.drawable.document_cross);
+                        mainContent.setVisibility(View.GONE);
+                        textoPrincipal.setText(Boolean.TRUE.equals(estadoDocumento) ? getString(R.string.identidad_confirmada) : getString(R.string.identidad_no_confirmada));
+                        imgResultado.setImageResource(Boolean.TRUE.equals(estadoDocumento) ? R.drawable.document_check : R.drawable.document_cross);
                     });
-//                    runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            EstadoDocumento = true;
-//                            TabRespuesta.setVisibility(View.VISIBLE);
-//                            toolbar.setVisibility(View.GONE);
-//                            MainContent.setVisibility(View.GONE);
-//                            texto_principal.setText(EstadoDocumento ? getString(R.string.identidad_confirmada) : getString(R.string.identidad_no_confirmada));
-//                            img_resultado.setImageResource(EstadoDocumento ? R.drawable.document_check : R.drawable.document_cross);
-//                        }
-//                    });
                 }
                 else
                 {
                     runOnUiThread(() -> {
-                        EstadoDocumento = false;
-                        TabRespuesta.setVisibility(View.VISIBLE);
+                        estadoDocumento = false;
+                        tabRespuesta.setVisibility(View.VISIBLE);
                         toolbar.setVisibility(View.GONE);
-                        MainContent.setVisibility(View.GONE);
-                        texto_principal.setText(EstadoDocumento ? getString(R.string.identidad_confirmada) : getString(R.string.identidad_no_confirmada));
-                        img_resultado.setImageResource(EstadoDocumento ? R.drawable.document_check : R.drawable.document_cross);
+                        mainContent.setVisibility(View.GONE);
+                        textoPrincipal.setText(Boolean.TRUE.equals(estadoDocumento) ? getString(R.string.identidad_confirmada) : getString(R.string.identidad_no_confirmada));
+                        imgResultado.setImageResource(Boolean.TRUE.equals(estadoDocumento) ? R.drawable.document_check : R.drawable.document_cross);
                     });
-//                    runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            EstadoDocumento = false;
-//                            TabRespuesta.setVisibility(View.VISIBLE);
-//                            toolbar.setVisibility(View.GONE);
-//                            MainContent.setVisibility(View.GONE);
-//                            texto_principal.setText(EstadoDocumento ? getString(R.string.identidad_confirmada) : getString(R.string.identidad_no_confirmada));
-//                            img_resultado.setImageResource(EstadoDocumento ? R.drawable.document_check : R.drawable.document_cross);
-//                        }
-//                    });
                 }
             }
             else

@@ -2,8 +2,12 @@ package com.react.Biometric;
 
 import android.widget.Toast;
 
-public class Constantes
+
+public final class Constantes
 {
+    private Constantes(){
+        throw new IllegalArgumentException("El dato que se pasa o se referencia no es correcto.");
+    }
     public static final String USER_NAME = "user_name";
     public static final String USER_PASSWORD = "user_password";
     public static final String OPTION_MODALIDAD = "modalidad";
@@ -52,7 +56,7 @@ public class Constantes
     public static final int VERIFACIALDEMO = 1;
     public static final int VERICONSENTIMIENTO = 16;
 
-    public static int TOASTDURATION = Toast.LENGTH_SHORT;
+    public static final int TOASTDURATION = Toast.LENGTH_SHORT;
     public static final String MODALIDADENROLA = "ENROLA";
     public static final String MODALIDADVALIDA = "VALIDA";
 
