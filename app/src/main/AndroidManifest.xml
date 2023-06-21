@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.react.Biometric">
+    package="com.react.biometric">
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -26,7 +26,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.react.Biometric.MainHuella"
+            android:name="com.react.biometric.MainHuella"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
@@ -35,7 +35,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name="com.react.Biometric.RespuestaActivity"
+            android:name="com.react.biometric.RespuestaActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
@@ -44,7 +44,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name="com.react.Biometric.MainOrquestador"
+            android:name="com.react.biometric.MainOrquestador"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
@@ -53,7 +53,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name="com.react.Biometric.ConsentimientoActivity"
+            android:name="com.react.biometric.ConsentimientoActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
@@ -62,7 +62,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name="com.react.Biometric.FormularioActivity"
+            android:name="com.react.biometric.FormularioActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
@@ -71,7 +71,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name="com.react.Biometric.MainFacial"
+            android:name="com.react.biometric.MainFacial"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
@@ -80,7 +80,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name="com.react.Biometric.MainDocumento"
+            android:name="com.react.biometric.MainDocumento"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
@@ -89,7 +89,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name="com.react.Biometric.PrincipalActivity"
+            android:name="com.react.biometric.PrincipalActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
@@ -98,7 +98,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name="com.react.Biometric.SelectorActivity"
+            android:name="com.react.biometric.SelectorActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
@@ -107,7 +107,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name="com.react.Biometric.IniciarSesionActivity"
+            android:name="com.react.biometric.IniciarSesionActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
@@ -122,7 +122,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name="com.react.Biometric.MainActivity"
+            android:name="com.react.biometric.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.DayNight">

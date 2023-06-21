@@ -6,7 +6,7 @@ android {
 
     compileSdkVersion 32
     defaultConfig {
-        applicationId "com.react.Biometric"
+        applicationId "com.react.biometric"
         minSdkVersion 21
         targetSdkVersion 32
         versionCode 1
