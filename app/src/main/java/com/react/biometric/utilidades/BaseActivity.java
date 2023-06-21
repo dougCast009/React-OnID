@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.react.biometric.R;
 import com.react.biometric.Constantes;
+import com.react.biometric.util.ProgressHelper;
 
 //Clase de utilidades para el manejo de interfaz, incluida en el SDK de neurotechnology, modificada con temas de aplicación
 public class BaseActivity extends AppCompatActivity {
@@ -17,7 +18,7 @@ public class BaseActivity extends AppCompatActivity {
     // Private fields
     // ===========================================================
 
-    private ProgressDialog mProgressDialog;
+    private ProgressHelper mProgressDialog;
     // ===========================================================
     // Protected methods
     // ===========================================================
@@ -29,17 +30,16 @@ public class BaseActivity extends AppCompatActivity {
     protected void showProgress(final String message, final String title, final Context contexto) {
         hideProgress();
         runOnUiThread(() -> {
-            mProgressDialog = new ProgressDialog(contexto, R.style.AlertDialogProgressStyle);
-            mProgressDialog.setTitle(title);
-            mProgressDialog.setMessage(message);
-            mProgressDialog.show();
+            mProgressDialog = new ProgressHelper();
+            mProgressDialog.showProgress(contexto,message);
+
         });
     }
 
     protected void hideProgress() {
         runOnUiThread(() -> {
             if (mProgressDialog != null && mProgressDialog.isShowing()) {
-                mProgressDialog.dismiss();
+                mProgressDialog.hideProgress();
             }
         });
     }
