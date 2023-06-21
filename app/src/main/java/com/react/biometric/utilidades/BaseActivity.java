@@ -23,23 +23,19 @@ public class BaseActivity extends AppCompatActivity {
     // Protected methods
     // ===========================================================
 
-    protected void showProgress(int messageId, int titleId, Context context) {
-        showProgress(getString(messageId), getString(titleId), context);
+    protected void showProgress(int messageId,  Context context) {
+        showProgress(getString(messageId), context);
     }
 
-    protected void showProgress(final String message, final String title, final Context contexto) {
+    protected void showProgress(final String message, final Context contexto) {
         hideProgress();
-        runOnUiThread(() -> {
-            mProgressDialog = new ProgressHelper();
-            mProgressDialog.showProgress(contexto,message);
-
-        });
+        runOnUiThread(() -> ProgressHelper.showProgress(contexto,message));
     }
 
     protected void hideProgress() {
         runOnUiThread(() -> {
             if (mProgressDialog != null && mProgressDialog.isShowing()) {
-                mProgressDialog.hideProgress();
+                ProgressHelper.hideProgress();
             }
         });
     }
@@ -66,7 +62,6 @@ public class BaseActivity extends AppCompatActivity {
                     .setMessage(message)
                     .setPositiveButton(android.R.string.ok, null).show();
 
-            //AlertDialog dialog = builder.create();
         });
     }
 

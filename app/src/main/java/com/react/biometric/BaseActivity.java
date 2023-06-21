@@ -225,13 +225,13 @@ public abstract class BaseActivity extends AppCompatActivity implements MainFrag
                 .apply();
     }
 
-    private final IDocumentReaderCompletion completion = new IDocumentReaderCompletion() {
+    private final IDocumentReaderCompletion completion = (new IDocumentReaderCompletion() {
+
         @Override
         public void onCompleted(int action, DocumentReaderResults results, DocumentReaderException error) {
             //processing is finished, all results are ready
             if (action == DocReaderAction.COMPLETE || action == DocReaderAction.TIMEOUT) {
                 dismissDialog();
-
                 //Checking, if nfc chip reading should be performed
                 if (doRfid && results != null && results.chipPage != 0) {
                     //starting chip reading
@@ -252,7 +252,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MainFrag
                 }
             }
         }
-    };
+    });
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

@@ -15,6 +15,7 @@ import androidx.appcompat.app.AlertDialog;
 public class ProgressHelper {
 
     private static AlertDialog dialog = null;
+
     public static void showProgress(Context context, String message) {
         if(dialog == null){
             int llPadding = 30;
@@ -22,8 +23,7 @@ public class ProgressHelper {
             ll.setOrientation(LinearLayout.HORIZONTAL);
             ll.setPadding(llPadding, llPadding, llPadding, llPadding);
             ll.setGravity(Gravity.CENTER);
-            LinearLayout.LayoutParams llParam = new LinearLayout.LayoutParams(-2,-2
-                    );
+            LinearLayout.LayoutParams llParam = new LinearLayout.LayoutParams(-2,-2);
             llParam.gravity = Gravity.CENTER;
             ll.setLayoutParams(llParam);
 

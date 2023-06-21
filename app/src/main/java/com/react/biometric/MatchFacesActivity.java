@@ -95,7 +95,7 @@ public class MatchFacesActivity extends Activity {
     }
 
 
-    @SuppressLint("NonConstantResourceId")
+
     private void showMenu(ImageView imageView, int i) {
         PopupMenu popupMenu = new PopupMenu(MatchFacesActivity.this, imageView);
         popupMenu.setOnMenuItemClickListener(menuItem -> {
