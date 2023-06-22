@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.react.biometric.SelectorActivity">
+    tools:context="com.react.Biometric.SelectorActivity">
     <item
         android:id="@+id/itemSwitchCamera"
         android:title="@string/demo"

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:screenOrientation="portrait"
-    tools:context="com.react.biometric.SelectorActivity">
+    tools:context="com.react.Biometric.SelectorActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"

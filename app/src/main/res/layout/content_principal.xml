@@ -7,7 +7,7 @@
     android:background="@android:color/white"
     android:screenOrientation="portrait"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.react.biometric.MainActivity"
+    tools:context="com.react.Biometric.MainActivity"
     tools:showIn="@layout/activity_principal">
 
     <ScrollView
