@@ -39,9 +39,8 @@ public final class Constantes
     public static final String CONSENTIMIENTO = "txt";
     public static final String PERSONAL_URL = "link";
     public static final String NOM_COMPLETO = "nom";
-
-    public  static  final String URL_BASE = "onidlogicapp.azurewebsites.net:443";
-    public  static  final String URL_PATH = "/api/onid/triggers/manual/invoke?api-version=2022-05-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=tQQIPr09aECU0YQPeTpMQxIrW4q1slyhtIF_T-oH7jE";
+    public  static  final String URL_BASE = BuildConfig.URL_BASE;
+    public  static  final String URL_PATH = BuildConfig.URL_PATH;
 
     public static final String DEMO_USER = "REACT001";
     public static final String PASSWORD_USER = "$tr@!ght1928";
