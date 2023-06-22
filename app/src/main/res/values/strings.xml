@@ -42,7 +42,7 @@
     <string name="finger_txt_face">Huella</string>
     <string name="finger_error_face">Por favor capture sus huellas antes de continuar.</string>
     <string name="finger_starting">Iniciando...</string>
-
+    <string name="mano">right</string>
     <string name="face_titulo">Captura de Rostro</string>
     <string name="face_txt_face">Rostro</string>
     <string name="face_error_modalidad">No fue posible obtener la modalidad.</string>
