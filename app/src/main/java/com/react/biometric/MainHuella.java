@@ -372,27 +372,27 @@ public class MainHuella extends BaseActivity implements CustomCallback
 
                                 if (manoIndice.equals(R.string.mano))
                                 {
-                                    wsqIndce = resp.data.rightindex.templates.WSQ.DEFAULT;
-                                    wsqMedio = resp.data.rightmiddle.templates.WSQ.DEFAULT;
-                                    wsqAnular = resp.data.rightring.templates.WSQ.DEFAULT;
-                                    wsqMenique = resp.data.rightlittle.templates.WSQ.DEFAULT;
+                                    wsqIndce = resp.getData().rightindex.templates.WSQ.DEFAULT;
+                                    wsqMedio = resp.getData().rightmiddle.templates.WSQ.DEFAULT;
+                                    wsqAnular = resp.getData().rightring.templates.WSQ.DEFAULT;
+                                    wsqMenique = resp.getData().rightlittle.templates.WSQ.DEFAULT;
 
-                                    pngIndce = resp.data.rightindex.templates.PNG.DEFAULT;
-                                    pngMedio = resp.data.rightmiddle.templates.PNG.DEFAULT;
-                                    pngAnular = resp.data.rightring.templates.PNG.DEFAULT;
-                                    pngMenique = resp.data.rightlittle.templates.PNG.DEFAULT;
+                                    pngIndce = resp.getData().rightindex.templates.PNG.DEFAULT;
+                                    pngMedio = resp.getData().rightmiddle.templates.PNG.DEFAULT;
+                                    pngAnular = resp.getData().rightring.templates.PNG.DEFAULT;
+                                    pngMenique = resp.getData().rightlittle.templates.PNG.DEFAULT;
                                 }
                                 else
                                 {
-                                    wsqIndce = resp.data.leftindex.templates.WSQ.DEFAULT;
-                                    wsqMedio = resp.data.leftmiddle.templates.WSQ.DEFAULT;
-                                    wsqAnular = resp.data.leftring.templates.WSQ.DEFAULT;
-                                    wsqMenique = resp.data.leftlittle.templates.WSQ.DEFAULT;
+                                    wsqIndce = resp.getData().leftindex.templates.WSQ.DEFAULT;
+                                    wsqMedio = resp.getData().leftmiddle.templates.WSQ.DEFAULT;
+                                    wsqAnular = resp.getData().leftring.templates.WSQ.DEFAULT;
+                                    wsqMenique = resp.getData().leftlittle.templates.WSQ.DEFAULT;
 
-                                    pngIndce = resp.data.leftindex.templates.PNG.DEFAULT;
-                                    pngMedio = resp.data.leftmiddle.templates.PNG.DEFAULT;
-                                    pngAnular = resp.data.leftring.templates.PNG.DEFAULT;
-                                    pngMenique = resp.data.leftlittle.templates.PNG.DEFAULT;
+                                    pngIndce = resp.getData().leftindex.templates.PNG.DEFAULT;
+                                    pngMedio = resp.getData().leftmiddle.templates.PNG.DEFAULT;
+                                    pngAnular = resp.getData().leftring.templates.PNG.DEFAULT;
+                                    pngMenique = resp.getData().leftlittle.templates.PNG.DEFAULT;
                                 }
 
                                 runOnUiThread(() -> {

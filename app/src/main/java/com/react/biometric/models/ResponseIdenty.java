@@ -1,7 +1,11 @@
 package com.react.biometric.models;
 
 public class ResponseIdenty {
-    public Data data;
+    private Data data;
+
+    public Data getData() {
+        return data;
+    }
 
     public ResponseIdenty(Data data)
     {
