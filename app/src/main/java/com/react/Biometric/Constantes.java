@@ -2,7 +2,6 @@ package com.react.Biometric;
 
 import android.widget.Toast;
 
-
 public final class Constantes
 {
     private Constantes(){
