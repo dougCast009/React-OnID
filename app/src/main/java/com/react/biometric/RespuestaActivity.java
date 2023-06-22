@@ -105,7 +105,7 @@ public class RespuestaActivity extends AppCompatActivity {
         });
 
         btnIniciarCaptura.setOnClickListener(view -> {
-            //LimpiarCampos();
+
             Toast toast = Toast.makeText(getApplicationContext(), "Funciona", Constantes.TOASTDURATION);
             toast.show();
         });

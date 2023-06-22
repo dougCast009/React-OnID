@@ -139,17 +139,17 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
             request.setMethodAuth(METODO);
             if (Boolean.TRUE.equals(Constantes.ESDESARROLLO))
             {
-                request.setCUSTOMERID("xpi");
-                request.setPASS("$tr@!ght1928");
+                request.setCustomerid("xpi");
+                request.setPass("$tr@!ght1928");
             }
             else
             {
-                request.setCUSTOMERID(userName);
-                request.setPASS(userPassword);
+                request.setCustomerid(userName);
+                request.setPass(userPassword);
             }
 
-            usuario = request.getCUSTOMERID();
-            contrasenna = request.getPASS();
+            usuario = request.getCustomerid();
+            contrasenna = request.getPass();
 
             Gson gson = new Gson();
             JsonObject jsonRequest = JsonParser.parseString(gson.toJson(request)).getAsJsonObject();

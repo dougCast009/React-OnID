@@ -54,9 +54,9 @@ public class MainOrquestador extends AppCompatActivity implements CustomCallback
             biometrics.add(biometric);
 
             Peticion request = new Peticion();
-            request.setCUSTOMERID("xpi");
-            request.setPASS("$tr@!ght1928");
-            request.setNID("201110111");
+            request.setCustomerid("xpi");
+            request.setPass("$tr@!ght1928");
+            request.setNid("201110111");
             request.setMethodAuth("30");
             request.setNombres("COPPER");
             request.setApellidos("BRAND");

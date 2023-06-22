@@ -318,16 +318,16 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
 
             Peticion request = new Peticion();
             request.setMethodAuth(metodo);
-            request.setNID(peticionNID);
+            request.setNid(peticionNID);
             if (Boolean.TRUE.equals(Constantes.ESDESARROLLO))
             {
-                request.setCUSTOMERID("xpi");
-                request.setPASS("$tr@!ght1928");
+                request.setCustomerid("xpi");
+                request.setPass("$tr@!ght1928");
             }
             else
             {
-                request.setCUSTOMERID(userName);
-                request.setPASS(userPassword);
+                request.setCustomerid(userName);
+                request.setPass(userPassword);
             }
             List<Biometria> biometrics = new ArrayList<>();
             if (Boolean.TRUE.equals(noEsNuloOVacio(peticionDoc)))
