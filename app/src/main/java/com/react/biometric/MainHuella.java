@@ -484,17 +484,8 @@ public class MainHuella extends BaseActivity implements CustomCallback
             request.setMethodAuth(metodo);
             request.setNid(peticionNID);
 
-            if (Boolean.TRUE.equals(Constantes.ESDESARROLLO))
-            {
-                request.setCustomerid("xpi");
-                request.setPass("$tr@!ght1928");
-            }
-            else
-            {
-                request.setCustomerid(userName);
-                request.setPass(userPassword);
-            }
-
+            request.setCustomerid(userName);
+            request.setPass(userPassword);
             List<Biometria> biometrics = new ArrayList<>();
             if (Boolean.TRUE.equals(noEsNuloOVacio(wsqIndce)))
             {

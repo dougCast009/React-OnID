@@ -102,10 +102,6 @@ public class MainFragment extends Fragment {
     private static final String TXTCOLORSECUNDARIO = "#B33A3A";
     private static final String TXTCOLORNEGRO = "#000000";
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -173,7 +169,7 @@ public class MainFragment extends Fragment {
     public void onResume() {//used to show scenarios after fragments transaction
         super.onResume();
         if (getActivity() != null && DocumentReader.Instance().isReady() && (!DocumentReader.Instance().availableScenarios.isEmpty()))
-                ((BaseActivity) getActivity()).setScenarios();
+            ((BaseActivity) getActivity()).setScenarios();
     }
 
     @Override
@@ -188,8 +184,7 @@ public class MainFragment extends Fragment {
         mCallbacks = null;
     }
 
-    private void mostrarTabCaptura()
-    {
+    private void mostrarTabCaptura() {
         btnTabCapturar.setBackgroundColor(Color.parseColor(getString(R.string.color_primary)));
         btnTabInfo.setBackgroundColor(Color.parseColor(getString(R.string.color_primary_dark)));
         btnTabCapturar.setTextColor(Color.parseColor(getString(R.string.color_font_primary)));
@@ -198,8 +193,7 @@ public class MainFragment extends Fragment {
         tabEscaner.setVisibility(View.VISIBLE);
     }
 
-    private void mostrarTabInformacion()
-    {
+    private void mostrarTabInformacion() {
         btnTabCapturar.setBackgroundColor(Color.parseColor(getString(R.string.color_primary_dark)));
         btnTabInfo.setBackgroundColor(Color.parseColor(getString(R.string.color_primary)));
         btnTabCapturar.setTextColor(Color.parseColor(getString(R.string.color_font_primary_dark)));
@@ -226,143 +220,151 @@ public class MainFragment extends Fragment {
         });
     }
 
+    private void setImgFoto(DocumentReaderResults results) {
+        Bitmap portrait = results.getGraphicFieldImageByType(eGraphicFieldType.GF_PORTRAIT);
+        if (portrait != null) {
+            this.imgFoto.setImageBitmap(portrait);
+        }
+    }
+
+    private void setImgFirma(DocumentReaderResults results) {
+        Bitmap firmaImg = results.getGraphicFieldImageByType(eGraphicFieldType.GF_SIGNATURE);
+        if (imgFirma != null) {
+            imgFirma.setImageBitmap(firmaImg);
+        }
+    }
+
+    private void setImgDocumento1(DocumentReaderResults results) {
+        Bitmap imgDoc1 = results.getGraphicFieldImageByType(eGraphicFieldType.GF_DOCUMENT_IMAGE);
+        if (imgDoc1 != null) {
+            imgDocumento1.setImageBitmap(imgDoc1);
+        }
+    }
+
+    private void setImgDocumento2(DocumentReaderResults results) {
+        Bitmap imgDoc2 = results.getGraphicFieldImageByType(eGraphicFieldType.GF_OTHER);
+        if (imgDoc2 != null) {
+            imgDocumento2.setImageBitmap(imgDoc2);
+        }
+    }
+
+    private void chargeTextFields(DocumentReaderResults results) {
+        //CARGAR CAMPOS DE TEXTO
+        txtCodPais.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_ISSUING_STATE_CODE)));
+        txtDcumento.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_PERSONAL_NUMBER)));
+        String extra = validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_OPTIONAL_DATA));
+        String identificacion = extra.equals(getString(R.string.document_pending)) ? validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_DOCUMENT_NUMBER)) : validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_DOCUMENT_NUMBER) + extra);
+        txtIdentificacion.setText(identificacion);
+        txtNombres.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_GIVEN_NAMES)));
+        txtApellidos.setText(validarNulosApellidos(results.getTextFieldValueByType(eVisualFieldType.FT_SURNAME)) + " " + validarNulosApellidos(results.getTextFieldValueByType(eVisualFieldType.FT_SECOND_SURNAME)));
+        txtSexo.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_SEX)));
+        txtEdad.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_AGE)));
+        txtFechaNacimiento.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_DATE_OF_BIRTH)));
+        txtLugarNacimiento.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_PLACE_OF_BIRTH)));
+        txtDomicilio.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_PLACE_OF_REGISTRATION)));
+        txtNombreMadre.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_MOTHER_GIVENNAME)));
+        txtNombrePadre.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_FATHER_GIVENNAME)));
+        String meses = validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_REMAINDER_TERM));
+        txtMeses.setText(meses);
+        txtVencimiento.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_DATE_OF_EXPIRY)));
+        txtPaisOrigen.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_ISSUING_STATE_NAME)));
+        txtDmxExpediente.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_REG_CERT_REG_NUMBER)));
+        txtDmxNacionalidad.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_NATIONALITY)));
+        txtDmxEmision.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_DATE_OF_ISSUE)));
+        txtDmxCodNacionalidad.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_NATIONALITY_CODE)));
+        if (!meses.equals(getString(R.string.document_pending))) {
+            if (Integer.parseInt(meses) > 0) {
+                txtMeses.setTextColor(Color.parseColor(TXTCOLORPRINCIPAL));
+            } else {
+                txtMeses.setTextColor(Color.parseColor(TXTCOLORSECUNDARIO));
+            }
+        }
+
+        if (identificacion.length() == 9) {
+            lblDmxExpediente.setVisibility(View.GONE);
+            lblDmxCodNacionalidad.setVisibility(View.GONE);
+            lblDmxNacionalidad.setVisibility(View.GONE);
+            lblDmxEmision.setVisibility(View.GONE);
+        } else if (identificacion.length() == 12) {
+            lblDocumento.setVisibility(View.GONE);
+            lblLugarNacimiento.setVisibility(View.GONE);
+            lblDomicilioElectoral.setVisibility(View.GONE);
+            lblNombreMadre.setVisibility(View.GONE);
+            lblNombrePadre.setVisibility(View.GONE);
+        }
+    }
+    private void displayIdEstade(boolean mostrarTabRespuesta){
+        if (Boolean.TRUE.equals(mostrarTabRespuesta)) {
+            tabRespuesta.setVisibility(View.VISIBLE);
+            toolbar.setVisibility(View.GONE);
+            mainContent.setVisibility(View.GONE);
+            textoPrincipal.setText(Boolean.TRUE.equals(estadoDocumento) ? getString(R.string.identidad_confirmada) : getString(R.string.identidad_no_confirmada));
+            imgResultado.setImageResource(Boolean.TRUE.equals(estadoDocumento) ? R.drawable.document_check : R.drawable.document_cross);
+        }
+
+    }
+    private void vitalTest(DocumentReaderResults results){
+        FaceSDK.Instance().startLiveness(getActivity(), livenessResponse -> {
+            if (livenessResponse.getLiveness() == LivenessStatus.PASSED) {
+
+                List<MatchFacesImage> images = Arrays.asList(
+                        new MatchFacesImage(livenessResponse.getBitmap(), ImageType.LIVE),
+                        new MatchFacesImage(results.getGraphicFieldImageByType(eGraphicFieldType.GF_PORTRAIT), ImageType.PRINTED)
+                );
+                MatchFacesRequest request = new MatchFacesRequest(images);
+
+                FaceSDK.Instance().matchFaces(request, response -> {
+
+                    MatchFacesSimilarityThresholdSplit split = new MatchFacesSimilarityThresholdSplit(response.getResults(), 0.75);
+                    List<MatchFacesComparedFacesPair> matched = split.getMatchedFaces();
+                    List<MatchFacesComparedFacesPair> notmatched = split.getUnmatchedFaces();
+
+                    if (!matched.isEmpty() && notmatched.isEmpty()) {
+                        estadoDocumento = true;
+                    } else {
+                        estadoDocumento = false;
+                    }
+
+                });
+
+            }
+        });
+
+    }
+    private void displayMatchInfo(DocumentReaderResults results,boolean mostrarTabRespuesta){
+        if (Boolean.TRUE.equals(validarFechaVencimiento(txtVencimiento.getText().toString()))) {
+            estadoDocumento = true;
+            txtEstado.setText(getString(R.string.result_valido));
+            txtEstado.setTextColor(Color.parseColor(TXTCOLORPRINCIPAL));
+            txtVencimiento.setTextColor(Color.parseColor(TXTCOLORPRINCIPAL));
+
+            if (Boolean.TRUE.equals(mostrarTabRespuesta) && (imgFoto != null)) {
+                vitalTest(results);
+            }
+        } else {
+            txtEstado.setText(getString(R.string.result_no_valido));
+            txtEstado.setTextColor(Color.parseColor(TXTCOLORSECUNDARIO));
+            txtVencimiento.setTextColor(Color.parseColor(TXTCOLORSECUNDARIO));
+            btnIniciarProceso.setVisibility(View.GONE);
+        }
+    }
     public void displayResults(DocumentReaderResults results) {
 
-
-        if (results != null)
-        {
-            //CARGAR CAMPOS DE TEXTO
-            txtCodPais.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_ISSUING_STATE_CODE)));
-            txtDcumento.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_PERSONAL_NUMBER)));
-            String extra = validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_OPTIONAL_DATA));
-            String identificacion = extra.equals(getString(R.string.document_pending)) ? validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_DOCUMENT_NUMBER)) : validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_DOCUMENT_NUMBER) + extra);
-            txtIdentificacion.setText(identificacion);
-            txtNombres.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_GIVEN_NAMES)));
-            txtApellidos.setText(validarNulosApellidos(results.getTextFieldValueByType(eVisualFieldType.FT_SURNAME)) + " " + validarNulosApellidos(results.getTextFieldValueByType(eVisualFieldType.FT_SECOND_SURNAME)));
-            txtSexo.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_SEX)));
-            txtEdad.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_AGE)));
-            txtFechaNacimiento.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_DATE_OF_BIRTH)));
-            txtLugarNacimiento.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_PLACE_OF_BIRTH)));
-            txtDomicilio.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_PLACE_OF_REGISTRATION)));
-            txtNombreMadre.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_MOTHER_GIVENNAME)));
-            txtNombrePadre.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_FATHER_GIVENNAME)));
-            String meses = validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_REMAINDER_TERM));
-            txtMeses.setText(meses);
-            txtVencimiento.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_DATE_OF_EXPIRY)));
-            txtPaisOrigen.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_ISSUING_STATE_NAME)));
-            txtDmxExpediente.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_REG_CERT_REG_NUMBER)));
-            txtDmxNacionalidad.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_NATIONALITY)));
-            txtDmxEmision.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_DATE_OF_ISSUE)));
-            txtDmxCodNacionalidad.setText(validarNulos(results.getTextFieldValueByType(eVisualFieldType.FT_NATIONALITY_CODE)));
-
-            if (!meses.equals(getString(R.string.document_pending)))
-            {
-                if (Integer.parseInt(meses) > 0)
-                {
-                    txtMeses.setTextColor(Color.parseColor(TXTCOLORPRINCIPAL));
-                }
-                else
-                {
-                    txtMeses.setTextColor(Color.parseColor(TXTCOLORSECUNDARIO));
-                }
-            }
-
-            if (identificacion.length() == 9)
-            {
-                lblDmxExpediente.setVisibility(View.GONE);
-                lblDmxCodNacionalidad.setVisibility(View.GONE);
-                lblDmxNacionalidad.setVisibility(View.GONE);
-                lblDmxEmision.setVisibility(View.GONE);
-            }
-            else if (identificacion.length() == 12)
-            {
-                lblDocumento.setVisibility(View.GONE);
-                lblLugarNacimiento.setVisibility(View.GONE);
-                lblDomicilioElectoral.setVisibility(View.GONE);
-                lblNombreMadre.setVisibility(View.GONE);
-                lblNombrePadre.setVisibility(View.GONE);
-            }
-
-            Bitmap portrait = results.getGraphicFieldImageByType(eGraphicFieldType.GF_PORTRAIT);
-            if (imgFoto != null) {
-                imgFoto.setImageBitmap(portrait);
-            }
-            Bitmap firmaImg = results.getGraphicFieldImageByType(eGraphicFieldType.GF_SIGNATURE);
-            if (imgFirma != null) {
-                imgFirma.setImageBitmap(firmaImg);
-            }
-            Bitmap imgDoc1 = results.getGraphicFieldImageByType(eGraphicFieldType.GF_DOCUMENT_IMAGE);
-            if (imgDoc1 != null) {
-                imgDocumento1.setImageBitmap(imgDoc1);
-            }
-            Bitmap imgDoc2 = results.getGraphicFieldImageByType(eGraphicFieldType.GF_OTHER);
-            if (imgDoc2 != null) {
-                imgDocumento2.setImageBitmap(imgDoc2);
-            }
+        if (results != null) {
+            chargeTextFields(results);
+            setImgFoto(results);
+            setImgFirma(results);
+            setImgDocumento1(results);
+            setImgDocumento2(results);
 
             Boolean mostrarTabRespuesta = btnIniciarProceso.getText().equals(getString(R.string.verificar));
 
-            if (Boolean.TRUE.equals(validarFechaVencimiento(txtVencimiento.getText().toString())))
-            {
-                estadoDocumento = true;
-                txtEstado.setText(getString(R.string.result_valido));
-                txtEstado.setTextColor(Color.parseColor(TXTCOLORPRINCIPAL));
-                txtVencimiento.setTextColor(Color.parseColor(TXTCOLORPRINCIPAL));
+            displayMatchInfo(results,mostrarTabRespuesta);
 
-                if (Boolean.TRUE.equals(mostrarTabRespuesta) && (imgFoto != null))
-                    {
-                        FaceSDK.Instance().startLiveness(getActivity(), livenessResponse -> {
-                            if (livenessResponse.getLiveness() == LivenessStatus.PASSED) {
 
-                                List<MatchFacesImage> images = Arrays.asList(
-                                        new MatchFacesImage(livenessResponse.getBitmap(), ImageType.LIVE),
-                                        new MatchFacesImage(portrait, ImageType.PRINTED)
-                                );
-                                MatchFacesRequest request = new MatchFacesRequest(images);
-
-                                FaceSDK.Instance().matchFaces(request, response -> {
-
-                                    MatchFacesSimilarityThresholdSplit split = new MatchFacesSimilarityThresholdSplit(response.getResults(), 0.75);
-                                    List<MatchFacesComparedFacesPair> matched = split.getMatchedFaces();
-                                    List<MatchFacesComparedFacesPair> notmatched = split.getUnmatchedFaces();
-
-                                    if (!matched.isEmpty() && notmatched.isEmpty())
-                                    {
-                                        estadoDocumento = true;
-                                    }
-                                    else
-                                    {
-                                        estadoDocumento = false;
-                                    }
-
-                                });
-
-                            }
-                        });
-
-                }
-            }
-            else
-            {
-                txtEstado.setText(getString(R.string.result_no_valido));
-                txtEstado.setTextColor(Color.parseColor(TXTCOLORSECUNDARIO));
-                txtVencimiento.setTextColor(Color.parseColor(TXTCOLORSECUNDARIO));
-                btnIniciarProceso.setVisibility(View.GONE);
-            }
-
-            if (Boolean.TRUE.equals(mostrarTabRespuesta))
-            {
-                tabRespuesta.setVisibility(View.VISIBLE);
-                toolbar.setVisibility(View.GONE);
-                mainContent.setVisibility(View.GONE);
-                textoPrincipal.setText(Boolean.TRUE.equals(estadoDocumento) ? getString(R.string.identidad_confirmada) : getString(R.string.identidad_no_confirmada));
-                imgResultado.setImageResource(Boolean.TRUE.equals(estadoDocumento) ? R.drawable.document_check : R.drawable.document_cross);
-            }
-
+            displayIdEstade(mostrarTabRespuesta);
             mostrarTabInformacion();
-        }
-        else
-        {
+        } else {
             mostrarTabCaptura();
         }
     }
@@ -384,52 +386,38 @@ public class MainFragment extends Fragment {
         recognizeImage.setTextColor(Color.GRAY);
     }
 
-    private String validarNulos(String datos)
-    {
-        if (datos != null)
-        {
+    private String validarNulos(String datos) {
+        if (datos != null) {
             return datos;
-        }
-        else
-        {
+        } else {
             return getString(R.string.document_pending);
         }
     }
 
-    private String validarNulosApellidos(String datos)
-    {
-        if (datos != null)
-        {
+    private String validarNulosApellidos(String datos) {
+        if (datos != null) {
             return datos;
-        }
-        else
-        {
+        } else {
             return "";
         }
     }
 
     private Boolean validarFechaVencimiento(String datos) {
-        if (datos != null)
-        {
+        if (datos != null) {
             try {
                 Date fechaVence = new SimpleDateFormat("yyyy-MM-dd").parse(datos);
                 Date fechaActual = Calendar.getInstance().getTime();
 
                 return fechaActual.before(fechaVence) || fechaActual.equals(fechaVence);
-            }
-            catch(Exception ex)
-            {
+            } catch (Exception ex) {
                 return false;
             }
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
 
-    private void limpiarCampos()
-    {
+    private void limpiarCampos() {
         txtEstado.setText(getString(R.string.document_pending));
         txtDcumento.setText(getString(R.string.document_pending));
         txtIdentificacion.setText(getString(R.string.document_pending));

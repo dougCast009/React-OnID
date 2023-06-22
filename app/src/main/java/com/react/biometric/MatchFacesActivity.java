@@ -73,7 +73,7 @@ public class MatchFacesActivity extends Activity {
 
         buttonMatch.setOnClickListener(v -> {
             if (imageView1.getDrawable() != null && imageView2.getDrawable() != null) {
-                textViewSimilarity.setText("Processing...");
+                textViewSimilarity.setText(getString( R.string.procesando));
 
                 matchFaces(getImageBitmap(imageView1), getImageBitmap(imageView2));
                 buttonMatch.setEnabled(false);

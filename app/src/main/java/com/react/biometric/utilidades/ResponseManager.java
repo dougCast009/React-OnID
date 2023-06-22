@@ -30,7 +30,8 @@ public class ResponseManager
         try {
             ArrayList<String> resultados = getInnerContent(stringResultado);
             if (resultados.isEmpty()) {
-                return null;
+                lista.clear();
+                return lista;
             }else {
                 for (String resultado: resultados) {
                     recursiveAddtoList(lista, resultado, "");
@@ -120,6 +121,16 @@ public class ResponseManager
         }
     }
 
+    private void compare(Map.Entry<String, JsonElement> innerEntry,ConstantesRespuestas.ResponsesToInclude include,ArrayList<String> innerDataResult){
+        if (innerEntry.getKey().contains(include.getStringInclude())) {
+            JsonObject innerobj = innerEntry.getValue().getAsJsonObject();
+            innerDataResult.add(innerobj.get("response").toString());
+        }else if (innerEntry.getKey().toLowerCase().contains("Patronal")){
+            JsonObject innerobj = innerEntry.getValue().getAsJsonObject();
+            innerDataResult.add(innerobj.get("result").toString());
+        }
+    }
+
     private ArrayList<String> getInnerContent(String object) {
 
         ArrayList<String> innerDataResult = new ArrayList<>();
@@ -137,15 +148,7 @@ public class ResponseManager
 
                 for (Map.Entry<String, JsonElement> innerEntry : innerEntries) {
                     for (ConstantesRespuestas.ResponsesToInclude include : ConstantesRespuestas.ResponsesToInclude.values()) {
-                        if (innerEntry.getKey().contains(include.getStringInclude())) {
-                            JsonObject innerobj = innerEntry.getValue().getAsJsonObject();
-
-                            innerDataResult.add(innerobj.get("response").toString());
-                        }else if (innerEntry.getKey().toLowerCase().contains("Patronal")){
-                            JsonObject innerobj = innerEntry.getValue().getAsJsonObject();
-
-                            innerDataResult.add(innerobj.get("result").toString());
-                        }
+                        this.compare(innerEntry,include,innerDataResult);
                     }
                 }
             }
@@ -153,14 +156,39 @@ public class ResponseManager
         return innerDataResult;
     }
 
+    private void excludeFingerprints(String titulo ,Map.Entry<String, JsonElement> entry){
+        //Excluye de la lista a los elementos de 'Huella' y 'Error, Errordescription'
+        Map<String, String> mapa  = new HashMap<>();
+        for (ConstantesRespuestas.IncludeLista include : ConstantesRespuestas.IncludeLista.values()) {
+            if (entry.getKey().toLowerCase().equalsIgnoreCase(include.getStringInclude()) && (!(entry.getValue().toString().isEmpty() || entry.getValue().isJsonNull())) && (checkNull(entry.getValue().toString()))){
 
+                String key = entry.getKey().replaceAll("^[viVI]", "").trim();
+                key = key.replace("_", " ");
+                String value = entry.getValue().toString().trim();
+                value = value.replace("\"", "");
+
+                mapa.put(titulo + key, value);
+
+                lista.add(mapa);
+
+            }
+
+        }
+        //Si se encuentra con error en este punto, es un "no-match" por lo que retorna lista vacía
+        if (entry.getKey().equals("ErrorCode") && (!entry.getValue().toString().contains("00"))) {
+            lista.clear();
+
+
+
+        }
+    }
     //Recibe elemento Json y añade cada miembro a un mapa (para visualizar el resultado en pares en un listview)
     private void recursiveAddtoList(List<Map<String, String>> lista, String object, String titulo) {
         JsonElement element = JsonParser.parseString(object);
 
         JsonObject obj = element.getAsJsonObject();
 
-        Map<String, String> mapa;
+
 
         Set<Map.Entry<String, JsonElement>> entries = obj.entrySet();//will return members of your object
         for (Map.Entry<String, JsonElement> entry : entries) {
@@ -169,30 +197,9 @@ public class ResponseManager
                 recursiveAddtoList(lista, entry.getValue().toString(), entry.getKey() + "-");
 
             } else {
-                //Excluye de la lista a los elementos de 'Huella' y 'Error, Errordescription'
-                for (ConstantesRespuestas.IncludeLista include : ConstantesRespuestas.IncludeLista.values()) {
-                    if (entry.getKey().toLowerCase().equalsIgnoreCase(include.getStringInclude()) && (!(entry.getValue().toString().isEmpty() || entry.getValue().isJsonNull())) && (checkNull(entry.getValue().toString()))){
-                                mapa = new HashMap<>();
-
-                                String key = entry.getKey().replaceAll("^[viVI]", "").trim();
-                                key = key.replace("_", " ");
-                                String value = entry.getValue().toString().trim();
-                                value = value.replace("\"", "");
-
-                                mapa.put(titulo + key, value);
-
-                                lista.add(mapa);
-
-                        }
-
-                }
-                //Si se encuentra con error en este punto, es un "no-match" por lo que retorna lista vacía
-                if (entry.getKey().equals("ErrorCode") && (!entry.getValue().toString().contains("00"))) {
-                        lista.clear();
-                        return;
-
-
-                }
+                excludeFingerprints(titulo,entry);
+                if(lista.isEmpty())
+                    return;
 
             }
 
