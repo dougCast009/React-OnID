@@ -24,7 +24,8 @@ import okhttp3.Response;
 import com.react.Biometric.Constantes;
 import com.react.Biometric.interfaces.CustomCallback;
 
-
+/*@Deprecated
+Change this code in phase 2 */
 public class HttpsPostRequest extends AsyncTask<String,Void,String>
 {
 
@@ -50,11 +51,8 @@ public class HttpsPostRequest extends AsyncTask<String,Void,String>
         this.callback = callback;
     }
 
-    @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-    }
-
+    /*@Deprecated
+    Change this code in phase 2 */
     @Override
     protected String doInBackground(String... params) {
         String stringUrl = "https://" + params[0];
@@ -88,7 +86,7 @@ public class HttpsPostRequest extends AsyncTask<String,Void,String>
 
         } catch (Exception e) {
             callback.obtenerRespuesta(false, result);
-            Log.d("doInBackground", "Excepcion: " + e.getMessage());
+            Log.d("doInBackground", "Error: " + e.getMessage());
         }
         return null;
     }
@@ -116,7 +114,7 @@ public class HttpsPostRequest extends AsyncTask<String,Void,String>
             kmf.init(keyStore, password.toCharArray());
             keyManagers = kmf.getKeyManagers();
         }catch (Exception e){
-            Log.d("getKeyManager", "Excepcion: " + e.getMessage());
+            Log.d("getKeyManager", "Error: " + e.getMessage());
         }
         return keyManagers;
     }

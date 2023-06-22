@@ -7,7 +7,6 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -37,9 +36,7 @@ import com.react.Biometric.utilidades.ResponseManager;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -93,7 +90,7 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
     private void iniciarSesion()
     {
         estadoBoton(false);
-        showDialog("Validando...");
+        showDialog(getString(R.string.login));
         String userName = txtUsuario.getText().toString();
         String userPassword = txtContrasenna.getText().toString();
 
@@ -142,17 +139,17 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
             request.setMethodAuth(METODO);
             if (Boolean.TRUE.equals(Constantes.ESDESARROLLO))
             {
-                request.setCUSTOMERID("xpi");
-                request.setPASS("$tr@!ght1928");
+                request.setCustomerid("xpi");
+                request.setPass("$tr@!ght1928");
             }
             else
             {
-                request.setCUSTOMERID(userName);
-                request.setPASS(userPassword);
+                request.setCustomerid(userName);
+                request.setPass(userPassword);
             }
 
-            usuario = request.getCUSTOMERID();
-            contrasenna = request.getPASS();
+            usuario = request.getCustomerid();
+            contrasenna = request.getPass();
 
             Gson gson = new Gson();
             JsonObject jsonRequest = JsonParser.parseString(gson.toJson(request)).getAsJsonObject();

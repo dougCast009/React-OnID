@@ -14,10 +14,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.react.Biometric.interfaces.CustomCallback;
 import com.react.Biometric.orquestador.Biometria;
-import com.react.Biometric.orquestador.OrqResponse;
 import com.react.Biometric.orquestador.Peticion;
 import com.react.Biometric.utilidades.HttpsPostRequest;
-import com.react.Biometric.utilidades.ResponseManager;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -56,9 +54,9 @@ public class MainOrquestador extends AppCompatActivity implements CustomCallback
             biometrics.add(biometric);
 
             Peticion request = new Peticion();
-            request.setCUSTOMERID("xpi");
-            request.setPASS("$tr@!ght1928");
-            request.setNID("201110111");
+            request.setCustomerid("xpi");
+            request.setPass("$tr@!ght1928");
+            request.setNid("201110111");
             request.setMethodAuth("30");
             request.setNombres("COPPER");
             request.setApellidos("BRAND");

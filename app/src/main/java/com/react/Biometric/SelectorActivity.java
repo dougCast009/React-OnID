@@ -9,10 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 
 public class SelectorActivity extends AppCompatActivity {
@@ -54,10 +52,10 @@ public class SelectorActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         new AlertDialog.Builder(this)
-                .setTitle("Atención")
-                .setMessage("¿Esta seguro que desea salir?")
-                .setNegativeButton("No", null)
-                .setPositiveButton("Yes", (arg0, arg1) -> {
+                .setTitle(getString(R.string.alerta))
+                .setMessage(getString(R.string.alerta_Salida))
+                .setNegativeButton(getString(R.string.rechazar), null)
+                .setPositiveButton(getString(R.string.aceptar), (arg0, arg1) -> {
                     Intent intent = new Intent(SelectorActivity.this, IniciarSesionActivity.class);
                     intent.putExtra(Constantes.CERRO_SESION, true);
                     startActivity(intent);

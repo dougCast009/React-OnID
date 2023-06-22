@@ -225,13 +225,13 @@ public abstract class BaseActivity extends AppCompatActivity implements MainFrag
                 .apply();
     }
 
-    private final IDocumentReaderCompletion completion = new IDocumentReaderCompletion() {
+    private final IDocumentReaderCompletion completion = (new IDocumentReaderCompletion() {
+
         @Override
         public void onCompleted(int action, DocumentReaderResults results, DocumentReaderException error) {
             //processing is finished, all results are ready
             if (action == DocReaderAction.COMPLETE || action == DocReaderAction.TIMEOUT) {
                 dismissDialog();
-
                 //Checking, if nfc chip reading should be performed
                 if (doRfid && results != null && results.chipPage != 0) {
                     //starting chip reading
@@ -246,13 +246,13 @@ public abstract class BaseActivity extends AppCompatActivity implements MainFrag
             } else {
                 //something happened before all results were ready
                 if (action == DocReaderAction.CANCEL) {
-                    Toast.makeText(BaseActivity.this, "Scanning was cancelled", Toast.LENGTH_LONG).show();
+                    Toast.makeText(BaseActivity.this, getString(R.string.alerta_cancelar_escaneo), Toast.LENGTH_LONG).show();
                 } else if (action == DocReaderAction.ERROR) {
                     Toast.makeText(BaseActivity.this, "Error:" + error, Toast.LENGTH_LONG).show();
                 }
             }
         }
-    };
+    });
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

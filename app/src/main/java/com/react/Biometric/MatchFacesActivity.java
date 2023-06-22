@@ -1,6 +1,5 @@
 package com.react.Biometric;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -73,7 +72,7 @@ public class MatchFacesActivity extends Activity {
 
         buttonMatch.setOnClickListener(v -> {
             if (imageView1.getDrawable() != null && imageView2.getDrawable() != null) {
-                textViewSimilarity.setText("Processing...");
+                textViewSimilarity.setText(getString( R.string.procesando));
 
                 matchFaces(getImageBitmap(imageView1), getImageBitmap(imageView2));
                 buttonMatch.setEnabled(false);
@@ -95,7 +94,7 @@ public class MatchFacesActivity extends Activity {
     }
 
 
-    @SuppressLint("NonConstantResourceId")
+
     private void showMenu(ImageView imageView, int i) {
         PopupMenu popupMenu = new PopupMenu(MatchFacesActivity.this, imageView);
         popupMenu.setOnMenuItemClickListener(menuItem -> {

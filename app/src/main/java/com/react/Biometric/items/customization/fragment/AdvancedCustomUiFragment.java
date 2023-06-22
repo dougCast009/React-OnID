@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 
 import com.react.Biometric.R;
 import com.regula.facesdk.fragment.FaceUiFragment;
-import com.regula.facesdk.view.NotificationTextView;
 
 /**
  * Created by Sergey Yakimchik on 23.08.21.

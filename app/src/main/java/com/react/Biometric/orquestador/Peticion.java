@@ -2,112 +2,112 @@ package com.react.Biometric.orquestador;
 import java.util.List;
 
 public class Peticion {
-    private String CUSTOMERID;
-    private String PASS;
-    private String MethodAuth;
-    private String IMEI;
-    private String NID;
-    private String Nombres;
-    private String Apellidos;
-    private String Sexo;
-    private String Nacionalidad;
-    private String FechaNacimiento;
-    private List<String> MethodSource;
-    private List<Biometria> Biometrics;
+    private String customerid;
+    private String pass;
+    private String methodAuth;
+    private String imei;
+    private String nid;
+    private String nombres;
+    private String apellidos;
+    private String sexo;
+    private String nacionalidad;
+    private String fechaNacimiento;
+    private List<String> methodSource;
+    private List<Biometria> biometrics;
 
-    public String getCUSTOMERID() {
-        return CUSTOMERID;
+    public String getCustomerid() {
+        return customerid;
     }
 
-    public void setCUSTOMERID(String CUSTOMERID) {
-        this.CUSTOMERID = CUSTOMERID;
+    public void setCustomerid(String customerid) {
+        this.customerid = customerid;
     }
 
-    public String getPASS() {
-        return PASS;
+    public String getPass() {
+        return pass;
     }
 
-    public void setPASS(String PASS) {
-        this.PASS = PASS;
+    public void setPass(String pass) {
+        this.pass = pass;
     }
 
-    public String getNID() {
-        return NID;
+    public String getNid() {
+        return nid;
     }
 
-    public void setNID(String NID) {
-        this.NID = NID;
+    public void setNid(String nid) {
+        this.nid = nid;
     }
 
     public String getMethodAuth() {
-        return MethodAuth;
+        return methodAuth;
     }
 
     public void setMethodAuth(String methodAuth) {
-        MethodAuth = methodAuth;
+        this.methodAuth = methodAuth;
     }
 
     public String getNombres() {
-        return Nombres;
+        return nombres;
     }
 
     public void setNombres(String nombres) {
-        Nombres = nombres;
+        this.nombres = nombres;
     }
 
     public String getApellidos() {
-        return Apellidos;
+        return apellidos;
     }
 
     public void setApellidos(String apellidos) {
-        Apellidos = apellidos;
+        this.apellidos = apellidos;
     }
 
-    public String getIMEI() {
-        return IMEI;
+    public String getImei() {
+        return imei;
     }
 
-    public void setIMEI(String IMEI) {
-        this.IMEI = IMEI;
+    public void setImei(String imei) {
+        this.imei = imei;
     }
 
     public List<String> getMethodSource() {
-        return MethodSource;
+        return methodSource;
     }
 
     public void setMethodSource(List<String> methodSource) {
-        MethodSource = methodSource;
+        this.methodSource = methodSource;
     }
 
     public List<Biometria> getBiometrics() {
-        return Biometrics;
+        return biometrics;
     }
 
     public void setBiometrics(List<Biometria> biometrics) {
-        Biometrics = biometrics;
+        this.biometrics = biometrics;
     }
 
     public String getSexo() {
-        return Sexo;
+        return sexo;
     }
 
     public void setSexo(String sexo) {
-        Sexo = sexo;
+        this.sexo = sexo;
     }
 
     public String getNacionalidad() {
-        return Nacionalidad;
+        return nacionalidad;
     }
 
     public void setNacionalidad(String nacionalidad) {
-        Nacionalidad = nacionalidad;
+        this.nacionalidad = nacionalidad;
     }
 
     public String getFechaNacimiento() {
-        return FechaNacimiento;
+        return fechaNacimiento;
     }
 
     public void setFechaNacimiento(String fechaNacimiento) {
-        FechaNacimiento = fechaNacimiento;
+        this.fechaNacimiento = fechaNacimiento;
     }
 }

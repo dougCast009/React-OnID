@@ -124,6 +124,7 @@
         <activity
             android:name="com.react.Biometric.MainActivity"
             android:exported="true"
+            android:permission=""
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.DayNight">
         </activity>

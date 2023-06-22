@@ -40,7 +40,7 @@ public final class Constantes
     public static final String NOM_COMPLETO = "nom";
     public  static  final String URL_BASE = BuildConfig.URL_BASE;
     public  static  final String URL_PATH = BuildConfig.URL_PATH;
-    
+
     public static final String DEMO_USER = "REACT001";
     public static final String PASSWORD_USER = "$tr@!ght1928";
 

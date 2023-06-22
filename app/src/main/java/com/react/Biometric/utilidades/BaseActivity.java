@@ -1,6 +1,5 @@
 package com.react.Biometric.utilidades;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.widget.Toast;
 
@@ -10,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.react.Biometric.R;
 import com.react.Biometric.Constantes;
+import com.react.Biometric.util.ProgressHelper;
 
 //Clase de utilidades para el manejo de interfaz, incluida en el SDK de neurotechnology, modificada con temas de aplicación
 public class BaseActivity extends AppCompatActivity {
@@ -17,29 +17,24 @@ public class BaseActivity extends AppCompatActivity {
     // Private fields
     // ===========================================================
 
-    private ProgressDialog mProgressDialog;
+    private ProgressHelper mProgressDialog;
     // ===========================================================
     // Protected methods
     // ===========================================================
 
-    protected void showProgress(int messageId, int titleId, Context context) {
-        showProgress(getString(messageId), getString(titleId), context);
+    protected void showProgress(int messageId,  Context context) {
+        showProgress(getString(messageId), context);
     }
 
-    protected void showProgress(final String message, final String title, final Context contexto) {
+    protected void showProgress(final String message, final Context contexto) {
         hideProgress();
-        runOnUiThread(() -> {
-            mProgressDialog = new ProgressDialog(contexto, R.style.AlertDialogProgressStyle);
-            mProgressDialog.setTitle(title);
-            mProgressDialog.setMessage(message);
-            mProgressDialog.show();
-        });
+        runOnUiThread(() -> ProgressHelper.showProgress(contexto,message));
     }
 
     protected void hideProgress() {
         runOnUiThread(() -> {
             if (mProgressDialog != null && mProgressDialog.isShowing()) {
-                mProgressDialog.dismiss();
+                ProgressHelper.hideProgress();
             }
         });
     }
@@ -66,7 +61,6 @@ public class BaseActivity extends AppCompatActivity {
                     .setMessage(message)
                     .setPositiveButton(android.R.string.ok, null).show();
 
-            //AlertDialog dialog = builder.create();
         });
     }
 

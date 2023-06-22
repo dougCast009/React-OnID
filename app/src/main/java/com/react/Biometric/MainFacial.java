@@ -1,7 +1,6 @@
 package com.react.Biometric;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -299,7 +298,7 @@ public class MainFacial extends BaseActivity implements CustomCallback
     {
         try
         {
-            showDialog("Procesando");
+            showDialog(getString(R.string.procesando));
 
             View vista = this.getCurrentFocus();
             if (vista != null) {
@@ -309,17 +308,17 @@ public class MainFacial extends BaseActivity implements CustomCallback
 
             Peticion request = new Peticion();
             request.setMethodAuth(metodo);
-            request.setNID(peticionNID);
+            request.setNid(peticionNID);
 
             if (Boolean.TRUE.equals(Constantes.ESDESARROLLO))
             {
-                request.setCUSTOMERID("xpi");
-                request.setPASS("$tr@!ght1928");
+                request.setCustomerid("xpi");
+                request.setPass("$tr@!ght1928");
             }
             else
             {
-                request.setCUSTOMERID(userName);
-                request.setPASS(userPassword);
+                request.setCustomerid(userName);
+                request.setPass(userPassword);
             }
 
             List<Biometria> biometrics = new ArrayList<>();
@@ -368,6 +367,13 @@ public class MainFacial extends BaseActivity implements CustomCallback
         }
     }
 
+    private void runMessage(){
+        tabRespuesta.setVisibility(View.VISIBLE);
+        toolbar.setVisibility(View.GONE);
+        mainContent.setVisibility(View.GONE);
+        textoPrincipal.setText(Boolean.TRUE.equals(estadoDocumento) ? getString(R.string.identidad_confirmada) : getString(R.string.identidad_no_confirmada));
+        imgResultado.setImageResource(Boolean.TRUE.equals(estadoDocumento) ? R.drawable.document_check : R.drawable.document_cross);
+    }
     @Override
     public void obtenerRespuesta(Boolean success, String object) {
         runOnUiThread(this::dismissDialog);
@@ -384,22 +390,14 @@ public class MainFacial extends BaseActivity implements CustomCallback
                 {
                     runOnUiThread(() -> {
                         estadoDocumento = true;
-                        tabRespuesta.setVisibility(View.VISIBLE);
-                        toolbar.setVisibility(View.GONE);
-                        mainContent.setVisibility(View.GONE);
-                        textoPrincipal.setText(Boolean.TRUE.equals(estadoDocumento) ? getString(R.string.identidad_confirmada) : getString(R.string.identidad_no_confirmada));
-                        imgResultado.setImageResource(Boolean.TRUE.equals(estadoDocumento) ? R.drawable.document_check : R.drawable.document_cross);
+                        runMessage();
                     });
                 }
                 else
                 {
                     runOnUiThread(() -> {
                         estadoDocumento = false;
-                        tabRespuesta.setVisibility(View.VISIBLE);
-                        toolbar.setVisibility(View.GONE);
-                        mainContent.setVisibility(View.GONE);
-                        textoPrincipal.setText(Boolean.TRUE.equals(estadoDocumento) ? getString(R.string.identidad_confirmada) : getString(R.string.identidad_no_confirmada));
-                        imgResultado.setImageResource(Boolean.TRUE.equals(estadoDocumento) ? R.drawable.document_check : R.drawable.document_cross);
+                        runMessage();
                     });
                 }
             }

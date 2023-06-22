@@ -16,7 +16,6 @@ import android.widget.Toast;
 public class RespuestaActivity extends AppCompatActivity {
 
 
-
     //LAYOUTS
 
 
@@ -106,7 +105,7 @@ public class RespuestaActivity extends AppCompatActivity {
         });
 
         btnIniciarCaptura.setOnClickListener(view -> {
-            //LimpiarCampos();
+
             Toast toast = Toast.makeText(getApplicationContext(), "Funciona", Constantes.TOASTDURATION);
             toast.show();
         });
@@ -116,8 +115,7 @@ public class RespuestaActivity extends AppCompatActivity {
         });
     }
 
-    private void LimpiarCampos()
-    {
+    private void LimpiarCampos() {
         txtEstado.setText(getString(R.string.document_pending));
         txtDocumento.setText(getString(R.string.document_pending));
         txtIdentificacion.setText(getString(R.string.document_pending));

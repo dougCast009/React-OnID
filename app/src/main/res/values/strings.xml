@@ -153,5 +153,10 @@
 
     <string name="identidad_confirmada">Identidad confirmada</string>
     <string name="identidad_no_confirmada">Identidad no confirmada</string>
+    <string name="alerta">Atención</string>
+    <string name="alerta_Salida">¿Esta seguro que desea salir?</string>
+    <string name="login">Verificando Datos...</string>
+    <string name="alerta_cancelar_escaneo">El escaneo fue cancelado</string>
+    <string name="alerta_Inicializando">Inicializando</string>
 
 </resources>

@@ -19,14 +19,13 @@ public class MainActivity extends BaseActivity {
     }
 
     protected void initializeReader() {
-        showDialog("Initializing");
+        showDialog(getString(R.string.alerta_Inicializando));
 
         byte[] license = LicenseUtil.getLicense( this);
 
         DocReaderConfig config = new DocReaderConfig(license);
         config.setLicenseUpdate(true);
 
-        //Initializing the reader
         DocumentReader.Instance().initializeReader(MainActivity.this, config, initCompletion);
     }
 
