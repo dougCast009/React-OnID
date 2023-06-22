@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">OnID</string>
+    <string name="demo">DEMO-DEMO</string>
+    <string name="login_titulo">Verificación de Identidad</string>
+    <string name="login_label_usuario">Usuario</string>
+    <string name="login_label_contrasenna">Contraseña</string>
+    <string name="login_label_credenciales">Guardar credenciales</string>
+    <string name="login_btn_ingresar">Ingresar</string>
+    <string name="login_label_copyright"></string>
+    <string name="login_toast_no_credenciales">Por favor ingrese sus credenciales.</string>
+
+    <string name="selector_titulo">Seleccione el Método de Verificación</string>
+    <string name="selector_btn_enroll">Enrolamiento</string>
+    <string name="selector_btn_verify">Validación</string>
+
+    <string name="principal_titulo">Seleccione el Método de Biométrico</string>
+    <string name="principal_btn_enroll_doc">Enrolamiento de Documento</string>
+    <string name="principal_btn_enroll_face">Enrolamiento de Rostro</string>
+    <string name="principal_btn_enroll_finger">Enrolamiento de Huellas</string>
+    <string name="principal_btn_verify_doc">Validación de Documento</string>
+    <string name="principal_btn_verify_face">Validación de Rostro</string>
+    <string name="principal_btn_verify_finger">Validación de Huellas</string>
+
+    <string name="document_titulo">Captura de Documento</string>
+    <string name="document_resultados">Datos Personales</string>
+    <string name="document_txt_id">Identificacion</string>
+    <string name="document_txt_nombre">Nombre</string>
+    <string name="document_txt_foto">Foto</string>
+        <string name="document_txt_firma">Firma</string>
+        <string name="document_txt_doc">Documento</string>
+        <string name="document_error_face">Por favor capture su documento antes de continuar.</string>
+        <string name="document_pending">Sin Datos</string>
+
+        <string name="iniciar_captura">Iniciar Captura</string>
+        <string name="iniciar_proceso">Procesar</string>
+        <string name="continuar_proceso">Continuar</string>
+        <string name="enrolar">Enrolar</string>
+        <string name="verificar">Verificar</string>
+
+        <string name="finger_titulo">Captura de Huella</string>
+        <string name="finger_txt_face">Huella</string>
+        <string name="finger_error_face">Por favor capture sus huellas antes de continuar.</string>
+        <string name="finger_starting">Iniciando...</string>
+        <string name="mano">right</string>
+        <string name="face_titulo">Captura de Rostro</string>
+        <string name="face_txt_face">Rostro</string>
+        <string name="face_error_modalidad">No fue posible obtener la modalidad.</string>
+        <string name="face_error_datos">No fue posible obtener todos los datos para la petición.</string>
+        <string name="face_error_id">No fue posible obtener la identificación.</string>
+        <string name="face_error_face">Por favor, captura tu rostro antes de continuar.</string>
+        <string name="face_error_peticion">No fue posible crear la petición.</string>
+        <string name="face_error_realiza_peticion">No fue posible realizar la petición.</string>
+        <string name="invalid_doc">El documento capturado no es válido.</string>
+
+        <string name="form_titulo">Ingrese los Datos</string>
+        <string name="form_label_identificacion">Número de Identificación</string>
+        <string name="form_txt_identificacion">Identificación</string>
+        <string name="form_txt_Nombres">Nombres</string>
+        <string name="form_txt_Apellidos">Apellidos</string>
+        <string name="form_error_identificacion">Por favor ingrese una identificación valida.</string>
+        <string name="form_error_nombres">Por favor ingrese un nombre valido.</string>
+        <string name="form_error_apellidos">Por favor ingrese un apellido valido.</string>
+
+        <string name="procesando">Procesando...</string>
+        <string name="cargando">Cargando Componentes...</string>
+
+        <string name="matched">Transaccion Exitosa</string>
+        <string name="not_matched">Atención</string>
+
+        <string name="title_selector">Métodos de Verificación</string>
+        <string name="title_principal">Enrolamiento Biométrico</string>
+        <string name="title_principal_val">Validación Biométrica</string>
+        <string name="title_documentos">Captura de Documento</string>
+        <string name="title_rostro">Captura de Rostro</string>
+        <string name="title_huellas">Captura de Huellas</string>
+        <string name="title_documentos_val">Validación de Documento</string>
+        <string name="title_rostro_val">Validación de Rostro</string>
+        <string name="title_huellas_val">Validación de Huellas</string>
+        <string name="title_formulario">Formulario de Enrolamiento</string>
+        <string name="title_formulario_val">Formulario de Validación</string>
+
+        <string name="capturar">Capturar</string>
+        <string name="info">Información</string>
+        <string name="color_primary">#1A83C4</string>
+        <string name="color_primary_dark">#2179b0</string>
+        <string name="color_font_primary">#ffffff</string>
+        <string name="color_font_primary_dark">#c7eaff</string>
+
+        <string name="result_num_documento">Documento:</string>
+        <string name="result_num_expediente">Expediente:</string>
+        <string name="result_nacionalidad">Nacionalidad:</string>
+        <string name="result_code_nacionalidad">Código Nacionalidad:</string>
+        <string name="result_cod_pais">Código País:</string>
+        <string name="result_pais_origen">País Origen:</string>
+        <string name="result_identificacion">Identificación:</string>
+        <string name="result_nombres">Nombres:</string>
+        <string name="result_apellidos">Apellidos:</string>
+        <string name="result_sexo">Sexo:</string>
+        <string name="result_edad">Edad:</string>
+        <string name="result_fech_nac">Fecha Nacimiento:</string>
+        <string name="result_lug_nac">Lugar Nacimiento:</string>
+        <string name="result_domicilio">Domicilio Electoral:</string>
+        <string name="result_nom_madre">Nombre Madre:</string>
+        <string name="result_nom_padre">Nombre Padre:</string>
+        <string name="result_meses_vence">Meses Hábiles:</string>
+        <string name="result_fecha_emision">Emisión:</string>
+        <string name="result_fecha_vence">Vencimiento:</string>
+        <string name="result_estado">Estado:</string>
+        <string name="result_img_doc">Documento</string>
+        <string name="result_img_foto">Foto</string>
+        <string name="result_img_firma">Firma</string>
+        <string name="result_img_huella">Huellas</string>
+        <string name="result_img_demo">Imagen</string>
+        <string name="result_valido">Válido</string>
+        <string name="result_no_valido">Inválido</string>
+        <string name="result_continuar">Continuar...</string>
+
+        <string name="consentimiento_title">Consentimiento Informado</string>
+        <string name="aceptar">Aceptar</string>
+        <string name="rechazar">Rechazar</string>
+        <string name="consentimiento">React procederá a validar su identidad. ¿Desea autorizar?</string>
+
+        <string name="permissions_not_continue">¿Desea continuar sin los permisos concedidos?</string>
+        <string name="permissions_all_granted">Todos los permisos concedidos</string>
+        <string name="permissions_some_warning">Algunos permisos no han sido concedidos</string>
+        <string name="permission_denied">Permiso denegado</string>
+        <string name="permission_not_recognized">Parámetro de permiso no reconocido</string>
+
+        <string name="login_userdata_error">Error al obtener datos del usuario</string>
+        <string name="login_save_userdata_error">Error al guardar datos de usuario</string>
+        <string name="login_form_header">Verificación de Identidad</string>
+        <string name="login_form_user">Usuario</string>
+        <string name="login_form_user_hint">Introduzca su Nombre de Usuario</string>
+        <string name="login_form_password">Contraseña</string>
+        <string name="login_form_password_hint">Introduzca su contraseña</string>
+        <string name="login_form_userID">Cédula - DIMEX</string>
+        <string name="login_form_userID_hint">Introduzca su Identificación</string>
+        <string name="login_form_remember">Recordar Usuario</string>
+        <string name="login_form_submit">Iniciar</string>
+        <string name="login_form_rememberPassword">¿Olvidó la Clave?</string>
+        <string name="login_form_noData">Debe de ingresar sus credenciales de usuario.</string>
+        <string name="app_logo_description">Logotipo de Empresa</string>
+        <string name="login_complete">Completo</string>
+        <string name="login_basic">Básico</string>
+        <string name="login_select">Modalidad</string>
+        <string name="fingerprint_error">Ha ocurrido un problema al validar la huella</string>
+        <string name="fingerprint_failed">¡Inténtalo de nuevo!</string>
+        <string name="fingerprint_failed_title">La verificación falló</string>
+        <string name="fingerprint_cancel">Cancelar</string>
+        <string name="fingerprint_prompt">Se guardará el usuario y clave</string>
+        <string name="fingerprint_prompt_basic">Se guardará el nombre de usuario</string>
+
+        <string name="identidad_confirmada">Identidad confirmada</string>
+        <string name="identidad_no_confirmada">Identidad no confirmada</string>
+    <string name="alerta">¡Atención!</string>
+    <string name="alerta_Salida">¿Esta seguro que desea salir?</string>
+    <string name="login">Verificando Datos...</string>
+    <string name="alerta_cancelar_escaneo">El escaneo fue cancelado</string>
+    <string name="alerta_Inicializando">Inicializando</string>
+
+</resources>

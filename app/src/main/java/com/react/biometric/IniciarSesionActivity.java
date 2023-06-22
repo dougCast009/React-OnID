@@ -90,7 +90,7 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
     private void iniciarSesion()
     {
         estadoBoton(false);
-        showDialog("Validando...");
+        showDialog(getString(R.string.login));
         String userName = txtUsuario.getText().toString();
         String userPassword = txtContrasenna.getText().toString();
 

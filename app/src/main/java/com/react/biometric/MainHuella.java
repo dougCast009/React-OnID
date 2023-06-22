@@ -472,7 +472,7 @@ public class MainHuella extends BaseActivity implements CustomCallback
     {
         try
         {
-            showDialog("Procesando");
+            showDialog(getString(R.string.procesando));
 
             View vista = this.getCurrentFocus();
             if (vista != null) {

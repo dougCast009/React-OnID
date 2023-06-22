@@ -269,7 +269,7 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
     }
 
     protected void initializeReader() {
-        showDialog("Initializing");
+        showDialog(getString(R.string.alerta_Inicializando));
         byte[] license = LicenseUtil.getLicense( this);
         DocReaderConfig config = new DocReaderConfig(license);
         config.setLicenseUpdate(true);
@@ -309,7 +309,7 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
     {
         try
         {
-            showDialog("Procesando...");
+            showDialog( getString(R.string.procesando));
             View vista = this.getCurrentFocus();
             if (vista != null) {
                 InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);

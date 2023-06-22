@@ -246,7 +246,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MainFrag
             } else {
                 //something happened before all results were ready
                 if (action == DocReaderAction.CANCEL) {
-                    Toast.makeText(BaseActivity.this, "Scanning was cancelled", Toast.LENGTH_LONG).show();
+                    Toast.makeText(BaseActivity.this, getString(R.string.alerta_cancelar_escaneo), Toast.LENGTH_LONG).show();
                 } else if (action == DocReaderAction.ERROR) {
                     Toast.makeText(BaseActivity.this, "Error:" + error, Toast.LENGTH_LONG).show();
                 }
