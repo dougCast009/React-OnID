@@ -115,6 +115,7 @@ public class MainHuella extends BaseActivity implements CustomCallback
     private Boolean estadoDocumento = false;
     private Boolean capturando = false;
 
+    private List<Biometria> biometrics;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -468,6 +469,17 @@ public class MainHuella extends BaseActivity implements CustomCallback
         }
     }
 
+    private void fingerVerficication(String wsq,String numLeft, String numRigh){
+        if (Boolean.TRUE.equals(noEsNuloOVacio(wsq)))
+        {
+            Biometria dedo = new Biometria();
+            String numDedo = manoIndice.equals(R.string.mano) ? numLeft : numRigh;
+            dedo.setBiometryName(numDedo);
+            dedo.setBiometryRawDataType("Jpeg");
+            dedo.setRawData(wsq);
+            biometrics.add(dedo);
+        }
+    }
     private void crearPeticion()
     {
         try
@@ -486,43 +498,12 @@ public class MainHuella extends BaseActivity implements CustomCallback
 
             request.setCustomerid(userName);
             request.setPass(userPassword);
-            List<Biometria> biometrics = new ArrayList<>();
-            if (Boolean.TRUE.equals(noEsNuloOVacio(wsqIndce)))
-            {
-                Biometria dedo = new Biometria();
-                String numIndice = manoIndice.equals(R.string.mano) ? "2" : "7";
-                dedo.setBiometryName(numIndice);
-                dedo.setBiometryRawDataType("Jpeg");
-                dedo.setRawData(wsqIndce);
-                biometrics.add(dedo);
-            }
-            if (Boolean.TRUE.equals(noEsNuloOVacio(wsqMedio)))
-            {
-                Biometria dedo = new Biometria();
-                String numMedio = manoIndice.equals(R.string.mano) ? "3" : "8";
-                dedo.setBiometryName(numMedio);
-                dedo.setBiometryRawDataType("Jpeg");
-                dedo.setRawData(wsqMedio);
-                biometrics.add(dedo);
-            }
-            if (Boolean.TRUE.equals(Boolean.TRUE.equals(noEsNuloOVacio(wsqAnular))))
-            {
-                Biometria dedo = new Biometria();
-                String numAnular = manoIndice.equals(R.string.mano) ? "4" : "9";
-                dedo.setBiometryName(numAnular);
-                dedo.setBiometryRawDataType("Jpeg");
-                dedo.setRawData(wsqAnular);
-                biometrics.add(dedo);
-            }
-            if (Boolean.TRUE.equals(noEsNuloOVacio(wsqMenique)))
-            {
-                Biometria dedo = new Biometria();
-                String numMenique = manoIndice.equals(R.string.mano) ? "5" : "10";
-                dedo.setBiometryName(numMenique);
-                dedo.setBiometryRawDataType("Jpeg");
-                dedo.setRawData(wsqMenique);
-                biometrics.add(dedo);
-            }
+            biometrics = new ArrayList<>();
+            fingerVerficication(wsqIndce,"2","7");
+            fingerVerficication(wsqMedio,"3","8");
+            fingerVerficication(wsqAnular,"4","9");
+            fingerVerficication(wsqMenique,"5","10");
+
             request.setBiometrics(biometrics);
 
             if (metodo.equals("30") )

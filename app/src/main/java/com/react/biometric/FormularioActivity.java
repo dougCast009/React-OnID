@@ -88,7 +88,7 @@ public class FormularioActivity extends AppCompatActivity {
 
         String formModalidad;
         Button btnContinuar;
-        
+
         userName = getIntent().getStringExtra(Constantes.USER_NAME);
         userPassword = getIntent().getStringExtra(Constantes.USER_PASSWORD);
         userModalidad = getIntent().getStringExtra(Constantes.OPTION_MODALIDAD);
