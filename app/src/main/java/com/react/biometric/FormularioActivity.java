@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.regula.documentreader.api.params.rfid.authorization.PAResourcesIssuer;
+
 public class FormularioActivity extends AppCompatActivity {
 
     private String userName;
@@ -20,7 +22,65 @@ public class FormularioActivity extends AppCompatActivity {
     private String userNID;
     private String userNombres;
     private String userApellidos;
+    private EditText txtIdentificacion;
+    private EditText txtNombres;
+    private EditText txtApellidos;
 
+
+
+    private void changeByFacialOrHuella(String formModalidad){
+        Intent intent;
+        if (formModalidad.equals(Constantes.FORMFACIAL))
+        {
+            intent = new Intent(this, MainFacial.class);
+        }
+        else
+        {
+            intent = new Intent(this, MainHuella.class);
+        }
+        intent.putExtra(Constantes.USER_NAME, userName);
+        intent.putExtra(Constantes.USER_PASSWORD, userPassword);
+        intent.putExtra(Constantes.OPTION_MODALIDAD, userModalidad);
+        intent.putExtra(Constantes.USER_ID, userNID);
+        intent.putExtra(Constantes.USER_PNAMES, userNombres);
+        intent.putExtra(Constantes.USER_PLNAMES, userApellidos);
+        intent.putExtra(Constantes.FORM_MODALIDAD, formModalidad);
+        startActivity(intent);
+
+    }
+    private void configBtnContinuar(String formModalidad){
+
+        userNID = txtIdentificacion.getText().toString();
+        userNombres = txtNombres.getText().toString();
+        userApellidos = txtApellidos.getText().toString();
+
+        if (userNID.replace(" ","").length() > 0)
+        {
+            if (userNombres.replace(" ","").length() > 0 || !userModalidad.equals(Constantes.MODALIDADENROLA))
+            {
+                if (userApellidos.replace(" ","").length() > 0 || !userModalidad.equals(Constantes.MODALIDADENROLA))
+                {
+                    changeByFacialOrHuella(formModalidad);
+                }
+                else
+                {
+                    Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.form_error_apellidos), Constantes.TOASTDURATION);
+                    toast.show();
+                }
+            }
+            else
+            {
+                Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.form_error_nombres), Constantes.TOASTDURATION);
+                toast.show();
+            }
+        }
+        else
+        {
+            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.form_error_identificacion), Constantes.TOASTDURATION);
+            toast.show();
+        }
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,14 +88,6 @@ public class FormularioActivity extends AppCompatActivity {
 
         String formModalidad;
         Button btnContinuar;
-
-        EditText txtIdentificacion;
-        EditText txtNombres;
-        EditText txtApellidos;
-        TextView lblNombres;
-        TextView lblApellidos;
-
-
 
         userName = getIntent().getStringExtra(Constantes.USER_NAME);
         userPassword = getIntent().getStringExtra(Constantes.USER_PASSWORD);
@@ -46,12 +98,12 @@ public class FormularioActivity extends AppCompatActivity {
         userNombres = getIntent().getStringExtra(Constantes.USER_PNAMES);
         userApellidos = getIntent().getStringExtra(Constantes.USER_PLNAMES);
 
-        txtIdentificacion = (EditText) findViewById(R.id.txtPlaceHolder);
-        txtNombres = (EditText) findViewById(R.id.txtNombres);
-        txtApellidos = (EditText) findViewById(R.id.txtApellidos);
-        lblNombres = (TextView) findViewById(R.id.lblNombres);
-        lblApellidos = (TextView) findViewById(R.id.lblApellidos);
-        btnContinuar = (Button) findViewById(R.id.btnContinuar);
+        txtIdentificacion = findViewById(R.id.txtPlaceHolder);
+        txtNombres =  findViewById(R.id.txtNombres);
+        txtApellidos =  findViewById(R.id.txtApellidos);
+        TextView  lblNombres =  findViewById(R.id.lblNombres);
+        TextView lblApellidos =  findViewById(R.id.lblApellidos);
+        btnContinuar =  findViewById(R.id.btnContinuar);
 
         if (userNID != null && !userNID.equals(""))
         {
@@ -79,61 +131,7 @@ public class FormularioActivity extends AppCompatActivity {
 
         toolbar.setNavigationOnClickListener(view -> onBackPressed());
 
-        btnContinuar.setOnClickListener(view -> {
-
-            userNID = txtIdentificacion.getText().toString();
-            userNombres = txtNombres.getText().toString();
-            userApellidos = txtApellidos.getText().toString();
-
-            if (userNID.replace(" ","").length() > 0)
-            {
-                if (userNombres.replace(" ","").length() > 0 || !userModalidad.equals(Constantes.MODALIDADENROLA))
-                {
-                    if (userApellidos.replace(" ","").length() > 0 || !userModalidad.equals(Constantes.MODALIDADENROLA))
-                    {
-                        if (formModalidad.equals(Constantes.FORMFACIAL))
-                        {
-                            Intent intent = new Intent(this, MainFacial.class);
-                            intent.putExtra(Constantes.USER_NAME, userName);
-                            intent.putExtra(Constantes.USER_PASSWORD, userPassword);
-                            intent.putExtra(Constantes.OPTION_MODALIDAD, userModalidad);
-                            intent.putExtra(Constantes.USER_ID, userNID);
-                            intent.putExtra(Constantes.USER_PNAMES, userNombres);
-                            intent.putExtra(Constantes.USER_PLNAMES, userApellidos);
-                            intent.putExtra(Constantes.FORM_MODALIDAD, formModalidad);
-                            startActivity(intent);
-                        }
-                        else
-                        {
-                            Intent intent = new Intent(this, MainHuella.class);
-                            intent.putExtra(Constantes.USER_NAME, userName);
-                            intent.putExtra(Constantes.USER_PASSWORD, userPassword);
-                            intent.putExtra(Constantes.OPTION_MODALIDAD, userModalidad);
-                            intent.putExtra(Constantes.USER_ID, userNID);
-                            intent.putExtra(Constantes.USER_PNAMES, userNombres);
-                            intent.putExtra(Constantes.USER_PLNAMES, userApellidos);
-                            intent.putExtra(Constantes.FORM_MODALIDAD, formModalidad);
-                            startActivity(intent);
-                        }
-                    }
-                    else
-                    {
-                        Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.form_error_apellidos), Constantes.TOASTDURATION);
-                        toast.show();
-                    }
-                }
-                else
-                {
-                    Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.form_error_nombres), Constantes.TOASTDURATION);
-                    toast.show();
-                }
-            }
-            else
-            {
-                Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.form_error_identificacion), Constantes.TOASTDURATION);
-                toast.show();
-            }
-        });
+        btnContinuar.setOnClickListener(view -> configBtnContinuar(formModalidad));
     }
 
     @Override

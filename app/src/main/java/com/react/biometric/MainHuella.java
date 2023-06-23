@@ -65,7 +65,7 @@ public class MainHuella extends BaseActivity implements CustomCallback
     private LinearLayout tabInformacion;
     private LinearLayout tabEscaner;
     //CAMPOS DE TEXTO
-
+    private   TextView textoPrincipal;
     //VARIABLES DE PETICION
     private String peticionNID;
     private String peticionNombres;
@@ -79,7 +79,7 @@ public class MainHuella extends BaseActivity implements CustomCallback
     String mode = "commercial";
     WSQCompression compression = WSQCompression.WSQ_10_1;
     int base64encoding = Base64.DEFAULT;
-    static final String NET_KEY = "AIzaSyDFFGSONyHF0Aa7ikelLSyXw_CIa0PGVdk";
+
     private ImageView imgIndice;
     private ImageView imgMedio;
     private ImageView imgAnular;
@@ -115,6 +115,7 @@ public class MainHuella extends BaseActivity implements CustomCallback
     private Boolean estadoDocumento = false;
     private Boolean capturando = false;
 
+    private List<Biometria> biometrics;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -468,6 +469,17 @@ public class MainHuella extends BaseActivity implements CustomCallback
         }
     }
 
+    private void fingerVerficication(String wsq,String numLeft, String numRigh){
+        if (Boolean.TRUE.equals(noEsNuloOVacio(wsq)))
+        {
+            Biometria dedo = new Biometria();
+            String numDedo = manoIndice.equals(R.string.mano) ? numLeft : numRigh;
+            dedo.setBiometryName(numDedo);
+            dedo.setBiometryRawDataType("Jpeg");
+            dedo.setRawData(wsq);
+            biometrics.add(dedo);
+        }
+    }
     private void crearPeticion()
     {
         try
@@ -486,43 +498,12 @@ public class MainHuella extends BaseActivity implements CustomCallback
 
             request.setCustomerid(userName);
             request.setPass(userPassword);
-            List<Biometria> biometrics = new ArrayList<>();
-            if (Boolean.TRUE.equals(noEsNuloOVacio(wsqIndce)))
-            {
-                Biometria dedo = new Biometria();
-                String numIndice = manoIndice.equals(R.string.mano) ? "2" : "7";
-                dedo.setBiometryName(numIndice);
-                dedo.setBiometryRawDataType("Jpeg");
-                dedo.setRawData(wsqIndce);
-                biometrics.add(dedo);
-            }
-            if (Boolean.TRUE.equals(noEsNuloOVacio(wsqMedio)))
-            {
-                Biometria dedo = new Biometria();
-                String numMedio = manoIndice.equals(R.string.mano) ? "3" : "8";
-                dedo.setBiometryName(numMedio);
-                dedo.setBiometryRawDataType("Jpeg");
-                dedo.setRawData(wsqMedio);
-                biometrics.add(dedo);
-            }
-            if (Boolean.TRUE.equals(Boolean.TRUE.equals(noEsNuloOVacio(wsqAnular))))
-            {
-                Biometria dedo = new Biometria();
-                String numAnular = manoIndice.equals(R.string.mano) ? "4" : "9";
-                dedo.setBiometryName(numAnular);
-                dedo.setBiometryRawDataType("Jpeg");
-                dedo.setRawData(wsqAnular);
-                biometrics.add(dedo);
-            }
-            if (Boolean.TRUE.equals(noEsNuloOVacio(wsqMenique)))
-            {
-                Biometria dedo = new Biometria();
-                String numMenique = manoIndice.equals(R.string.mano) ? "5" : "10";
-                dedo.setBiometryName(numMenique);
-                dedo.setBiometryRawDataType("Jpeg");
-                dedo.setRawData(wsqMenique);
-                biometrics.add(dedo);
-            }
+            biometrics = new ArrayList<>();
+            fingerVerficication(wsqIndce,"2","7");
+            fingerVerficication(wsqMedio,"3","8");
+            fingerVerficication(wsqAnular,"4","9");
+            fingerVerficication(wsqMenique,"5","10");
+
             request.setBiometrics(biometrics);
 
             if (metodo.equals("30") )
@@ -563,10 +544,17 @@ public class MainHuella extends BaseActivity implements CustomCallback
         }
     }
 
+    private void showTabRespuesta(){
+        tabRespuesta.setVisibility(View.VISIBLE);
+        toolbar.setVisibility(View.GONE);
+        mainContent.setVisibility(View.GONE);
+        textoPrincipal.setText(Boolean.TRUE.equals(estadoDocumento) ? getString(R.string.identidad_confirmada) : getString(R.string.identidad_no_confirmada));
+        imgResultado.setImageResource(Boolean.TRUE.equals(estadoDocumento) ? R.drawable.document_check : R.drawable.document_cross);
+    }
     @Override
     public void obtenerRespuesta(Boolean success, String object) {
         runOnUiThread(this::dismissDialog);
-        TextView textoPrincipal = findViewById(R.id.texto_principal);
+        textoPrincipal = findViewById(R.id.texto_principal);
         try {
             OrqResponse respuesta = ResponseManager.obtenerObjetoRespuesta(object);
 
@@ -579,22 +567,14 @@ public class MainHuella extends BaseActivity implements CustomCallback
                 {
                     runOnUiThread(() -> {
                         estadoDocumento = true;
-                        tabRespuesta.setVisibility(View.VISIBLE);
-                        toolbar.setVisibility(View.GONE);
-                        mainContent.setVisibility(View.GONE);
-                        textoPrincipal.setText(Boolean.TRUE.equals(estadoDocumento) ? getString(R.string.identidad_confirmada) : getString(R.string.identidad_no_confirmada));
-                        imgResultado.setImageResource(Boolean.TRUE.equals(estadoDocumento) ? R.drawable.document_check : R.drawable.document_cross);
+                        showTabRespuesta();
                     });
                 }
                 else
                 {
                     runOnUiThread(() -> {
                         estadoDocumento = false;
-                        tabRespuesta.setVisibility(View.VISIBLE);
-                        toolbar.setVisibility(View.GONE);
-                        mainContent.setVisibility(View.GONE);
-                        textoPrincipal.setText(Boolean.TRUE.equals(estadoDocumento) ? getString(R.string.identidad_confirmada) : getString(R.string.identidad_no_confirmada));
-                        imgResultado.setImageResource(Boolean.TRUE.equals(estadoDocumento) ? R.drawable.document_check : R.drawable.document_cross);
+                        showTabRespuesta();
                     });
                 }
             }

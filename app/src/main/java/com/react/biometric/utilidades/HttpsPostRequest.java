@@ -24,8 +24,7 @@ import okhttp3.Response;
 import com.react.biometric.Constantes;
 import com.react.biometric.interfaces.CustomCallback;
 
-/*@Deprecated
-Change this code in phase 2 */
+
 public class HttpsPostRequest extends AsyncTask<String,Void,String>
 {
 
