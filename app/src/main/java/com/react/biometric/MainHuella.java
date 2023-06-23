@@ -65,7 +65,7 @@ public class MainHuella extends BaseActivity implements CustomCallback
     private LinearLayout tabInformacion;
     private LinearLayout tabEscaner;
     //CAMPOS DE TEXTO
-
+    private   TextView textoPrincipal;
     //VARIABLES DE PETICION
     private String peticionNID;
     private String peticionNombres;
@@ -79,7 +79,7 @@ public class MainHuella extends BaseActivity implements CustomCallback
     String mode = "commercial";
     WSQCompression compression = WSQCompression.WSQ_10_1;
     int base64encoding = Base64.DEFAULT;
-    static final String NET_KEY = "AIzaSyDFFGSONyHF0Aa7ikelLSyXw_CIa0PGVdk";
+
     private ImageView imgIndice;
     private ImageView imgMedio;
     private ImageView imgAnular;
@@ -563,10 +563,17 @@ public class MainHuella extends BaseActivity implements CustomCallback
         }
     }
 
+    private void showTabRespuesta(){
+        tabRespuesta.setVisibility(View.VISIBLE);
+        toolbar.setVisibility(View.GONE);
+        mainContent.setVisibility(View.GONE);
+        textoPrincipal.setText(Boolean.TRUE.equals(estadoDocumento) ? getString(R.string.identidad_confirmada) : getString(R.string.identidad_no_confirmada));
+        imgResultado.setImageResource(Boolean.TRUE.equals(estadoDocumento) ? R.drawable.document_check : R.drawable.document_cross);
+    }
     @Override
     public void obtenerRespuesta(Boolean success, String object) {
         runOnUiThread(this::dismissDialog);
-        TextView textoPrincipal = findViewById(R.id.texto_principal);
+        textoPrincipal = findViewById(R.id.texto_principal);
         try {
             OrqResponse respuesta = ResponseManager.obtenerObjetoRespuesta(object);
 
@@ -579,22 +586,14 @@ public class MainHuella extends BaseActivity implements CustomCallback
                 {
                     runOnUiThread(() -> {
                         estadoDocumento = true;
-                        tabRespuesta.setVisibility(View.VISIBLE);
-                        toolbar.setVisibility(View.GONE);
-                        mainContent.setVisibility(View.GONE);
-                        textoPrincipal.setText(Boolean.TRUE.equals(estadoDocumento) ? getString(R.string.identidad_confirmada) : getString(R.string.identidad_no_confirmada));
-                        imgResultado.setImageResource(Boolean.TRUE.equals(estadoDocumento) ? R.drawable.document_check : R.drawable.document_cross);
+                        showTabRespuesta();
                     });
                 }
                 else
                 {
                     runOnUiThread(() -> {
                         estadoDocumento = false;
-                        tabRespuesta.setVisibility(View.VISIBLE);
-                        toolbar.setVisibility(View.GONE);
-                        mainContent.setVisibility(View.GONE);
-                        textoPrincipal.setText(Boolean.TRUE.equals(estadoDocumento) ? getString(R.string.identidad_confirmada) : getString(R.string.identidad_no_confirmada));
-                        imgResultado.setImageResource(Boolean.TRUE.equals(estadoDocumento) ? R.drawable.document_check : R.drawable.document_cross);
+                        showTabRespuesta();
                     });
                 }
             }
