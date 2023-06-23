@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:screenOrientation="portrait"
-    tools:context="com.react.Biometric.IniciarSesionActivity">
+    tools:context="com.react.biometric.IniciarSesionActivity">
 
     <ScrollView
         android:id="@+id/scrollView2"
