@@ -3,6 +3,7 @@ package com.react.biometric.util;
 import static android.graphics.BitmapFactory.decodeStream;
 
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
