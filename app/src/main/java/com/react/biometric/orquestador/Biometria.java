@@ -9,23 +9,23 @@ public class Biometria {
         return biometryName;
     }
 
-    public void setBiometryName(String biometryName) {
-        biometryName = biometryName;
+    public void setBiometryName(String biometryNameParam) {
+        biometryName = biometryNameParam;
     }
 
     public String getBiometryRawDataType() {
         return biometryRawDataType;
     }
 
-    public void setBiometryRawDataType(String biometryRawDataType) {
-        biometryRawDataType = biometryRawDataType;
+    public void setBiometryRawDataType(String biometryRawDataTypeParam) {
+        biometryRawDataType = biometryRawDataTypeParam;
     }
 
     public String getRawData() {
         return rawData;
     }
 
-    public void setRawData(String rawData) {
-        rawData = rawData;
+    public void setRawData(String rawDataParam) {
+        rawData = rawDataParam;
     }
 }
