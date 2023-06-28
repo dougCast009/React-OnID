@@ -158,5 +158,8 @@
     <string name="login">Verificando Datos...</string>
     <string name="alerta_cancelar_escaneo">El escaneo fue cancelado</string>
     <string name="alerta_Inicializando">Inicializando</string>
+    <string name="descarga_texto">Descargando espere:</string>
+    <string name="descarga_texto_fallo">"Fallo en preparar la base de datos: "</string>
+    <string name="descarga_txt_preparing">Preparando Base de datos</string>
 
 </resources>

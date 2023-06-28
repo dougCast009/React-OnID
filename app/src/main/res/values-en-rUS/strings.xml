@@ -141,4 +141,7 @@
     <string name="login">Verifying Data...</string>
     <string name="alerta_cancelar_escaneo">"Scanning  was cancel "</string>
     <string name="alerta_Inicializando">Initializing</string>
+    <string name="descarga_texto">"Downloading database: "</string>
+    <string name="descarga_texto_fallo">Prepare DB failed :</string>
+    <string name="descarga_txt_preparing">Preparing database</string>
 </resources>
