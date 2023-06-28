@@ -79,7 +79,7 @@
     <string name="result_nacionalidad">Nationality:</string>
     <string name="result_code_nacionalidad">Nationality Code:</string>
     <string name="result_cod_pais">Country Code:</string>
-    <string name="result_pais_origen">Country of origin:</string>
+    <string name="result_pais_origen">Country:</string>
     <string name="result_identificacion">ID:</string>
     <string name="result_nombres">Names</string>
     <string name="result_apellidos">Last name</string>
@@ -88,8 +88,8 @@
     <string name="result_fech_nac">Birth date:</string>
     <string name="result_lug_nac">Place of Birth:</string>
     <string name="result_domicilio">Electoral Address:</string>
-    <string name="result_nom_madre">Mother\'s Name:</string>
-    <string name="result_nom_padre">Father Name:</string>
+    <string name="result_nom_madre">Mother\'s Full Name:</string>
+    <string name="result_nom_padre">Father Full Name:</string>
     <string name="result_meses_vence">Business Months:</string>
     <string name="result_fecha_emision">Emission:</string>
     <string name="result_fecha_vence">Expiration:</string>
