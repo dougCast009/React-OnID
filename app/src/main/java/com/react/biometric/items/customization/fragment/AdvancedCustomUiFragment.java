@@ -7,6 +7,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 import com.react.biometric.R;
 import com.regula.facesdk.fragment.FaceUiFragment;
@@ -53,7 +54,7 @@ public class AdvancedCustomUiFragment extends FaceUiFragment {
     @Override
     public void onLightButtonClicked(boolean isLightOn) {
         super.onLightButtonClicked(isLightOn);
-        mFlashLightBtn.setImageDrawable(getResources().getDrawable(isLightOn ? R.drawable.flash_light_on : R.drawable.flash_light_off));
+        mFlashLightBtn.setImageDrawable(ContextCompat.getDrawable(getContext(),isLightOn ? R.drawable.flash_light_on : R.drawable.flash_light_off));
     }
 
     @Override

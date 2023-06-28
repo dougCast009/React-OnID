@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 import com.react.biometric.R;
 import com.regula.facesdk.fragment.FaceDefaultUiFragment;
@@ -29,6 +30,6 @@ public class FlashButtonFragment extends FaceDefaultUiFragment {
             return;
 
         if (mFlashLightBtn instanceof ImageButton)
-            ((ImageButton) mFlashLightBtn).setImageDrawable(getResources().getDrawable(isLightOn ? R.drawable.flash_light_on : R.drawable.flash_light_off));
+            ((ImageButton) mFlashLightBtn).setImageDrawable(ContextCompat.getDrawable(getContext(),isLightOn ? R.drawable.flash_light_on : R.drawable.flash_light_off));
     }
 }
