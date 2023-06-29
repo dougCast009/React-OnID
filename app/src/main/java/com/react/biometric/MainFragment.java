@@ -22,6 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.regula.documentreader.api.DocumentReader;
@@ -441,10 +442,10 @@ public class MainFragment extends Fragment {
         txtEstado.setTextColor(Color.parseColor(TXTCOLORNEGRO));
         txtMeses.setTextColor(Color.parseColor(TXTCOLORNEGRO));
         txtVencimiento.setTextColor(Color.parseColor(TXTCOLORNEGRO));
-        imgFoto.setImageDrawable(getResources().getDrawable(R.drawable.avatar));
-        imgFirma.setImageDrawable(getResources().getDrawable(R.drawable.writing));
-        imgDocumento1.setImageDrawable(getResources().getDrawable(R.drawable.membership));
-        imgDocumento2.setImageDrawable(getResources().getDrawable(R.drawable.membership));
+        imgFoto.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.avatar));
+        imgFirma.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.writing));
+        imgDocumento1.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.membership));
+        imgDocumento2.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.membership));
         lblDmxExpediente.setVisibility(View.VISIBLE);
         lblDmxCodNacionalidad.setVisibility(View.VISIBLE);
         lblDmxNacionalidad.setVisibility(View.VISIBLE);
