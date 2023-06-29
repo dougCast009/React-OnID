@@ -44,7 +44,6 @@ public abstract class BaseActivity extends AppCompatActivity implements MainFrag
     public static final String DO_RFID = "doRfid";
     private static final String TAG_UI_FRAGMENT = "ui_fragment";
 
-
     protected SharedPreferences sharedPreferences;
     private boolean doRfid;
     private AlertDialog loadingDialog;
@@ -75,7 +74,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MainFrag
             return;
         }
 
-        showDialog("Preparing database");
+        showDialog(getString(R.string.descarga_txt_preparing));
 
         //preparing database files, it will be downloaded from network only one time and stored on user device
         DocumentReader.Instance().prepareDatabase(BaseActivity.this,
@@ -83,7 +82,8 @@ public abstract class BaseActivity extends AppCompatActivity implements MainFrag
                 new IDocumentReaderPrepareCompletion() {
                     @Override
                     public void onPrepareProgressChanged(int progress) {
-                        setTitleDialog("Downloading database: " + progress + "%");
+                        String dialog = getString(R.string.descarga_texto);
+                        setTitleDialog(dialog + progress + "%");
                     }
 
                     @Override
@@ -92,7 +92,8 @@ public abstract class BaseActivity extends AppCompatActivity implements MainFrag
                             onPrepareDbCompleted();
                         } else {
                             dismissDialog();
-                            Toast.makeText(BaseActivity.this, "Prepare DB failed:" + error, Toast.LENGTH_LONG).show();
+                            String dialog = getString(R.string.descarga_texto_fallo);
+                            Toast.makeText(BaseActivity.this, dialog + error, Toast.LENGTH_LONG).show();
                         }
                     }
                 });
