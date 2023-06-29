@@ -79,6 +79,7 @@ public class MainHuella extends BaseActivity implements CustomCallback
     String mode = "commercial";
     WSQCompression compression = WSQCompression.WSQ_10_1;
     int base64encoding = Base64.DEFAULT;
+    static final String NET_KEY = "AIzaSyDFFGSONyHF0Aa7ikelLSyXw_CIa0PGVdk";
 
     private ImageView imgIndice;
     private ImageView imgMedio;
