@@ -35,7 +35,7 @@ public class HttpsPostRequest extends AsyncTask<String,Void,String>
                 this.privateCert = privateCert;
                 this.caCrt = caCrt;
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.e("BadRequest", "Problemas al ejecutar la solicitud al servidor");
             }
         }
         this.callback = callback;

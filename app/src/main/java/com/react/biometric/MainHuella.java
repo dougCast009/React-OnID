@@ -353,8 +353,7 @@ public class MainHuella extends BaseActivity implements CustomCallback
                         }
                         catch (Exception ex)
                         {
-                            ex.printStackTrace();
-                            Log.e("Fail_OnInit", ex.getMessage());
+                            Toast.makeText(this, "Problemas al enviar la informacion al servidor de biometria", Toast.LENGTH_LONG).show();
                         }
                     },
                     new IdentyResponseListener() {
@@ -431,8 +430,7 @@ public class MainHuella extends BaseActivity implements CustomCallback
             );
 
         } catch (Exception ex) {
-            ex.printStackTrace();
-            Log.e("ErrorControlado", ex.getMessage());
+            Toast.makeText(this, "Error al ejecutar el proceso de lectura de Huella", Toast.LENGTH_LONG).show();
         }
     }
 

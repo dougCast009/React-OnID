@@ -157,7 +157,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MainFrag
                 is.read(buffer);
                 is.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                Toast.makeText(this, "No se logro obtener el archivo solicitado", Toast.LENGTH_LONG).show();
             }
 
             byte[] finalBuffer = buffer;
