@@ -23,36 +23,8 @@ public final class Constantes
     public static final String REQUEST_SEX = "req_sex";
     public static final String REQUEST_COUNTRY = "req_country";
     public static final String REQUEST_BIRTH = "req_birth";
-
-    public static final String DESDE_PRINCIPAL = "principal";
-    public static final String USER_SOCIAL_ID = "user_social_id";
-    public static final String RESPONSE = "response";
-    public static final String MODALIDAD_RESPUESTA = "modalidad_respuesta";
-    public static final String SUCCESS = "success";
-    public static final String IMEI = "IMEI";
-    public static final String FIRST_OPEN = "FIRST_OPEN";
-    public static final String DEMO = "DEMO";
-    public static final String METHOD_SOURCE = "method_source";
-    public static final String INTENTOS = "INTENTOS";
-    public static final String TXT_EMAIL = "txt_email";
-    public static final String CONSENTIMIENTO = "txt";
-    public static final String PERSONAL_URL = "link";
-    public static final String NOM_COMPLETO = "nom";
     public  static  final String URL_BASE = BuildConfig.URL_BASE;
     public  static  final String URL_PATH = BuildConfig.URL_PATH;
-
-    public static final String DEMO_USER = "REACT001";
-    public static final String PASSWORD_USER = "$tr@!ght1928";
-
-    public static final String CONTRASENNA_CERT = "1Pass1q2w3e4r";
-
-    public static final int VERIDACTILAR = 0;
-    public static final int VERIDACTILARCOMPLETO = 3;
-    public static final int VERIDACTILARDEMO = 0;
-    public static final int VERIFACIAL = 1;
-    public static final int VERIFACIALCOMPLETO = 4;
-    public static final int VERIFACIALDEMO = 1;
-    public static final int VERICONSENTIMIENTO = 16;
 
     public static final int TOASTDURATION = Toast.LENGTH_SHORT;
     public static final String MODALIDADENROLA = "ENROLA";
@@ -70,6 +42,6 @@ public final class Constantes
     public static final String ENROLL_FACIAL = "30";
     public static final String ENROLL_HUELLA = "30";
 
-    public static final Boolean ESDESARROLLO = true;
+    public static final Boolean ESDESARROLLO = false;
 
 }

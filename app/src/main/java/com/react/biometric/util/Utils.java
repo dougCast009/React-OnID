@@ -3,9 +3,12 @@ package com.react.biometric.util;
 import static android.graphics.BitmapFactory.decodeStream;
 
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.util.Log;
+import android.widget.Toast;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -20,7 +23,7 @@ public class Utils {
         try {
             is = resolver.openInputStream(selectedImage);
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            Log.e("File_NotFound", "No se encuentra el archivo solicitado");
         }
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
@@ -30,7 +33,7 @@ public class Utils {
         try {
             is = resolver.openInputStream(selectedImage);
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            Log.e("File_NotFound", "No se encuentra el archivo solicitado");
         }
         // Calculate inSampleSize
         options.inSampleSize = calculateInSampleSize(options, targetWidth, targetHeight);

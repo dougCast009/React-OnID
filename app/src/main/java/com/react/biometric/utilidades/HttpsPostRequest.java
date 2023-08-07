@@ -4,16 +4,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import com.google.gson.JsonObject;
 import java.io.InputStream;
-import java.security.KeyStore;
-import java.security.cert.CertificateException;
-import java.security.cert.CertificateFactory;
-import java.security.cert.X509Certificate;
 import java.util.concurrent.TimeUnit;
-import javax.net.ssl.KeyManager;
-import javax.net.ssl.KeyManagerFactory;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.TrustManagerFactory;
-import javax.net.ssl.X509TrustManager;
 import okhttp3.Headers;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -44,7 +35,7 @@ public class HttpsPostRequest extends AsyncTask<String,Void,String>
                 this.privateCert = privateCert;
                 this.caCrt = caCrt;
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.e("BadRequest", "Problemas al ejecutar la solicitud al servidor");
             }
         }
         this.callback = callback;
@@ -103,76 +94,4 @@ public class HttpsPostRequest extends AsyncTask<String,Void,String>
                 .build();
     }
 
-    private KeyManager[] getKeyManager(String password){
-        KeyManager[] keyManagers = null;
-        try{
-            //Certificado Privado
-            KeyStore keyStore = KeyStore.getInstance("PKCS12");
-            keyStore.load(privateCert, password.toCharArray());
-            KeyManagerFactory kmf = KeyManagerFactory.getInstance("X509");
-            kmf.init(keyStore, password.toCharArray());
-            keyManagers = kmf.getKeyManagers();
-        }catch (Exception e){
-            Log.d("getKeyManager", "Error: " + e.getMessage());
-        }
-        return keyManagers;
-    }
-
-    private TrustManager[] getTrustManager(){
-        TrustManager[] trustManagers = null;
-        try{
-            //TrustStore con cadena de certificados
-            CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
-            X509Certificate cert = (X509Certificate) certificateFactory.generateCertificate(caCrt);
-
-            String alias = cert.getSubjectX500Principal().getName();
-            KeyStore trustStore = KeyStore.getInstance(KeyStore.getDefaultType());
-            trustStore.load(null);
-            trustStore.setCertificateEntry(alias, cert);
-
-            TrustManagerFactory tmf = TrustManagerFactory.getInstance("X509");
-            tmf.init(trustStore);
-            trustManagers = tmf.getTrustManagers();
-        } catch (Exception e) {
-            Log.d("getTrustManager", "Excepcion: " + e.getMessage());
-        }
-        return trustManagers;
-    }
-
-    private X509TrustManager getx509Trust(TrustManager[] trustManagers){
-        X509TrustManager customTm = null;
-        try{
-            X509TrustManager x509Tm = null;
-            for (TrustManager tm : trustManagers) {
-                if (tm instanceof X509TrustManager) {
-                    x509Tm = (X509TrustManager) tm;
-                    break;
-                }
-            }
-
-            // Convierte TrustManager a X509TrustManager
-            final X509TrustManager finalTm = x509Tm;
-            customTm = new X509TrustManager() {
-                @Override
-                public X509Certificate[] getAcceptedIssuers() {
-                    return finalTm.getAcceptedIssuers();
-                }
-
-                @Override
-                public void checkServerTrusted(X509Certificate[] chain,
-                                               String authType) throws CertificateException {
-                    finalTm.checkServerTrusted(chain, authType);
-                }
-
-                @Override
-                public void checkClientTrusted(X509Certificate[] chain,
-                                               String authType) throws CertificateException {
-                    finalTm.checkClientTrusted(chain, authType);
-                }
-            };
-        }catch (Exception e){
-            Log.d("getx509Trust", "Excepcion: " + e.getMessage());
-        }
-        return customTm;
-    }
 }

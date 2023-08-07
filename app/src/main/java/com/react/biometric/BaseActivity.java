@@ -11,6 +11,11 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -152,7 +157,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MainFrag
                 is.read(buffer);
                 is.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                Toast.makeText(this, "No se logro obtener el archivo solicitado", Toast.LENGTH_LONG).show();
             }
 
             byte[] finalBuffer = buffer;
