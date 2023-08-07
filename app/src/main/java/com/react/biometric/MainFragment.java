@@ -1,5 +1,6 @@
 package com.react.biometric;
 
+import android.app.admin.UnsafeStateException;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -15,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.io.ByteArrayOutputStream;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -410,7 +412,7 @@ public class MainFragment extends Fragment {
                 Date fechaActual = Calendar.getInstance().getTime();
 
                 return fechaActual.before(fechaVence) || fechaActual.equals(fechaVence);
-            } catch (Exception ex) {
+            } catch (ParseException ex) {
                 return false;
             }
         } else {

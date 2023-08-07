@@ -344,7 +344,7 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
             Gson gson = new Gson();
             JsonObject jsonRequest = JsonParser.parseString(gson.toJson(request)).getAsJsonObject();
             realizarPeticion(jsonRequest);
-        } catch (Exception ex) {
+        } catch (UnsupportedOperationException ex) {
             Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_peticion), Constantes.TOASTDURATION);
             toast.show();
         }
@@ -356,7 +356,7 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
             InputStream certChain = getResources().openRawResource(R.raw.certificado_android_pem);
             final HttpsPostRequest peticion = new HttpsPostRequest(request, this, privateCrt, certChain);
             peticion.execute(Constantes.URL_BASE);
-        } catch (Exception ex) {
+        } catch (UnsupportedOperationException ex) {
             Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_realiza_peticion), Constantes.TOASTDURATION);
             toast.show();
         }
