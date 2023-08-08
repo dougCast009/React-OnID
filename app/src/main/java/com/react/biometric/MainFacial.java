@@ -345,7 +345,7 @@ public class MainFacial extends BaseActivity implements CustomCallback
             JsonObject jsonRequest = JsonParser.parseString(gson.toJson(request)).getAsJsonObject();
             realizarPeticion(jsonRequest);
         }
-        catch (Exception ex) {
+        catch (UnsupportedOperationException ex) {
             Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_peticion), Constantes.TOASTDURATION);
             toast.show();
         }
@@ -360,7 +360,7 @@ public class MainFacial extends BaseActivity implements CustomCallback
             final HttpsPostRequest peticion = new HttpsPostRequest(request, this, privateCrt, certChain);
             peticion.execute(Constantes.URL_BASE);
         }
-        catch (Exception ex)
+        catch (UnsupportedOperationException ex)
         {
             Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_realiza_peticion), Constantes.TOASTDURATION);
             toast.show();

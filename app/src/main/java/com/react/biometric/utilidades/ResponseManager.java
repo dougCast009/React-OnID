@@ -38,7 +38,7 @@ public class ResponseManager
                 }
             }
 
-        } catch (Exception e) {
+        } catch (UnsupportedOperationException e) {
             Map<String, String> mapa = new HashMap<String, String>() {
             };
             lista.clear();
@@ -89,7 +89,7 @@ public class ResponseManager
             }
 
             return "";
-        } catch (Exception ex) {
+        } catch (NullPointerException ex) {
             return null;
         }
     }
@@ -116,7 +116,7 @@ public class ResponseManager
             }
 
             return "";
-        } catch (Exception ex) {
+        } catch (NullPointerException ex) {
             return null;
         }
     }

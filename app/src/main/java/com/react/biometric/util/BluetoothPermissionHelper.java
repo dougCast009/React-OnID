@@ -44,13 +44,13 @@ public class BluetoothPermissionHelper {
 
         try {
             gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        } catch (Exception ex) {
+        } catch (UnsupportedOperationException ex) {
             Log.d("cant_gps_enabled", "Request: " + ex.getMessage());
         }
 
         try {
             networkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-        } catch (Exception ex) {
+        } catch (UnsupportedOperationException ex) {
             Log.d("cant_network_enabled", "Request: " + ex.getMessage());
         }
 

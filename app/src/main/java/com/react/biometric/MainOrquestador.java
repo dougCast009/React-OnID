@@ -3,11 +3,13 @@ package com.react.biometric;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.media.UnsupportedSchemeException;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -66,8 +68,8 @@ public class MainOrquestador extends AppCompatActivity implements CustomCallback
             JsonObject jsonRequest = JsonParser.parseString(gson.toJson(request)).getAsJsonObject();
             realizarPeticion(jsonRequest);
         }
-        catch (Exception ex) {
-            //MOSTRAR ERROR
+        catch (UnsupportedOperationException ex) {
+            Toast.makeText(this, "No se logro realizar la peticion de forma correcta", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -80,7 +82,7 @@ public class MainOrquestador extends AppCompatActivity implements CustomCallback
             final HttpsPostRequest peticion = new HttpsPostRequest(request, this, privateCrt, certChain);
             peticion.execute(Constantes.URL_BASE);
         }
-        catch (Exception ex)
+        catch (UnsupportedOperationException ex)
         {
             Log.d("realizarPeticion", "Request: " + ex.getMessage());
         }

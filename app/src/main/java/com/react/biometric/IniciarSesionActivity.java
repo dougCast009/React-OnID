@@ -34,6 +34,7 @@ import com.react.biometric.orquestador.Peticion;
 import com.react.biometric.utilidades.HttpsPostRequest;
 import com.react.biometric.utilidades.ResponseManager;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -111,7 +112,7 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
                     editor.remove(Constantes.USER_CHECKED);
                     editor.apply();
                 }
-                catch (Exception e)
+                catch (UnsupportedOperationException e)
                 {
                     Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.login_save_userdata_error), duration);
                     toast.show();
@@ -147,7 +148,7 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
             JsonObject jsonRequest = JsonParser.parseString(gson.toJson(request)).getAsJsonObject();
             realizarPeticion(jsonRequest);
         }
-        catch (Exception ex) {
+        catch (UnsupportedOperationException ex) {
             Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_peticion), Constantes.TOASTDURATION);
             toast.show();
         }
@@ -162,7 +163,7 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
             final HttpsPostRequest peticion = new HttpsPostRequest(request, this, privateCrt, certChain);
             peticion.execute(Constantes.URL_BASE);
         }
-        catch (Exception ex)
+        catch (UnsupportedOperationException ex)
         {
             Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_realiza_peticion), Constantes.TOASTDURATION);
             toast.show();
@@ -294,7 +295,7 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
 
                     redireccionarInicio(userName, userPassword);
                 }
-                catch (Exception e)
+                catch (UnsupportedOperationException e)
                 {
                     Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.login_userdata_error), duration);
                     toast.show();
@@ -325,7 +326,7 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
         {
             biometricPrompt.authenticate(promptInfo.build());
         }
-        catch (Exception ex)
+        catch (UnsupportedOperationException ex)
         {
             Toast toast = Toast.makeText(getApplicationContext(), ex.getMessage(), duration);
             toast.show();
@@ -342,7 +343,7 @@ public class IniciarSesionActivity extends AppCompatActivity implements CustomCa
             cbxRemember.setChecked(sharedPreferences.getBoolean(Constantes.USER_CHECKED, false));
 
         }
-        catch (Exception e)
+        catch (UnsupportedOperationException e)
         {
             Log.d(TAG, "initComponents: " + e);
             txtUsuario.setText("");

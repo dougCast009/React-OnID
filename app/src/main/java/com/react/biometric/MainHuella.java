@@ -18,6 +18,7 @@ import com.identy.enums.Finger;
 import com.identy.enums.FingerDetectionMode;
 import com.identy.enums.Hand;
 import com.identy.enums.Template;
+import com.identy.exceptions.NoDetectionModeException;
 import com.react.biometric.interfaces.CustomCallback;
 import com.react.biometric.models.ResponseIdenty;
 import com.react.biometric.orquestador.Biometria;
@@ -351,7 +352,7 @@ public class MainHuella extends BaseActivity implements CustomCallback
                                      .setDetectionMode(detectionModes)
                                      .capture();
                         }
-                        catch (Exception ex)
+                        catch (NoDetectionModeException ex)
                         {
                             Toast.makeText(this, "Problemas al enviar la informacion al servidor de biometria", Toast.LENGTH_LONG).show();
                         }
@@ -405,7 +406,7 @@ public class MainHuella extends BaseActivity implements CustomCallback
                                         captura = true;
                                         mostrarTabInformacion();
                                     }
-                                    catch (Exception ex)
+                                    catch (UnsupportedOperationException ex)
                                     {
                                         Log.e("Fail_run", ex.getMessage());
 
@@ -413,7 +414,7 @@ public class MainHuella extends BaseActivity implements CustomCallback
                                 });
 
                             }
-                            catch (Exception ex)
+                            catch (UnsupportedOperationException ex)
                             {
                                 Log.e("Fail_run", ex.getMessage());
                             }
@@ -520,7 +521,7 @@ public class MainHuella extends BaseActivity implements CustomCallback
             JsonObject jsonRequest = JsonParser.parseString(gson.toJson(request)).getAsJsonObject();
             realizarPeticion(jsonRequest);
         }
-        catch (Exception ex) {
+        catch (UnsupportedOperationException ex) {
             Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_peticion), Constantes.TOASTDURATION);
             toast.show();
         }
@@ -535,7 +536,7 @@ public class MainHuella extends BaseActivity implements CustomCallback
             final HttpsPostRequest peticion = new HttpsPostRequest(request, this, privateCrt, certChain);
             peticion.execute(Constantes.URL_BASE);
         }
-        catch (Exception ex)
+        catch (UnsupportedOperationException ex)
         {
             Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.face_error_realiza_peticion), Constantes.TOASTDURATION);
             toast.show();
