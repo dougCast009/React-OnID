@@ -1,31 +1,31 @@
 package com.react.biometric.orquestador;
 
 public class Biometria {
-    private String biometryName;
-    private String biometryRawDataType;
-    private String rawData;
+    private String BiometryName;
+    private String BiometryRawDataType;
+    private String RawData;
 
     public String getBiometryName() {
-        return biometryName;
+        return BiometryName;
     }
 
-    public void setBiometryName(String biometryNameParam) {
-        biometryName = biometryNameParam;
+    public void setBiometryName(String BiometryNameParam) {
+        BiometryName = BiometryNameParam;
     }
 
     public String getBiometryRawDataType() {
-        return biometryRawDataType;
+        return BiometryRawDataType;
     }
 
     public void setBiometryRawDataType(String biometryRawDataTypeParam) {
-        biometryRawDataType = biometryRawDataTypeParam;
+        BiometryRawDataType = biometryRawDataTypeParam;
     }
 
     public String getRawData() {
-        return rawData;
+        return RawData;
     }
 
     public void setRawData(String rawDataParam) {
-        rawData = rawDataParam;
+        RawData = rawDataParam;
     }
 }

@@ -11,11 +11,6 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,7 +28,6 @@ import com.regula.documentreader.api.enums.DocReaderAction;
 import com.regula.documentreader.api.errors.DocumentReaderException;
 import com.regula.documentreader.api.results.DocumentReaderResults;
 import com.regula.documentreader.api.results.DocumentReaderScenario;
-import com.react.biometric.util.Utils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -182,12 +176,12 @@ public abstract class BaseActivity extends AppCompatActivity implements MainFrag
         }
 
         //Image browsing intent processed successfully
-        Uri selectedImage = data.getData();
-        Bitmap bmp = Utils.getBitmap(getContentResolver(), selectedImage, 1920, 1080);
+
+
 
         showDialog("Processing image");
 
-        DocumentReader.Instance().recognizeImage(bmp, completion);
+
     }
 
 
