@@ -25,7 +25,7 @@ android {
         API{
             dimension 'settings'
             buildConfigField 'String', 'URL_BASE', '"onidlogicapp.azurewebsites.net:443"'
-            buildConfigField 'String', 'URL_PATH', '"/api/onid/triggers/manual/invoke?api-version=2022-05-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=tQQIPr09aECU0YQPeTpMQxIrW4q1slyhtIF_T-oH7jE"'
+            buildConfigField 'String', 'URL_PATH', '"/api/development/triggers/manual/invoke?api-version=2022-05-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=ce-P4SR_nwufRkEJN6VWDZKMvqoVxdJqtrbtsdRJIYI"'
         }
     }
 }

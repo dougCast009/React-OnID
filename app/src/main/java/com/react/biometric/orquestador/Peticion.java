@@ -2,112 +2,112 @@ package com.react.biometric.orquestador;
 import java.util.List;
 
 public class Peticion {
-    private String customerid;
-    private String pass;
-    private String methodAuth;
-    private String imei;
-    private String nid;
-    private String nombres;
-    private String apellidos;
-    private String sexo;
-    private String nacionalidad;
-    private String fechaNacimiento;
-    private List<String> methodSource;
-    private List<Biometria> biometrics;
+    private String Customerid;
+    private String Pass;
+    private String MethodAuth;
+    private String Imei;
+    private String Nid;
+    private String Nombres;
+    private String Apellidos;
+    private String Sexo;
+    private String Nacionalidad;
+    private String FechaNacimiento;
+    private List<String> MethodSource;
+    private List<Biometria> Biometrics;
 
     public String getCustomerid() {
-        return customerid;
+        return Customerid;
     }
 
     public void setCustomerid(String customerid) {
-        this.customerid = customerid;
+        this.Customerid = customerid;
     }
 
     public String getPass() {
-        return pass;
+        return Pass;
     }
 
     public void setPass(String pass) {
-        this.pass = pass;
+        this.Pass = pass;
     }
 
     public String getNid() {
-        return nid;
+        return Nid;
     }
 
-    public void setNid(String nid) {
-        this.nid = nid;
+    public void setNid(String Nid) {
+        this.Nid = Nid;
     }
 
     public String getMethodAuth() {
-        return methodAuth;
+        return MethodAuth;
     }
 
-    public void setMethodAuth(String methodAuth) {
-        this.methodAuth = methodAuth;
+    public void setMethodAuth(String MethodAuth) {
+        this.MethodAuth = MethodAuth;
     }
 
     public String getNombres() {
-        return nombres;
+        return Nombres;
     }
 
-    public void setNombres(String nombres) {
-        this.nombres = nombres;
+    public void setNombres(String Nombres) {
+        this.Nombres = Nombres;
     }
 
     public String getApellidos() {
-        return apellidos;
+        return Apellidos;
     }
 
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
+    public void setApellidos(String Apellidos) {
+        this.Apellidos = Apellidos;
     }
 
     public String getImei() {
-        return imei;
+        return Imei;
     }
 
-    public void setImei(String imei) {
-        this.imei = imei;
+    public void setImei(String Imei) {
+        this.Imei = Imei;
     }
 
     public List<String> getMethodSource() {
-        return methodSource;
+        return MethodSource;
     }
 
-    public void setMethodSource(List<String> methodSource) {
-        this.methodSource = methodSource;
+    public void setMethodSource(List<String> MethodSource) {
+        this.MethodSource = MethodSource;
     }
 
     public List<Biometria> getBiometrics() {
-        return biometrics;
+        return Biometrics;
     }
 
-    public void setBiometrics(List<Biometria> biometrics) {
-        this.biometrics = biometrics;
+    public void setBiometrics(List<Biometria> Biometrics) {
+        this.Biometrics = Biometrics;
     }
 
     public String getSexo() {
-        return sexo;
+        return Sexo;
     }
 
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
+    public void setSexo(String Sexo) {
+        this.Sexo = Sexo;
     }
 
     public String getNacionalidad() {
-        return nacionalidad;
+        return Nacionalidad;
     }
 
-    public void setNacionalidad(String nacionalidad) {
-        this.nacionalidad = nacionalidad;
+    public void setNacionalidad(String Nacionalidad) {
+        this.Nacionalidad = Nacionalidad;
     }
 
     public String getFechaNacimiento() {
-        return fechaNacimiento;
+        return FechaNacimiento;
     }
 
-    public void setFechaNacimiento(String fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
+    public void setFechaNacimiento(String FechaNacimiento) {
+        this.FechaNacimiento = FechaNacimiento;
     }
 }
