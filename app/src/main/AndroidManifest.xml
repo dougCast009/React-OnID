@@ -101,6 +101,7 @@
         <activity
             android:name="com.react.biometric.SelectorActivity"
             android:exported="false"
+            android:permission=""
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -110,6 +111,7 @@
         <activity
             android:name="com.react.biometric.IniciarSesionActivity"
             android:exported="true"
+            android:permission=""
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
