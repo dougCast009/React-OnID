@@ -353,7 +353,7 @@ public class MainDocumento extends BaseActivity implements CustomCallback {
     private void realizarPeticion(JsonObject request) {
         try {
             InputStream privateCrt = getResources().openRawResource(R.raw.certificado_android_pfx);
-            InputStream certChain = getResources().openRawResource(R.raw.certificado_android_pem);
+            InputStream certChain = getResources().openRawResource(R.raw.certificado_android_jks);
             final HttpsPostRequest peticion = new HttpsPostRequest(request, this, privateCrt, certChain);
             peticion.execute(Constantes.URL_BASE);
         } catch (UnsupportedOperationException ex) {
